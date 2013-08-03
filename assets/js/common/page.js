@@ -65,6 +65,13 @@ define('common/page',function (require) {
         _self.get('demos').push(demo);
       });
     },
+    _initNavMenu : function(){
+      var _self = this,
+        hEls = $('h2,h3');
+      hEls.each(function(el){
+        
+      });
+    },
     _initLinks : function(){
       var _self = this,
         link = new Link();
