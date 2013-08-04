@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>Hello BUI！</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../assets/img/hello.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>如何加载BUI文件和开始使用BUI的一些基础功能</li>
+          <li>BUI依赖的其他框架</li>
+          <li>如何去定义模块和加载模块</li>
+          <li>如何使用API以及对应的demo</li>
+          <li>在使用过程中遇到的问题如何去处理</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>初学者</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>如何开始</h2>
+    <p>最简单的使用BUI的方式是直接引用CDN上的文件，这能节约很多部署文件带来的问题，不过这也要求，你必须能访问公共网络。</p>
+    <p>你只需要把你要运行的页面放到一个web server上，BUI框架没有什么安全上的限制，所以不需要服务器有特别的功能，不过如果能提供Combo功能更好，Combo功能在下面会介绍。</p>
+    <h3>最简单的示例</h3>
+    <pre>
+      &lt;!DOCTYPE html&gt;
+      &lt;html&gt;
+      &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;title&gt;Tutorial: Hello BUI!&lt;/title&gt;
+        &lt;link href="http://g.tbcdn.cn/fi/bui/css/dpl-min.css" rel="stylesheet"&gt; 
+        &lt;link href="http://g.tbcdn.cn/fi/bui/css/bui-min.css" rel="stylesheet"&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;h1 id="greeting"&gt;Hello&lt;/h1&gt;
+        &lt;!-- load BUI --&gt;
+        &lt;script src="http://g.tbcdn.cn/fi/bui/jquery-1.8.1.min.js"&gt;&lt;/script&gt;
+        &lt;script src="http://g.tbcdn.cn/fi/bui/seed-min.js?t=201212261326"&gt;&lt;/script&gt; 
+        &lt;script&gt;
+          BUI.use('bui/list',function(List){
+            //TO DO
+          });
+        &lt;/script&gt;
+      &lt;/body&gt;
+      &lt;/html&gt;
+    </pre>
+    <p>上面的代码演示了如何使用BUI，你需要引入：</p>
+    <ol>
+      <li>BUI默认的CSS文件，如果你有自定义的样式可以不引入</li>
+      <li>BUI依赖的类库，默认是JQuery,也可以更换为Kissy，<a class="page-action" data-id="install" href="start/install">参看详情</a></li>
+      <li>BUI使用的Loader，在使用Jquery类库时，使用的是seajs，详细的加载请参看seajs</li>
+    </ol>
+    <div class="row">
+      <div class="span16 ">
+        <p class="well">
+          你可能需要处理使用https的资源，你可以直接将地址换成类似于：<br>
+          https://s.tbcdn.cn/g/fi/bui/seed-min.js的地址
+        </p>
+      </div>
+    </div>
+    <h3>不使用loader</h3>
+    <p>如果你对loader陌生，可以直接将整个BUI引入，但是我们不推荐这样做：</p>
+    <ol>
+      <li>整个BUI文件很大，超过200k</li>
+      <li>有一些模块并未包含到打包好的文件中</li>
+      <li>未来不排除，在新的版本中去掉这种引入方式</li>
+    </ol>
+    <pre>
+      &lt;!DOCTYPE html&gt;
+      &lt;html&gt;
+      &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;title&gt;Tutorial: Hello BUI!&lt;/title&gt;
+        &lt;link href="http://g.tbcdn.cn/fi/bui/css/dpl-min.css" rel="stylesheet"&gt; 
+        &lt;link href="http://g.tbcdn.cn/fi/bui/css/bui-min.css" rel="stylesheet"&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;h1 id="greeting"&gt;Hello&lt;/h1&gt;
+        &lt;!-- load BUI --&gt;
+        &lt;script src="http://g.tbcdn.cn/fi/bui/jquery-1.8.1.min.js"&gt;&lt;/script&gt;
+        &lt;script src="http://g.tbcdn.cn/fi/bui/bui-min.js?t=201212261326"&gt;&lt;/script&gt; 
+        &lt;script&gt;
+          var List = BUI.List;
+          //TO DO
+        &lt;/script&gt;
+      &lt;/body&gt;
+      &lt;/html&gt;
+    </pre>
+    <p><label class="label label-info">注意</label>一下几点：</p>
+    <ol>
+      <li>css文件放到<code>head</code>标签中</li>
+      <li>script文件作为<code>body</code>的最后标签，防止JS阻塞DOM加载</li>
+    </ol>
+
+    <div class="row">
+      <div class="span16 ">
+        <p class="well">
+          更多的关于加载和配置BUI的内容请参看：<a class="page-action" data-id="install" href="start/install">BUI的加载和配置</a>
+        </p>
+      </div>
+    </div>
+
+    <h2>依赖的框架</h2>
+    <p>BUI 并未实现DOM操作，事件等JS框架底层的工作，也未单独实现loader，所以使用BUI时需要依赖于其他框架。</p>
+    <ul class="tutor-list">
+      <li>BUI是基于JQuery的UI库，loader通过seajs实现</li>
+      <li>通过适配方式支持了Kissy，由于Kissy本身有强大功能的loader，所以引入Kissy时，默认使用kissy的loader。</li>
+      <li>BUI 可以作为seajs第三方控件库的形式，跟其他使用了seajs的应用一起使用。</li>
+    </ul>
+    <p>BUI 可以支持多种加载方式和适应多个框架，具体的配置方式参看：<a class="page-action" data-id="install" href="start/install">BUI的加载和配置</a></p>
+
+    <h2>模块规范</h2>
+    <p>BUI的模块规范遵循<a href="https://github.com/cmdjs/specification/blob/master/draft/module.md">CMD规范</a>,加载默认方式使用<a href="http://seajs.org/docs/">seajs</a>，可以去seajs的文档了解更多的信息。</p>
+    <p>作为BUI的提供者，我们在实现和加载层次上，屏蔽了底层loader的存在，您只需要按照BUI的写法既可以无障碍的使用loader。</p>
+    <h3>定义模块</h3>
+    <p>模块的定义遵循<a href="https://github.com/cmdjs/specification/blob/master/draft/module.md">CMD规范</a>，模块的名称一般使用<code>"/"</code>，例如 <code>bui/list/simplelist</code>,模块名称必须跟目录有对应关系，上面定义的模块的文件是<code>bui/list/simplelist.js</code></p>
+    <p class="well">这里有非常复杂的目录映射，不过日常使用中，使用最简单的方式：文件目录名跟模块名一致的规则即可。</p>
+    <p>示例如下：</p>
+    <pre>
+      //定义模块的函数，有3个变量，模块名称、依赖的模块和模块的主体函数
+      //模块名称和依赖的模块可以省略
+      define('newModuleName',['module1','module2'],function(require){
+        var Module1 = require('module1'); //根据模块名称获取模块
+
+        var NewModule = function(){ //定义模块
+
+        }; 
+
+        return NewModlue; //将定义的新模块返回，在其他模块中require('newModuleName')来使用
+
+      });
+    </pre>
+    <p>CMD的规范比这里的示例要复杂，但是如果仅仅是使用BUI，了解示例的代码就足够了。</p>
+    <h3>模块加载</h3>
+    <p>我们这里简单的展示加载BUI模块的方式：</p>
+    <h4>默认的加载方式</h4>
+    <pre>
+      &lt;script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"&gt;&lt;/script&gt;
+      &lt;script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"&gt;&lt;/script&gt; 
+      &lt;script type="text/javascript"&gt;
+        BUI.use('bui/list',function(List){
+
+        });
+        //加载多个模块
+        BUI.use(['bui/list','bui/data'],function(List,Data){
+
+        });
+      &lt;/script&gt;
+    </pre>
+    <p>加载多个模块时，前面的模块名称和函数内部的参数有一一的对应关系</p>
+    <h4>使用Kissy</h4>
+    <pre>
+      &lt;script src="http://a.tbcdn.cn/s/kissy/1.3.0/kissy-min.js"&gt;&lt;/script&gt;
+      &lt;script src="http://g.tbcdn.cn/fi/bui/adapter-min.js?t=201308021746"&gt;&lt;/script&gt;
+      &lt;script type="text/javascript"&gt;
+        KISSY.use('bui/list',function(S,List){
+
+        });
+
+        //加载多个模块
+        KISSY.use(['bui/list','bui/data'],function(S,List,Data){
+
+        });
+      &lt;/script&gt;
+    </pre>
+    <p><span class="label label-info">注意：</span>KISSY 加载模块时，函数的第一个参数是KISSY</p>
+    <h4>使用seajs</h4>
+    <pre>
+      &lt;script src="http://seajs.github.io/examples/sea-modules/seajs/seajs/2.1.0/sea.js"&gt;&lt;/script&gt;
+      &lt;script src="http://a.tbcdn.cn/s/bui/jquery-1.8.1.min.js"&gt;&lt;/script&gt;
+      &lt;script type="text/javascript"&gt;
+     
+      seajs.config({
+        /*alias : { //1.3.1使用alias
+          jqurey : '',
+          bui : 'http://a.tbcdn.cn/s/bui'
+        },*/
+        paths : { //2.0后使用paths
+           bui : 'http://a.tbcdn.cn/s/bui'
+        },
+        map : [
+            [/bui\/(.*).js/,'bui/$1-min.js'] //['.js', '-min.js'] ,仅bui目录下使用-min.js,
+          ]
+      });
+      seajs.use('bui/calendar',function(Calendar){
+        var datepicker = new Calendar.DatePicker({
+            trigger:'.calendar',
+            autoRender : true
+        });
+      });
+      &lt;/script&gt;
+    </pre>
+
+    <h2>使用CDN</h2>
+    <p>我们所有的示例中皆使用cdn上的JS文件，这意味着你可以直接复制代码粘贴到本地运行，而不需要修改任何路径，这里有以下缺点：<p>
+    <ul class="tutor-list">
+      <li>性能方面：cdn上的文件都是经过build的，经过压缩和代码优化，这也意味着调试困难</li>
+      <li>这也要求你能说服你的客户，接受引用cdn上的文件，很多情况下，这很困难。</li>
+      <li>加载你自己的模块时，你需要配置自己的配置文件。</li>
+      <li>目前CDN上的代码更新的比较频繁，因为接受大量需求和反馈，及时响应，所以不可避免的会偶尔的引入一些问题。</li>
+    </ul>
+    <p class="well">
+      上面的所有问题都有对应的解决方案，可以查看以下章节<a data-id="install" class="page-action" href="start/install">加载文件</a>，<a class="page-action" data-id="build" href="">编译自己的模块</a>来进一步了解。
+    </p>
+    <p>假如你要部署自己的多个应用，你可以<a href="https://github.com/dxq613/bui">下载BUI的源码</a>,同时部署到自己的web server上。你可以将自己的代码放在自己的目录下</p>
+    <p class="centered"><img src="../assets/img/dir.jpg"/></p>
+    <p>然后这样引用文件：</p>
+    <pre>
+      &lt;!DOCTYPE html&gt;
+      &lt;html&gt;
+      &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;title&gt;Tutorial: Hello BUI!&lt;/title&gt;
+        &lt;link href="../assets/css/bui/css/dpl-min.css" rel="stylesheet"&gt; 
+        &lt;link href="../assets/css/bui/css/bui-min.css" rel="stylesheet"&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;h1 id="greeting"&gt;Hello&lt;/h1&gt;
+        &lt;!-- load BUI --&gt;
+        &lt;script src="../assets/js/bui/jquery-1.8.1.min.js"&gt;&lt;/script&gt;
+        &lt;script src="../assets/js/bui/seed-min.js?t=201212261326"&gt;&lt;/script&gt; 
+        &lt;script&gt;
+          BUI.use('bui/list',function(List){
+            //TO DO
+          });
+        &lt;/script&gt;
+      &lt;/body&gt;
+      &lt;/html&gt;
+    </pre>
+    <h2>获取帮助</h2>
+    <ul class="tutor-list">
+      <li>你可以去<a href="http://www.builive.com">BUI网站</a>去查看更多的demo</li>
+      <li>你可以去<a href="https://github.com/dxq613/bui/issues">issue列表</a>里发表自己的问题和需求</li>
+      <li>你可以参加旺旺群：778141976，QQ群：138692365</li>
+    </ul>
+    <h2>下一步学习</h2>
+    <p>开始使用BUI是非常简单的，只需要引入cdn上的文件，和引入对应的模块即可。但是BUI有很多非常好的机制和功能，根据你的需要你可以按照不同的章节进行学习。</p>
+    <ul class="tutor-list">
+      <li>假如你使用过BUI，你想了解更多的BUI整体的设计和未来的方向，你可以去看一下<a data-id="current" class="page-action" href="start/current.html">BUI的现状</a>章节</li>
+      <li>如果你想知道更多的加载BUI模块相关的信息，以及基于Kissy或者seajs使用BUI，你可以去查看一下<a data-id="install" class="page-action" href="start/install">加载文件</a>章节</li>
+      <li>假如你仅仅是被BUI的控件吸引，可以直接去<a href="http://www.builive.com">BUI网站</a>复制对应的Demo</li>
+      <li>假如你想了解BUI的控件结构，基于BUI进行新控件的开发和扩扎，可以从<a data-id="initial" class="page-action" href="fundament/initial.html">类的创建和继承</a>开始</li>
+    </ul>
+    <p>BUI 刚刚起步，但是我们的理念是：让您的工作更轻松，不让前端领域成为您项目的瓶颈，更希望您能参与我们！</p>
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>

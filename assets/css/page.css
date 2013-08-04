@@ -1,12 +1,73 @@
  h1{
   text-align: center;
-  font-size: 16px;
+  font-size: 18px;
+ }
+ .tutorial h1,.tutorial h2,.tutorial h3, .tutorial h4{
+   margin: 10px 0;
  }
  h1,h2,h3,h4{
   font-family: "Microsoft Yahei";
+ }
+ h2{
+  font-size: 16px;
+ }
+ h3{
+  font-size: 14px;
  }
 .container{
   margin-left: 0px;
   margin-top: 0px;
   padding: 20px 20px 0px 20px;
 }
+
+.nav-menu{
+  position: fixed;
+  right: 10px;
+  top:100px;
+  width: 150px;
+  border: 1px solid #d1d1d1;
+  padding: 20px;
+}
+
+.nav-menu .h3{
+  margin-left: 20px;
+}
+
+/** introduce **/
+.intro-wraper{
+  position: relative;
+}
+.intro-img{
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: 1px solid #aaa;
+}
+
+.introduce{
+  margin-left: 220px;
+}
+
+.intro-level li {
+  list-style-type: none;
+  padding: 0.2em 1em 0.2em 0;
+  margin: 0;
+  display: inline-block;
+}
+
+.intro-level li span{
+  font-weight: bold;
+}
+/** code **/
+code {
+  padding: 0px 4px;
+  color: #d14;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+}
+
+.tutor-list{
+  padding-left: 25px;
+  list-style: disc;
+}
+

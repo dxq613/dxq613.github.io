@@ -6,7 +6,9 @@
 define('common/page',function (require) {
   var BUI = require('bui/common'),
     Link = require('common/link'),
-    Demo = require('common/demo');
+    Menu = require('bui/menu'),
+    Demo = require('common/demo'),
+    CLS_PRETTY = 'prettyprint linenums'; //优化显示代码
 
   /**
    * @class Page
@@ -52,12 +54,14 @@ define('common/page',function (require) {
     _initDom : function(){
       this._initLinks();
       this._initDemos();
+      this._initNavMenu();
+      this._initPretty();
     },
     //创建demo对象
     _initDemos : function(){
       var _self = this,
         demoCls = _self.get('demoCls');
-      $('.' + demoCls).each(function(node){
+      $('.' + demoCls).each(function(index,node){
         var demo = new Demo({
           srcNode : node,
           autoRender : true
@@ -67,16 +71,37 @@ define('common/page',function (require) {
     },
     _initNavMenu : function(){
       var _self = this,
-        hEls = $('h2,h3');
-      hEls.each(function(el){
-        
+        hEls = $('h2,h3'),
+        menus = [];
+      hEls.each(function(index,dom){
+        var el = $(dom),
+          id = el.attr('id'),
+          type = el.is('h2') ? 'h2' : 'h3';
+        if(!id){
+          id = 'h' + index;
+          el.attr('id',id);
+        }
+        menus.push({id : id,href:'#' + id,text : el.text(),type : type});
       });
+      var menu = new Menu.Menu({
+        render : 'body',
+        elCls : 'nav-menu',
+        itemTpl : '<a class="{type}" href="{href}">{text}</a>',
+        children : menus
+      });
+      menu.render();
     },
     _initLinks : function(){
       var _self = this,
         link = new Link();
       link.init();
       _self.set('link',link);
+    },
+    _initPretty : function(){
+      $('pre').addClass(CLS_PRETTY);
+      if(prettyPrint){
+        prettyPrint();
+      }
     },
     //初始化事件
     _initEvent : function(){
