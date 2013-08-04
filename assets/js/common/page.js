@@ -99,7 +99,7 @@ define('common/page',function (require) {
     },
     _initPretty : function(){
       $('pre').addClass(CLS_PRETTY);
-      if(prettyPrint){
+      if(window.prettyPrint){
         prettyPrint();
       }
     },

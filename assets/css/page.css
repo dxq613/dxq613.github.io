@@ -36,6 +36,7 @@
 /** introduce **/
 .intro-wraper{
   position: relative;
+  height: 200px;
 }
 .intro-img{
   position: absolute;
