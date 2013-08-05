@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>安装和加载BUI</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../assets/img/hello.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>BUI命名空间</li>
+          <li>BUI使用的Loader</li>
+          <li>不同的框架如何加载BUI</li>
+          <li>BUI的模块以及加载方式</li>
+          <li>如何将BUI部署到自己的服务器</li>
+          <li>如何加载自己的模块</li>
+          <li>如何使用CND的combine功能</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>初学者</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+    <h2>BUI 命名空间</h2>
+    <p>BUI控件库提供了唯一的一个全局命名空间，主要有以下作用：</p>
+    <ol>
+      <li>不使用Loader时，整个控件库的入口，如： <code>BUI.Grid</code></li>
+      <li>加载模块的方法，以及加载模块的配置方法</li>
+      <li>全局的工具类方法，弥补JQuery工具类的缺失，和提供控件库的基础工具方法</li>
+    </ol>
+    <h3>不使用loader时</h3>
+    <p>不使用loader时，加载整个BUI文件</p>
+    <pre>
+      &lt;script src="http://a.tbcdn.cn/s/bui/jquery-1.8.1.min.js"&gt;&lt;/script&gt;
+      &lt;script src="http://g.tbcdn.cn/fi/bui/bui-min.js?t=201308021746"&gt;&lt;/script&gt;
+      &lt;script&gt;
+        var Menu = BUI.Menu.PopMenu, //具体的类
+          Grid = BUI.Grid, //Grid模块
+          Dialog = BUI.Overlay.Dialog; //Dialog类
+      &lt;/script&gt;
+    </pre>
+    <h3>加载相关的函数</h3>
+    <p>这些加载相关的函数在使用kissy时，除<code>use</code>外无效</p>
+    <ul>
+      <li><strong>use</strong>: 加载需要的模块，回调函数中的模块引用和配置的模块一一对应
+        <pre>
+          //bui/list 对应模块 List
+          //bui/picker 对应模块 Picker
+          BUI.use(['bui/list','bui/picker'],function(List,Picker){
+
+          });
+        </pre>
+      </li>
+      <li><strong>config</strong>：loader 的配置项，具体的参数<a href="https://github.com/seajs/seajs/issues/262">查看seajs配置项</a>
+        <pre>
+          //在服务器目录 http://a.tbcdn.cn/fi/g/common下有 my/control.js文件
+          define('common/my/control',function(require){ //如果不合并模块，可以不配置模块名称
+            //
+          });
+          //配置路径
+          BUI.config({
+            alias : { //配置自定义路径
+              'common' : 'http://a.tbcdn.cn/fi/g/common',
+              'module' : 'http://a.tbcdn.cn/fi/g/module'
+            },
+            map : [ //调试环境下使用'*.js'，如果发布上线前，使用*-min.js去掉下面的map
+              [/common\/(.*)-min.js/,'common/$1.js'],
+              [/module\/(.*)-min.js/,'module/$1.js']
+            ]
+          }); 
+          //使用自定义模块
+          BUI.use('common/my/control',function(){
+
+          });
+        </pre>
+      </li>
+      <li><strong>setDebug</strong>：BUI默认加载<code>-min.js</code>，如果设置成debug状态，则加载<code>.js</code>的文件
+        <pre>
+          //默认加载 common/my/control-min.js
+          BUI.use('common/my/control',function(){
+
+          });
+          //如果设置调试状态
+          BUI.setDebug(true);
+          //此时引用 common/my/control.js
+          BUI.use('common/my/control',function(){
+
+          });
+        </pre>
+      </li>
+    </ul>
+    <h2>使用的Loader</h2>
+    <p>当BUI基于JQuery时，使用<a href="http://seajs.org/docs">seajs</a>作为loader；当BUI基于Kissy时，使用<a href="http://docs.kissyui.com/">Kissy</a>的Loader，因此在这里我会描述2种loader的加载机制和注意点。更加详细的说明请参看各自的文档。</p>
+    <h3>seajs</h3>
+    <p>BUI默认使用seajs，但是做了一层封装，让用户感觉不到seajs的机制，是否使用loader加载自己的模块，用户可以选择是否阅读此章节，先来查看示例：</p>
+    <pre>
+      //模块
+      define('my/module/control',function(require){
+        var AModule = require('a'),
+          BModule = require('b');
+        var Control = function(config){
+
+        };
+
+        //TO DO
+        return control;
+      });
+
+      seajs.config({ //等同于BUI.config(options);
+        alias : { //配置自定义路径
+          'my' : 'http://a.tbcdn.cn/fi/g/my'
+        }
+      });
+
+      //seajs的语法
+      seajs.use('my/module/control',function(Control){
+        //TO DO
+      });
+
+      //BUI 的语法
+      BUI.use('my/module/control',function(Control){
+        //TO DO
+      });
+    </pre>
+
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>

@@ -49,7 +49,6 @@
       [/common\/(.*)-min.js/,'common/$1.js'],
       [/module\/(.*)-min.js/,'module/$1.js']
     ]
-    
   });
 
 })(jQuery);
