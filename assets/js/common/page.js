@@ -98,7 +98,26 @@ define('common/page',function (require) {
       _self.set('link',link);
     },
     _initPretty : function(){
-      $('pre').addClass(CLS_PRETTY);
+      var preEls = $('pre');
+      BUI.each(preEls,function(el){
+        var node = $(el),
+          textEl = node.children('textarea'),
+          innerText; //如果存在textarea子标签
+        node.addClass(CLS_PRETTY);
+        if(textEl.length){
+          innerText = textEl.html();
+        }else{
+          innerText = node.html();
+        }
+        var a = /^(\s+)/.exec(innerText),
+          regex;
+        if(a){
+          regex = new RegExp(a[0],'ig');
+          innerText = innerText.replace(regex,'');
+        }
+        
+        node.html(innerText);
+      });
       if(window.prettyPrint){
         prettyPrint();
       }

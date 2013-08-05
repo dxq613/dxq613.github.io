@@ -36,7 +36,9 @@
 /** introduce **/
 .intro-wraper{
   position: relative;
-  height: 200px;
+  min-height: 200px;
+  _height:200px;
+  _overflow:hidden;
 }
 .intro-img{
   position: absolute;
@@ -54,7 +56,10 @@
   padding: 0.2em 1em 0.2em 0;
   margin: 0;
   display: inline-block;
+  *display: inline;
+  *zoom:1;
 }
+
 
 .intro-level li span{
   font-weight: bold;

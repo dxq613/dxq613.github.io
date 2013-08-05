@@ -4,6 +4,9 @@
   background: #074e7c;
   background: -webkit-gradient(linear,left top,left bottom,from(#074e7c),to(#095f93));
 }
+html,body{
+  *overflow: hidden;
+}
 
 #header h1{
   color: white;
@@ -37,6 +40,14 @@
   margin-left:240px;
   width: auto;
   margin-right: auto;
+}
+
+/** fixed iframe height **/
+#J_Tab{
+  height: 100%;
+}
+#J_Tab .bui-nav-tab, #J_Tab .tab-content-container,#J_Tab .tab-content{
+  height: 100%;
 }
 
 
