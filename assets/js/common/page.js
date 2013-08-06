@@ -112,8 +112,8 @@ define('common/page',function (require) {
         var a = /^(\s+)/.exec(innerText),
           regex;
         if(a){
-          regex = new RegExp(a[0],'ig');
-          innerText = innerText.replace(regex,'');
+          regex = new RegExp('('+a[0]+')(\\s*)','ig');
+          innerText = innerText.replace(regex,'$2');
         }
         
         node.html(innerText);

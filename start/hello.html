@@ -39,26 +39,28 @@
     <p>你只需要把你要运行的页面放到一个web server上，BUI框架没有什么安全上的限制，所以不需要服务器有特别的功能，不过如果能提供Combo功能更好，Combo功能在下面会介绍。</p>
     <h3>最简单的示例</h3>
     <pre>
-      &lt;!DOCTYPE html&gt;
-      &lt;html&gt;
-      &lt;head&gt;
-        &lt;meta charset="utf-8"&gt;
-        &lt;title&gt;Tutorial: Hello BUI!&lt;/title&gt;
-        &lt;link href="http://g.tbcdn.cn/fi/bui/css/dpl-min.css" rel="stylesheet"&gt; 
-        &lt;link href="http://g.tbcdn.cn/fi/bui/css/bui-min.css" rel="stylesheet"&gt;
-      &lt;/head&gt;
-      &lt;body&gt;
-        &lt;h1 id="greeting"&gt;Hello&lt;/h1&gt;
-        &lt;!-- load BUI --&gt;
-        &lt;script src="http://g.tbcdn.cn/fi/bui/jquery-1.8.1.min.js"&gt;&lt;/script&gt;
-        &lt;script src="http://g.tbcdn.cn/fi/bui/seed-min.js?t=201212261326"&gt;&lt;/script&gt; 
-        &lt;script&gt;
-          BUI.use('bui/list',function(List){
-            //TO DO
+      <textarea>
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <title>Tutorial: Hello BUI!</title>
+        <link href="http://g.tbcdn.cn/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+        <link href="http://g.tbcdn.cn/fi/bui/css/bui-min.css" rel="stylesheet">
+      </head>
+      <body>
+        <h1>Hello</h1>
+        <!-- load BUI -->
+        <script src="http://g.tbcdn.cn/fi/bui/jquery-1.8.1.min.js"></script>
+        <script src="http://g.tbcdn.cn/fi/bui/seed-min.js?t=201212261326"></script> 
+        <script>
+          BUI.use('bui/overlay',function(Overlay){ //因为message属于
+            Overlay.Message.Alert('欢迎使用BUI');
           });
-        &lt;/script&gt;
-      &lt;/body&gt;
-      &lt;/html&gt;
+        </script>
+      </body>
+      </html>
+      </textarea>
     </pre>
     <p>上面的代码演示了如何使用BUI，你需要引入：</p>
     <ol>
@@ -96,7 +98,7 @@
         &lt;script src="http://g.tbcdn.cn/fi/bui/jquery-1.8.1.min.js"&gt;&lt;/script&gt;
         &lt;script src="http://g.tbcdn.cn/fi/bui/bui-min.js?t=201212261326"&gt;&lt;/script&gt; 
         &lt;script&gt;
-          var List = BUI.List;
+          BUI.Message.Alert('欢迎使用BUI'); //Message 属于Overlay模块，BUI.Message = BUI.Overlay.Message
           //TO DO
         &lt;/script&gt;
       &lt;/body&gt;
