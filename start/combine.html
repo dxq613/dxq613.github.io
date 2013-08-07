@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>Combine 模块</h1>
+    <div class="intro-wraper">
+      <img style="width:200px;height:200px" class="intro-img" src="../assets/img/combine.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>Combine 概念</li>
+          <li>BUI的模块</li>
+          <li>如何combine BUI模块</li>
+          <li>关于combine的讨论</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>初学者</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+    <h2>Combine 概念</h2>
+    <p>我们先来看一下下面几个问题：</p>
+    <ol>
+      <li>我引入了所有模块的JS(bui-min.js),请求的文件很大,但是仅仅用到了几个模块</li>
+      <li>我使用按需加载，但是引入多个请求</li>
+      <li>我如何做到仅使用一个请求，又仅加载自己需要的JS文件呢</li>
+    </ol>
+    <p>我们可以打包合并需要的模块，引入一个js文件的链接，但是存在的问题是：不灵活，复用度低</p>
+    <p>业界的流行方案是资源文件服务器，支持combine语法，例如：</p>
+    <pre>
+      <textarea>
+        <link href="http://a.tbcdn.cn/s/??a.css,b.css" rel="stylesheet">
+        <script src="http://a.tbcdn.cn/s/??a.js,b.js,c.js"></script>
+      </textarea>
+    </pre>
+    <p>最终请求来的文件会将多个文件自动合并成一个</p>
+    <ul class="tutor-list">
+      <li>优点：使用灵活，便于增删模块；有效的减小文件大小和请求数量</li>
+      <li>缺点：多个页面间利用缓存效率不高</li>
+    </ul>
+
+    <h2>BUI 的模块</h2>
+    <p>BUI一个模块对应一个单独的JS文件，一个模块中有多个类，下图是所有模块的对应关系：</p>
+    <p class="centered"><img src="../assets/img/modules.jpg"></p>
+    <ol class="tutor-list">
+      <li>common: 包含util类，如JSON、Array、UA等;包含所有UI控件的基类：component</li>
+      <li>data: 包含Store、Proxy等类进行数据加载管理</li>
+      <li>calendar : 日历控件，包含日期、时间和月份选择</li>
+      <li>menu : 菜单，可以通过自定义样式和html渲染自定义菜单</li>
+      <li>list : 列表，可以通过自定义样式和html渲染各种列表</li>
+      <li>overlay: 包括：Dialog,Message 等悬浮的元素</li>
+      <li>select : 包括 Select、Combox和Suggest等选择框</li>
+      <li>toolbar : 包括 一般的bar、分页栏、数字分页栏等工具栏</li>
+      <li>grid: 表格，包括SimpleGrid,Grid以及一系列Plugins</li>
+      <li>tab : 切换标签，可以用于切换内容和导航</li>
+      <li>mask: 屏蔽DOM；显示正在加载的屏蔽层</li>
+      <li>cookie: 处理cookie</li>
+      <li>form: 表单控件，验证、提示信息等强大的表单功能</li>
+      <li>editor: 编辑器，可以编辑DOM的数据；编辑列表数据</li>
+      <li>picker: 弹出选择列表，单选或多选记录</li>
+      <li>tooltip: 鼠标移动到元素显示自定义的提示信息</li>
+      <li>tree: 功能丰富的树控件，勾选、连接线、异步加载等功能</li>
+    </ol>
+    <h2>Combine BUI模块</h2>
+    <p>BUI所在的cdn支持combine语法，可以自由的combine所需要的模块</p>
+    <pre><textarea>
+      <link href="http://g.tbcdn.cn/fi/bui/css??dpl-min.css,bui-min.css" rel="stylesheet">
+
+      <script src="http://g.tbcdn.cn/fi/bui??common-min.js,data-min.js,list-min.js"></script>
+      <script>
+        BUI.use(['bui/data','bui/list'],function(Data,List){
+          //TO DO
+        });
+      </script>
+    </textarea></pre>
+
+    <h2>Combine的讨论</h2>
+    <p>组合JS或者CSS并非全部是优点，必须以项目环境来决定，不足之处：</p>
+    <ul class="tutor-list">
+      <li>服务器需要支持combine语法</li>
+      <li>需要知道模块的依赖关系，并且手工组合所有的模块文件</li>
+      <li>调试不方便</li>
+      <li>多页面如果combine不同，缓存的利用效率很低</li>
+    </ul>
+    <p><span class="label label-info">综上所述</span>，在使用单页面或者页面较少而又近似度很高的页面；请求模块特别多，并且影响页面加载性能的页面，推荐使用combine模式</p>
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
