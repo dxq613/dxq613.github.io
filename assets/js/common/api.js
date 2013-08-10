@@ -44,6 +44,7 @@ define('common/api',function(require) {
       _self.set('content',html);
       _self._appendTables();
       _self.replaceLink();
+      _self.hideMembers();
     },
     //附加表头
     _appendTables :function(){
@@ -66,6 +67,13 @@ define('common/api',function(require) {
         linkEl.attr('target','_blank');
         linkEl.attr('href',docsUrl + href);
       });
+    },
+    //隐藏protected,prive
+    hideMembers : function(){
+      var _self = this,
+        el = _self.get('el'),
+        hides = el.find('.private');
+      hides.parents('.not-inherited').hide();
     }
   },{
     ATTRS : {

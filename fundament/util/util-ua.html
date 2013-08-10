@@ -22,8 +22,8 @@
         <h2>导引</h2>
         <p>欢迎使用BUI！在这一章节里，本章主要学习以下内容：:</p>
         <ol>
-            <li>为什么提供日期工具类？</li>
-            <li>提供的日期工具类API</li>
+            <li>为什么提供UA工具类？</li>
+            <li>提供的UA工具类API</li>
         </ol>
         <ul class="intro-level">
           <li><span>难度：</span>初学者</li>
@@ -32,29 +32,26 @@
       </div>
     </div>
     <h2>为什么</h2>
-    <p>javascript提供的日期操作比较简单，格式化日期、字符串转换日期、日期加减法使用的比较多，而且不易使用，所以对常用操作做了封装：</p>
+    <p>jQuery 检测浏览器版本的函数或者属性非常难用，所以我们提供了方便的方式</p>
     
     <h2>示例</h2>
     <p>下面是一些简单的示例：</p>
     <pre>
       <textarea>
         <script>
-          var str = '2012-01-01';
-          //转成日期
-          var date = BUI.Date.parse(str); //
+        //检测浏览器
+        if(BUI.UA.ie == 6){
+          //do some hack
+        }else{
 
-          var date1 = BUI.Date.addDay(date,1); //2012-01-02
-
-          BUI.Date.addDay(date,-1); //2011-12-30
-
-          BUI.Date.format(date1,'/'); //2012/01/02
+        }
 
         </script>
       </textarea>
     </pre>
     <h2>API</h2>
-    <p>下面只是简单的列表，详细信息请<a href="http://www.builive.com/docs/#!/api/BUI.Date">查看API文档</a></p>
-    <div id="J_API" data-name="BUI.Date">
+    <p>下面只是简单的列表，详细信息请<a href="http://www.builive.com/docs/#!/api/BUI.UA">查看API文档</a></p>
+    <div id="J_API" data-name="BUI.UA">
       
     </div>
   </div>
