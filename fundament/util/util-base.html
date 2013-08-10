@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+</head>
+<body>
+
+  <div class="container tutorial">
+    <h1>BUI 的工具类</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/util.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，本章主要学习以下内容：:</p>
+        <ol>
+            <li>为什么提供自己的工具类？</li>
+            <li>提供的工具类API</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>初学者</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+    <h2>为什么</h2>
+    <p>jQuery默认提供的工具类有很多不足，所以我们针对以下内容作了扩展：</p>
+    <ul class="tutor-list">
+      <li>继承相关的方法： extend,augment,mixin,merge,cloneObject</li>
+      <li>类型判断：isFunction，isArray，isDate，isObject</li>
+    </ul>
+
+    <h2>API</h2>
+    <p>下面只是简单的列表，详细信息请<a href="http://www.builive.com/docs/#!/api/BUI.Util">查看API文档</a></p>
+    <div id="J_API" data-name="BUI.Util">
+      
+    </div>
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>

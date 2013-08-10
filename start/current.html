@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../assets/css/page.css" rel="stylesheet"> 
+</head>
+<body>
+
+  <div class="container tutorial">
+    <h1>此时的BUI</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../assets/img/current.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，本章主要说明以下问题：:</p>
+        <ol>
+            <li>BUI的定位是什么？</li>
+            <li>BUI当前的一些问题？</li>
+            <li>BUI接下来的一些规划</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>初学者</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+    
+    <h2>BUI的定位</h2>
+    <p>目前前端的ＵＩ库有很多，我们为什么要编写BUI，为什么推荐您使用BUI？</p>
+    <p>从公司内部的环境来看，大多数前端团队只关注前端在交易业务的实现，对于富客户端的开发，以及大量开发人员如何使用前端控件，开发自己的后台系统毫无兴趣。但是从我经历过的一些项目和接触的一些开发人员来看，后台系统也是需要很好的体验同事开发人员在前端领域的效率低下，这也让我萌发了，将积累的前端的一些知识，解决方案化，将一个一个的解决方案提供给开发者。首先面临着下面的一些问题：</p>
+    <ul class="tutor-list">
+      <li>能够满足业务需求的成熟的兼容性良好的html和css</li>
+      <li>易于使用，功能完善的控件库</li>
+      <li>典型的成熟的解决方案，下载即用的应用</li>
+      <li>大量精细的demo和丰富的文档</li>
+    </ul>
+    <p>为了解决这些问题，我做了以下这些工作：</p>
+    <ol>
+      <li>在bootstrap基础上整理出一套全兼容的html和css，作为DPL开放给开发人员。<a href="http://www.builive.com/base/index.php">参看详情</a></li>
+      <li>基于jQuery和seajs，同时又兼容Kissy，开发完成了<a href="http://www.builive.com/">BUI控件库</a></li>
+      <li>将当时自己支持的后台项目打包提供了完整的解决方案，<a href="http://www.builive.com/application/back.php">封装成一个应用</a>。</li>
+      <li>对于大多数开发者来说便于复制代码的demo，是必不可少的，目前的demo数量大概有300多个，还在不断的更新中。</li>
+    </ol>
+    <p>BUI的开发过程中一直遵循着以下原则：</p>
+    <ul class="tutor-list">
+      <li>扩展性：在开发者了解了控件的机制后，可以方便的扩展出自己需要的功能。</li>
+      <li>复用性：提供大量的扩展（mixin）控件之间的代码复用做到极致。</li>
+      <li>完备的单元测试：目前BUI处于快速迭代的状态，功能的增强和细节的调整，需要完备的单元测试做保障。</li>
+      <li>易用性：使得接口统一，便于理解，遵循一致的约定，使得用户的学习成本降到最低。</li>
+    </ul>
+
+    <h2>BUI目前的问题</h2>
+    <p>BUI控件库目前有下面的一些问题：</p>
+    <ul class="tutor-list">
+      <li><p>时间短，功能不完善。从12年9月开始开发到现在一年的时间，对于一个开源的控件库刚刚起步。</p></li>
+      <li>
+        <p>支持的业务比较单一，对业务场景的适应还需要大量的反馈。</p>
+      </li>
+      <li>
+        <p>Demo对于一般的开发者而言已经能够满足需求，但是介绍原理性的文档严重不足，限制了在BUI的基础上进行扩展和二次开发。</p>
+      </li>
+      <li>
+        <p>代码提供者过少，加上我们平时的业务压力，所以迭代的速度和目前文档的需求很难保障。</p>
+      </li>
+    </ul>
+    <p>虽然面临这样那样的问题，但是从目前的反馈来看一切向着好的方面发展，越来越多的开发者使用BUI，我们也收到越来越多的反馈，每个月都有很大的发展，感谢大家的支持！！！</p>
+
+    <h2>BUI的规划</h2>
+    <p>BUI是一个开源项目，我们一直会开源下去，不会走商业化的道路。这是首先的保证。</p>
+    <p>针对使用者的反馈和自己参看其他UI库学习到的东西，接下来的工作：</p>
+    <ol>
+      <li>完善使用和开发文档，使越来越多的开发者能参与进来。</li>
+      <li>BUI控件库的CSS样式和控件分离，进而提供新的皮肤样式。</li>
+      <li>BUI控件的整体性能优化，虽说目前没有得到性能方面的反馈，但这是迟早要解决的问题。</li>
+      <li>BUI新的应用，目前仅提供了一个成熟的应用，对于各个平台上使用的具体解决方案并未提供。</li>
+    </ol>
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>

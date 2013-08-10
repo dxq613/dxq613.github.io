@@ -44,6 +44,8 @@
   position: absolute;
   left: 0;
   top: 0;
+  max-width: 200px;
+  max-height: 200px;
   border: 1px solid #aaa;
 }
 
@@ -79,5 +81,79 @@ code {
 
 pre textarea{
   display: none;
+}
+
+/** api style **/
+.short{
+  display:none;
+}
+a.side{
+  display:none;
+}
+.definedBy{
+  display:none;
+}
+
+.defined-in,.view-source,.inherited,.hierarchy,.doc-contents{
+  display:none;
+}
+
+.subsection{
+  border : 1px solid #ddd;
+}
+
+.members-section{
+  margin-bottom:20px;
+}
+
+.members-section .table{
+  margin-bottom:0;
+  border-bottom:0;
+}
+
+.subsection .first-child,.subsection:first-child{
+  border-top:none;
+}
+.member{
+  border-top:1px solid #ddd;
+}
+
+
+
+.member{*zoom:1;}
+.member:before,
+.member:after{display:table;content:"";}
+.member:after{clear:both;}
+
+.member .title,.member .description{
+  padding:10px;
+  float:left;
+}
+
+.member .title{
+  width:240px;
+  
+}
+
+.member .description{
+ border-left:1px solid #ddd;
+  width:660px;
+}
+
+.description p{
+  margin:0;
+}
+
+.description ul{
+  list-style:disc;
+  padding-left:15px;
+}
+a.name{
+  font-size:14px;
+  font-weight:bold;
+}
+
+h3.pa{
+  font-size:12px;
 }
 

@@ -8,6 +8,7 @@ define('common/page',function (require) {
     Link = require('common/link'),
     Menu = require('bui/menu'),
     Demo = require('common/demo'),
+    API = require('common/api'),
     CLS_PRETTY = 'prettyprint linenums'; //优化显示代码
 
   /**
@@ -22,6 +23,9 @@ define('common/page',function (require) {
 
     linkCls : {
       
+    },
+    apiId : {
+      value : 'J_API'
     },
     /**
      * 创建demo的样式
@@ -56,6 +60,17 @@ define('common/page',function (require) {
       this._initDemos();
       this._initNavMenu();
       this._initPretty();
+      this._initAPI();
+    },
+    _initAPI : function(){
+      if(!$('#J_API').length){
+        return;
+      }
+      var _self = this,
+        api = new API({
+          srcNode : '#J_API'
+        });
+      api.render();
     },
     //创建demo对象
     _initDemos : function(){
