@@ -1,96 +1,152 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
   <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
-<link href="../assets/css/page.css" rel="stylesheet"> 
-<style>
-  .short{
-    display:none;
-  }
-  a.side{
-    display:none;
-  }
-  .definedBy{
-    display:none;
-  }
-
-  .defined-in,.view-source,.inherited,.hierarchy,.doc-contents{
-    display:none;
-  }
-  
-  .subsection{
-    border : 1px solid #ddd;
-  }
-
-  .members-section{
-    margin-bottom:20px;
-  }
-
-  .members-section .table{
-    margin-bottom:0;
-    border-bottom:0;
-  }
-
-  .subsection .first-child,.subsection:first-child{
-    border-top:none;
-  }
-  .member{
-    border-top:1px solid #ddd;
-  }
-
-  
-
-  .member{*zoom:1;}
-  .member:before,
-  .member:after{display:table;content:"";}
-  .member:after{clear:both;}
-
-  .member .title,.member .description{
-    padding:10px;
-    float:left;
-  }
-
-  .member .title{
-    width:240px;
-    
-  }
-
-  .member .description{
-   border-left:1px solid #ddd;
-    width:660px;
-  }
-
-  .description p{
-    margin:0;
-  }
-
-  .description ul{
-    list-style:disc;
-    padding-left:15px;
-  }
-  a.name{
-    font-size:14px;
-    font-weight:bold;
-  }
-
-  h3.pa{
-    font-size:12px;
-  }
-
-</style>
+  <link href="../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../assets/js/prettify.js"></script>
 </head>
 <body>
-<div class="container  tutorial"><pre class="hierarchy"><h4>Files</h4><div class='dependency'><a href='source/util.html#BUI-Util' target='_blank'>util.js</a></div></pre><div class='doc-contents'><p>控件库的工具方法，这些工具方法直接绑定到BUI对象上</p></div><div class='members'>
+  <div class="container tutorial">
+    <h1>CMD 组织模块</h1>
+    <div class="intro-wraper">
+      <img style="width:200px;height:200px" class="intro-img" src="../assets/img/module.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>CMD的概念</li>
+          <li>几种组织模块方式的差别</li>
+          <li>BUI的加载模块方式</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+    <h2>模块</h2>
+    <p>什么是模块？在前端领域可以把模块认为是完成一个系统一部分功能的代码片段，我们往往把模块定义在一个文件内，同时也会合并模块一起加载。Javascript的模块间的依赖，默认方式是按照script标签的前后顺序进行的，但是这种依赖关系十分脆弱，而且需要手工维护。</p>
+    <p>模块之间存在依赖关系，所以执行一个模块前，必须加载并执行它所依赖的模块，同时我们也要避免循环依赖，所以想在前端领域使用模块我们必须搞清楚模块的定义，依赖和加载方式，目前比较流行的2种方式是<a target="_blank" href="https://github.com/seajs/seajs/issues/242">CMD</a>和 <a target="_blank" href="http://requirejs.org/docs/whyamd.html">AMD</a></p>
 
-<div class='members-section'><div class='definedBy'>Defined By</div><h3 class='members-title icon-property'>Properties</h3>
-<table cellspacing="0" class="table table-bordered">
-        <thead>
-          <tr>
-            <th width="242px">名称</th>
-            <th>简介</th>
-          </tr>
-        </thead>
-</table>
-<div class='subsection'><div id='property-prefix' class='member first-child not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-property-prefix' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-property-prefix' class='name expandable'>prefix</a><span> : <a href="#!/api/String" rel="String" class="docClass">String</a></span></div><div class='description'><div class='short'>BUI 控件的公用前缀 ...</div><div class='long'><p>BUI 控件的公用前缀</p><p>Defaults to: <code>'bui-'</code></p></div></div></div><div id='property-subVersion' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-property-subVersion' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-property-subVersion' class='name expandable'>subVersion</a><span> : <a href="#!/api/String" rel="String" class="docClass">String</a></span></div><div class='description'><div class='short'>子版本号 ...</div><div class='long'><p>子版本号</p><p>Defaults to: <code>1</code></p></div></div></div><div id='property-version' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-property-version' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-property-version' class='name expandable'>version</a><span> : <a href="#!/api/Number" rel="Number" class="docClass">Number</a></span></div><div class='description'><div class='short'>版本号@memberOf BUI ...</div><div class='long'><p>版本号@memberOf BUI</p><p>Defaults to: <code>1.0</code></p></div></div></div></div></div><div class='members-section'><div class='definedBy'>Defined By</div><h3 class='members-title icon-method'>Methods</h3><div class='subsection'><div id='method-app' class='member first-child not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-app' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-app' class='name expandable'>app</a>( <span class='pre'>name</span> )</div><div class='description'><div class='short'>创造顶层的命名空间，附加到window对象上,包含namespace方法 ...</div><div class='long'><p>创造顶层的命名空间，附加到window对象上,包含namespace方法</p><h3 class="pa">Parameters</h3><ul><li><span class='pre'>name</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'></div></li></ul></div></div></div><div id='method-augment' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-augment' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-augment' class='name expandable'>augment</a>( <span class='pre'>r, s1</span> )</div><div class='description'><div class='short'>将指定的方法或属性放到构造函数的原型链上，函数支持多于2个变量，后面的变量同s1一样将其成员复制到构造函数的原型链上。 ...</div><div class='long'><p>将指定的方法或属性放到构造函数的原型链上，函数支持多于2个变量，后面的变量同s1一样将其成员复制到构造函数的原型链上。</p><h3 class="pa">Parameters</h3><ul><li><span class='pre'>r</span> : <a href="#!/api/Function" rel="Function" class="docClass">Function</a><div class='sub-desc'><p>构造函数</p></div></li><li><span class='pre'>s1</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>将s1 的成员复制到构造函数的原型链上</p><pre class='inline-example '><code>BUI.augment(class1,{        method1: function(){        }    });</code></pre></div></li></ul></div></div></div><div id='method-cloneObject' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-cloneObject' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-cloneObject' class='name expandable'>cloneObject</a>( <span class='pre'>obj</span> ) : <a href="#!/api/Object" rel="Object" class="docClass">Object</a></div><div class='description'><div class='short'>拷贝对象 ...</div><div class='long'><p>拷贝对象</p><h3 class="pa">Parameters</h3><ul><li><span class='pre'>obj</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>要拷贝的对象</p></div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a></span><div class='sub-desc'><p>拷贝生成的对象</p></div></li></ul></div></div></div><div id='method-docHeight' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-docHeight' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-docHeight' class='name expandable'>docHeight</a>( <span class='pre'></span> ) : <a href="#!/api/Number" rel="Number" class="docClass">Number</a></div><div class='description'><div class='short'>窗口高度 ...</div><div class='long'><p>窗口高度</p><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Number" rel="Number" class="docClass">Number</a></span><div class='sub-desc'><p>窗口高度</p></div></li></ul></div></div></div><div id='method-docWidth' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-docWidth' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-docWidth' class='name expandable'>docWidth</a>( <span class='pre'></span> ) : <a href="#!/api/Number" rel="Number" class="docClass">Number</a></div><div class='description'><div class='short'>窗口宽度 ...</div><div class='long'><p>窗口宽度</p><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Number" rel="Number" class="docClass">Number</a></span><div class='sub-desc'><p>窗口宽度</p></div></li></ul></div></div></div><div id='method-each' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-each' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-each' class='name expandable'>each</a>( <span class='pre'>element, func</span> )</div><div class='description'><div class='short'>遍历数组或者对象 ...</div><div class='long'><p>遍历数组或者对象</p><h3 class="pa">Parameters</h3><ul><li><span class='pre'>element</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a>|<a href="#!/api/Array" rel="Array" class="docClass">Array</a><div class='sub-desc'><p>/Object 数组中的元素或者对象的值</p></div></li><li><span class='pre'>func</span> : <a href="#!/api/Function" rel="Function" class="docClass">Function</a><div class='sub-desc'><p>遍历的函数 function(elememt,index){} 或者 function(value,key){}</p></div></li></ul></div></div></div><div id='method-error' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-error' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-error' class='name expandable'>error</a>( <span class='pre'>msg</span> )</div><div class='description'><div class='short'>抛出错误 ...</div><div class='long'><p>抛出错误</p><h3 class="pa">Parameters</h3><ul><li><span class='pre'>msg</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'></div></li></ul></div></div></div><div id='method-extend' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-extend' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-extend' class='name expandable'>extend</a>( <span class='pre'>subclass, superclass, overrides</span> ) : <a href="#!/api/Function" rel="Function" class="docClass">Function</a></div><div class='description'><div class='short'>实现类的继承，通过父类生成子类 ...</div><div class='long'><p>实现类的继承，通过父类生成子类</p><h3 class="pa">Parameters</h3><ul><li><span class='pre'>subclass</span> : <a href="#!/api/Function" rel="Function" class="docClass">Function</a><div class='sub-desc'></div></li><li><span class='pre'>superclass</span> : <a href="#!/api/Function" rel="Function" class="docClass">Function</a><div class='sub-desc'><p>父类构造函数</p></div></li><li><span class='pre'>overrides</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>子类的属性或者方法</p></div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Function" rel="Function" class="docClass">Function</a></span><div class='sub-desc'><p>返回的子类构造函数示例:</p><pre class='inline-example '><code>//父类function base(){}function sub(){}//子类BUI.extend(sub,base,{    method : function(){    }});//或者var sub = BUI.extend(base,{});</code></pre></div></li></ul></div></div></div><div id='method-getWrapBehavior' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-getWrapBehavior' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-getWrapBehavior' class='name expandable'>getWrapBehavior</a>( <span class='pre'>self, action</span> )<strong class='protected signature' >protected</strong></div><div class='description'><div class='short'>获取封装的事件 ...</div><div class='long'><p>获取封装的事件</p><h3 class="pa">Parameters</h3><ul><li><span class='pre'>self</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>对象</p></div></li><li><span class='pre'>action</span> : <a href="#!/api/String" rel="String" class="docClass">String</a><div class='sub-desc'><p>事件名称</p></div></li></ul></div></div></div><div id='method-guid' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-guid' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-guid' class='name expandable'>guid</a>( <span class='pre'>prefix</span> ) : <a href="#!/api/String" rel="String" class="docClass">String</a></div><div class='description'><div class='short'>生成唯一的Id ...</div><div class='long'><p>生成唯一的Id</p><h3 class="pa">Parameters</h3><ul><li><span class='pre'>prefix</span> : <a href="#!/api/String" rel="String" class="docClass">String</a><div class='sub-desc'><p>前缀@default 'bui-guid'</p></div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/String" rel="String" class="docClass">String</a></span><div class='sub-desc'><p>唯一的编号</p></div></li></ul></div></div></div><div id='method-isArray' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-isArray' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-isArray' class='name expandable'>isArray</a>( <span class='pre'>obj</span> ) : <a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></div><div class='description'><div class='short'>是否数组 ...</div><div class='long'><p>是否数组</p><h3 class="pa">Parameters</h3><ul><li><span class='pre'>obj</span> : *<div class='sub-desc'><p>是否数组</p></div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></span><div class='sub-desc'><p>是否数组</p></div></li></ul></div></div></div><div id='method-isDate' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-isDate' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-isDate' class='name expandable'>isDate</a>( <span class='pre'>value</span> ) : <a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></div><div class='description'><div class='short'>是否日期 ...</div><div class='long'><p>是否日期</p><h3 class="pa">Parameters</h3><ul><li><span class='pre'>value</span> : *<div class='sub-desc'><p>对象</p></div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></span><div class='sub-desc'><p>是否日期</p></div></li></ul></div></div></div><div id='method-isFunction' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-isFunction' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-isFunction' class='name expandable'>isFunction</a>( <span class='pre'>fn</span> ) : <a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></div><div class='description'><div class='short'>是否为函数 ...</div><div class='long'><p>是否为函数</p><h3 class="pa">Parameters</h3><ul><li><span class='pre'>fn</span> : *<div class='sub-desc'><p>对象</p></div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></span><div class='sub-desc'><p>是否函数</p></div></li></ul></div></div></div><div id='method-isInHorizontalView' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-isInHorizontalView' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-isInHorizontalView' class='name expandable'>isInHorizontalView</a>( <span class='pre'>left</span> ) : <a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></div><div class='description'><div class='short'>页面上的一点横向坐标是否在用户的视图内 ...</div><div class='long'><p>页面上的一点横向坐标是否在用户的视图内</p><h3 class="pa">Parameters</h3><ul><li><span class='pre'>left</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>横坐标</p></div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></span><div class='sub-desc'><p>是否在视图内</p></div></li></ul></div></div></div><div id='method-isInVerticalView' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-isInVerticalView' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-isInVerticalView' class='name expandable'>isInVerticalView</a>( <span class='pre'>top</span> ) : <a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></div><div class='description'><div class='short'>页面上的一点纵向坐标是否在用户的视图内 ...</div><div class='long'><p>页面上的一点纵向坐标是否在用户的视图内</p><h3 class="pa">Parameters</h3><ul><li><span class='pre'>top</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>纵坐标</p></div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></span><div class='sub-desc'><p>是否在视图内</p></div></li></ul></div></div></div><div id='method-isInView' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-isInView' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-isInView' class='name expandable'>isInView</a>( <span class='pre'>offset</span> ) : <a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></div><div class='description'><div class='short'>页面上的一点是否在用户的视图内 ...</div><div class='long'><p>页面上的一点是否在用户的视图内</p><h3 class="pa">Parameters</h3><ul><li><span class='pre'>offset</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>坐标，left,top</p></div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></span><div class='sub-desc'><p>是否在视图内</p></div></li></ul></div></div></div><div id='method-isNumber' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-isNumber' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-isNumber' class='name expandable'>isNumber</a>( <span class='pre'>value</span> ) : <a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></div><div class='description'><div class='short'>判断是否数字，由于$.isNumberic方法会把 '123'认为数字 ...</div><div class='long'><p>判断是否数字，由于$.isNumberic方法会把 '123'认为数字</p><h3 class="pa">Parameters</h3><ul><li><span class='pre'>value</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'></div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></span><div class='sub-desc'><p>是否数字</p></div></li></ul></div></div></div><div id='method-isObject' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-isObject' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-isObject' class='name expandable'>isObject</a>( <span class='pre'>value</span> ) : <a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></div><div class='description'><div class='short'>是否是javascript对象 ...</div><div class='long'><p>是否是javascript对象</p><h3 class="pa">Parameters</h3><ul><li><span class='pre'>value</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>The value to test</p></div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></span><div class='sub-desc'></div></li></ul></div></div></div><div id='method-isString' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-isString' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-isString' class='name expandable'>isString</a>( <span class='pre'>value</span> ) : <a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></div><div class='description'><div class='short'>判断是否是字符串 ...</div><div class='long'><p>判断是否是字符串</p><h3 class="pa">Parameters</h3><ul><li><span class='pre'>value</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'></div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></span><div class='sub-desc'><p>是否是字符串</p></div></li></ul></div></div></div><div id='method-log' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-log' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-log' class='name expandable'>log</a>( <span class='pre'>obj</span> )</div><div class='description'><div class='short'>控制台输出日志 ...</div><div class='long'><p>控制台输出日志</p><h3 class="pa">Parameters</h3><ul><li><span class='pre'>obj</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>输出的数据</p></div></li></ul></div></div></div><div id='method-merge' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-merge' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-merge' class='name expandable'>merge</a>( <span class='pre'></span> )</div><div class='description'><div class='short'>将多个对象的属性复制到一个新的对象 ...</div><div class='long'><p>将多个对象的属性复制到一个新的对象</p></div></div></div><div id='method-mix' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-mix' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-mix' class='name expandable'>mix</a>( <span class='pre'></span> ) : <a href="#!/api/Object" rel="Object" class="docClass">Object</a></div><div class='description'><div class='short'>封装 jQuery.extend 方法，将多个对象的属性merge到第一个对象中 ...</div><div class='long'><p>封装 jQuery.extend 方法，将多个对象的属性merge到第一个对象中</p><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a></span><div class='sub-desc'></div></li></ul></div></div></div><div id='method-mixin' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-mixin' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-mixin' class='name expandable'>mixin</a>( <span class='pre'>c, mixins, attrs</span> ) : <a href="#!/api/Function" rel="Function" class="docClass">Function</a></div><div class='description'><div class='short'>将其他类作为mixin集成到指定类上面 ...</div><div class='long'><p>将其他类作为mixin集成到指定类上面</p><h3 class="pa">Parameters</h3><ul><li><span class='pre'>c</span> : <a href="#!/api/Function" rel="Function" class="docClass">Function</a><div class='sub-desc'><p>构造函数</p></div></li><li><span class='pre'>mixins</span> : <a href="#!/api/Array" rel="Array" class="docClass">Array</a><div class='sub-desc'><p>扩展类</p></div></li><li><span class='pre'>attrs</span> : <a href="#!/api/Array" rel="Array" class="docClass">Array</a><div class='sub-desc'><p>扩展的静态属性，默认为['ATTRS']</p></div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Function" rel="Function" class="docClass">Function</a></span><div class='sub-desc'><p>传入的构造函数</p></div></li></ul></div></div></div><div id='method-namespace' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-namespace' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-namespace' class='name expandable'>namespace</a>( <span class='pre'>name, baseNS</span> ) : <a href="#!/api/Object" rel="Object" class="docClass">Object</a></div><div class='description'><div class='short'>生成命名空间 ...</div><div class='long'><p>生成命名空间</p><h3 class="pa">Parameters</h3><ul><li><span class='pre'>name</span> : <a href="#!/api/String" rel="String" class="docClass">String</a><div class='sub-desc'><p>命名空间的名称</p></div></li><li><span class='pre'>baseNS</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>在已有的命名空间上创建命名空间，默认“BUI”</p></div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a></span><div class='sub-desc'><p>返回的命名空间对象</p><pre class='inline-example '><code>BUI.namespace("Grid"); // BUI.Grid</code></pre></div></li></ul></div></div></div><div id='method-scrollLeft' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-scrollLeft' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-scrollLeft' class='name expandable'>scrollLeft</a>( <span class='pre'></span> )</div><div class='description'><div class='short'>滚动到窗口的left位置 ...</div><div class='long'><p>滚动到窗口的left位置</p></div></div></div><div id='method-scrollTop' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-scrollTop' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-scrollTop' class='name expandable'>scrollTop</a>( <span class='pre'></span> )</div><div class='description'><div class='short'>滚动到横向位置 ...</div><div class='long'><p>滚动到横向位置</p></div></div></div><div id='method-substitute' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-substitute' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-substitute' class='name expandable'>substitute</a>( <span class='pre'>str, o, [regexp]</span> )</div><div class='description'><div class='short'>替换字符串中的字段. ...</div><div class='long'><p>替换字符串中的字段.</p><h3 class="pa">Parameters</h3><ul><li><span class='pre'>str</span> : <a href="#!/api/String" rel="String" class="docClass">String</a><div class='sub-desc'><p>模版字符串</p></div></li><li><span class='pre'>o</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>json data</p></div></li><li><span class='pre'>regexp</span> : <a href="#!/api/RegExp" rel="RegExp" class="docClass">RegExp</a> (optional)<div class='sub-desc'><p>匹配字符串的正则表达式</p></div></li></ul></div></div></div><div id='method-ucfirst' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-ucfirst' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-ucfirst' class='name expandable'>ucfirst</a>( <span class='pre'>s</span> ) : <a href="#!/api/String" rel="String" class="docClass">String</a></div><div class='description'><div class='short'>使第一个字母变成大写 ...</div><div class='long'><p>使第一个字母变成大写</p><h3 class="pa">Parameters</h3><ul><li><span class='pre'>s</span> : <a href="#!/api/String" rel="String" class="docClass">String</a><div class='sub-desc'><p>字符串</p></div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/String" rel="String" class="docClass">String</a></span><div class='sub-desc'><p>首字母大写后的字符串</p></div></li></ul></div></div></div><div id='method-viewportHeight' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-viewportHeight' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-viewportHeight' class='name expandable'>viewportHeight</a>( <span class='pre'></span> ) : <a href="#!/api/Number" rel="Number" class="docClass">Number</a></div><div class='description'><div class='short'>获取窗口可视范围高度 ...</div><div class='long'><p>获取窗口可视范围高度</p><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Number" rel="Number" class="docClass">Number</a></span><div class='sub-desc'><p>可视区高度</p></div></li></ul></div></div></div><div id='method-viewportWidth' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-viewportWidth' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-viewportWidth' class='name expandable'>viewportWidth</a>( <span class='pre'></span> ) : <a href="#!/api/Number" rel="Number" class="docClass">Number</a></div><div class='description'><div class='short'>获取窗口可视范围宽度 ...</div><div class='long'><p>获取窗口可视范围宽度</p><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Number" rel="Number" class="docClass">Number</a></span><div class='sub-desc'><p>可视区宽度</p></div></li></ul></div></div></div><div id='method-wrapBehavior' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='BUI.Util'>BUI.Util</span><a href='source/util.html#BUI-Util-method-wrapBehavior' target='_blank' class='view-source'>view source</a></div><a href='#!/api/BUI.Util-method-wrapBehavior' class='name expandable'>wrapBehavior</a>( <span class='pre'>self, action</span> )<strong class='protected signature' >protected</strong></div><div class='description'><div class='short'>封装事件，便于使用上下文this,和便于解除事件时使用 ...</div><div class='long'><p>封装事件，便于使用上下文this,和便于解除事件时使用</p><h3 class="pa">Parameters</h3><ul><li><span class='pre'>self</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>对象</p></div></li><li><span class='pre'>action</span> : <a href="#!/api/String" rel="String" class="docClass">String</a><div class='sub-desc'><p>事件名称</p></div></li></ul></div></div></div></div></div></div></div>
+    <h2>CMD的概念</h2>
+    <h3>模块概念</h3>
+    <p>CMD（Common Module Definition）是seajs推广过程中模块定义规范化的产物，写法类似于Nodejs的模块定义方式差异在于：</p>
+    <ul class="tutor-list">
+      <li>NodeJS 里，模块文件里的 this === module.exports；SeaJS 里，this === window。</li>
+      <li>NodeJS 里，模块文件里的 return xx 会被忽略；SeaJS 里，return xx 等价 module.exports = xx。</li>
+      <li>NodeJS 里，require 是懒加载 + 懒执行的。在 SeaJS 里是提前加载好 + 懒执行。</li>
+      <li>SeaJS 里，require(id) 中的 id 必须是字符串直接量。NodeJS 里没这个限制。</li>
+    </ul>
+    <h3>创建模块</h3>
+    <p>通过以下示例了解CMD中模块的创建</p>
+    <pre>
+      <textarea>
+        define('hello', ['bui/common'], function(require, exports, module) {
+          var BUI = require('bui/common');
+          // 模块代码
+
+        });
+      </textarea>
+    </pre>
+    <ul class="tutor-list">
+      <li>模块名称: 用于加载模块时使用，可以为空，根据路径和文件名作为模块名称</li>
+      <li>依赖的模块 : 设置依赖的模块，可以为空，则按照模块内部使用require函数时确定依赖的模块（未指定模块依赖关系时，不能更改require参数名称）</li>
+      <li>回调函数： 模块执行时执行的函数，在第一次被require前，函数内的代码不会执行。</li>
+    </ul>
+
+    <h3>加载模块</h3>
+    <pre>
+      <textarea>
+        seajs.use('hello',function(Hello){
+
+        });
+      </textarea>
+    </pre>
+    <ul class="tutor-list">
+      <li>没有全局性的require函数</li>
+      <li>回调函数执行前，hello模块必须加载并执行完毕</li>
+      <li>hello依赖的模块也必须加载、执行完毕</li>
+    </ul>
+
+    <h2>AMD的概念</h2>
+    <h3>定义</h3>
+    <p>AMD（Asynchronous Module Definition）,是基于requireJS指定并推广开来的一种模块定义方式，AMD基本兼容CMD 定义模块的方式，但是回调函数中，不提供exports和modules对象，只提供return 的方式定义模块</p>
+    <ul class="tutor-list">
+      <li>使用define方法定义模块，通过回调函数（factory）生成模块</li>
+      <li>定义模块时指定模块依赖（也可以省略）</li>
+      <li>多次依赖一个模块，只加载一遍</li>
+      <li>传递依赖的模块的引用到factory函数</li>
+      <li>不需要合并模块时，不需要指定模块id</li>
+    </ul>
+    <h3>模块创建</h3>
+    <pre>
+      <textarea>
+      //Calling define with module ID, dependency array, and factory function
+      define('myModule', ['dep1', 'dep2'], function (dep1, dep2) {
+
+          //Define the module value by returning a value.
+          return function () {};
+      });
+      </textarea>
+    </pre>
+    <h3>模块加载</h3>
+    <pre>
+      <textarea>
+      require('myModule',function(MyModule){
+
+      });
+      </textarea>
+    </pre>
+    <p>AMD的模块加载使用全局函数<code>require</code></p>
+    
+    <h2>Kissy的模块</h2>
+    <h3>模块的创建</h3>
+    <p>Kissy的模块定义跟CMD和AMD有相同点，但是也有不同点，依赖模块写在最后面，factory里传入的是模块引用。</p>
+    <pre>
+      <textarea>
+      KISSY.add('myModule',function(dep1,dep2){
+
+      },{
+        requires : ['dep1', 'dep2']
+      });
+      </textarea>
+    </pre>
+    <h3>模块的加载</h3>
+    <pre>
+      <textarea>
+      KISSY.use('myModule',function(S,MyModule){
+
+      });
+      </textarea>
+    </pre>
+    <p>Kissy加载模块时，跟CMD，AMD最大的差异在于，factory函数的第一个参数是KISSY本身</p>
+
+    <h2>BUI加载模块</h2>
+    <p>BUI的模块定义按照CMD的写法，无论使用seajs还是Kissy作为Loader。</p>
+    <p>加载模块时，可以按照seajs的写法，也可以按照Kissy的写法，但是一般情况下按照BUI封装的写法，可以兼容seajs和Kissy</p>
+    <pre>
+      <textarea>
+      BUI.use('myModule',function(MyModule){
+
+      });
+      </textarea>
+    </pre>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
 </body>
 </html>

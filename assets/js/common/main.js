@@ -338,9 +338,15 @@ define('common/main',function (require) {
     _openPage : function(node,isReload,search){
       var _self = this,
         tab = _self.get('tab'),
+        tree = _self.get('tree'),
         href = node.href || _self._getNodeHref(node);
-      href = search ? (addSearch(href,search)) : href;
-      tab.addTab({id: node.id, title: node.text,closeable : node.closeable, href: href},!!isReload);
+      if(node.leaf){
+        href = search ? (addSearch(href,search)) : href;
+        tab.addTab({id: node.id, title: node.text,closeable : node.closeable, href: href},!!isReload);
+      }else{
+        tree.expandNode(node);
+      }
+      
     }
 
   });
