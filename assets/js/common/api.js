@@ -4,7 +4,8 @@
  */
 
 define('common/api',function(require) {
-  var BUI = require('bui/common');
+  var BUI = require('bui/common'),
+   CLS_PRETTY = 'prettyprint linenums';
 
   window.Ext = {
     data:{
@@ -45,6 +46,7 @@ define('common/api',function(require) {
       _self._appendTables();
       _self.replaceLink();
       _self.hideMembers();
+      _self.prettyPrint();
     },
     //附加表头
     _appendTables :function(){
@@ -72,8 +74,15 @@ define('common/api',function(require) {
     hideMembers : function(){
       var _self = this,
         el = _self.get('el'),
-        hides = el.find('.private');
+        hides = el.find('.private,.protected');
       hides.parents('.not-inherited').hide();
+    },
+    prettyPrint : function(){
+      var el = this.get('el');
+      el.find('pre').addClass(CLS_PRETTY);
+      if(window.prettyPrint){
+        prettyPrint();
+      }
     }
   },{
     ATTRS : {

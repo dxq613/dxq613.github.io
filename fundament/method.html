@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>方法和事件</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../assets/img/method.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>控件的方法</li>
+          <li>控件库的事件</li>
+          <li>属性与方法和事件的关系</li>
+          <li>特殊的方法和事件</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>初学者</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+    <h2>控件的方法</h2>
+    <p>由于BUI的控件是基于原型链的，所以BUI中控件的方法都是在<code>prototype</code>上的，可以调用自己的或者父控件定义的方法。</p>
+
+    <h2>控件的事件</h2>
+    <p>控件的事件是由Observable类定义的，所有的控件都是此类的子类，所以Observable的属性和方法，所有控件都支持。</p>
+    <p>Observable类的方法的<a href="#J_API">API在最下面</a>，主要有以下几个：</p>
+    <ol>
+      <li>on : 注册事件</li>
+      <li>off: 移除事件</li>
+      <li>fire：触发事件</li>
+    </ol>
+    <pre>
+      <textarea>
+        <script>
+          var list = new List({
+            //...
+          });
+          list.render();
+          function callback(){}
+          //注册事件
+          list.on('itemclick',callback);
+          //触发事件
+          list.fire('itemclick');
+
+          //移除事件
+          list.off('itemclick',callback);
+
+        </script>
+      </textarea>
+    </pre>
+    
+    <h2>属性与方法和事件</h2>
+    <p>在上一章节里我们详细的讲述了<a class="page-action" data-id="config" href="config.html">属性</a>,属性的设置和获取有几个相关的方法：</p>
+    <ol>
+      <li>get : 获取属性</li>
+      <li>set : 设置属性，触发属性更改事件</li>
+      <li>setInternal : 设置属性，不触发属性更改事件</li>
+    </ol>
+    <p>在设置属性（定义过的属性）值时，会触发2个事件,beforeXxxChagne 和 afterXxxChange事件</p>
+    <pre>
+      <textarea>
+        <script>
+
+          //构造类A
+          var A = function(config){
+            A.superclass.constructor.call(this,config); //将自己的配置项传递到BUI.Base的构造函数中
+          };
+          //定义属性
+          A.ATTRS = {
+            a : {
+
+            },
+            b : {
+
+            }
+          };
+
+          BUI.extend(A,BUI.Base); //使A继承BUI.Base，支持属性
+
+          var a = new A({ //创建对象
+            a : 'a',
+            b : 'b',
+            c : 'c'
+          });
+
+          a.on('beforeAChange',function(ev){
+            alert(ev.newVal + ev.prevVal);
+          });
+
+          a.on('beforeCChange',function(ev){
+            alert(ev.newVal + ev.prevVal);
+          });
+
+          a.get('a'); //'a'
+          a.set('a','new a'); //触发beforeAChange,触发afterAchange
+          a.get('a'); //new a
+          a.setInternal('a','new a1'); //不触发任何事件
+          a.get('a'); //new a1
+
+          a.get('c'); // c
+          a.set('c','new c');//不触发事件
+        </script>
+      </textarea>
+    </pre>
+    <p><span class="label label-info">定义过的属性：</span>是指在类声明是，在<code>ATTRS</code>中声明的变量。</p>
+    <h2>事件的API</h2>
+    <p>下面只是简单的列表，详细信息请<a href="http://www.builive.com/docs/#!/api/BUI.Observable">查看API文档</a></p>
+    <div id="J_API" data-name="BUI.Observable">
+      
+    </div>
+
+    <h2>下一步学习</h2>
+    <p>BUI的方法和事件学习完成后，你可以去看一下如何组织模块<a data-id="cmd" class="page-action" href="cmd.html">CMD组织模块</a>，然后进入到BUI<a href="#" data-id="controller" class="page-action" >控件编写</a>的学习中。</p>
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>

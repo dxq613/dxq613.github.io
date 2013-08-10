@@ -112,8 +112,8 @@ define('common/page',function (require) {
       link.init();
       _self.set('link',link);
     },
-    _initPretty : function(){
-      var preEls = $('pre');
+    _initPretty : function(container){
+      var preEls =  $('pre');
       BUI.each(preEls,function(el){
         var node = $(el),
           textEl = node.children('textarea'),

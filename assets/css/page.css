@@ -74,6 +74,11 @@ code {
   border: 1px solid #e1e1e8;
 }
 
+pre code{
+  border: none;
+  padding: 0;
+}
+
 .tutor-list{
   padding-left: 25px;
   list-style: disc;
@@ -109,6 +114,12 @@ a.side{
 .members-section .table{
   margin-bottom:0;
   border-bottom:0;
+}
+
+.members-section .icon-cfg{
+  width: auto;
+  height: auto;
+  background: none;
 }
 
 .subsection .first-child,.subsection:first-child{
