@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>配置项和属性</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../assets/img/attr.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>什么是属性？</li>
+          <li>为什么需要属性？</li>
+          <li>属性的实现</li>
+          <li>属性与方法和事件的关系</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>初学者</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+    <h2>属性</h2>
+    <p>属性一般是指对象的某个性质，对于javascript对象而言可以是对象、方法、直接量。由于javascript对象对于成员不存在访问控制，所以对成员的访问和设置没法进行控制，属性发生改变时也无法做出对应的相应。如下示例：</p>
+    <pre>
+      <textarea>
+      <script>
+        function A (a){
+          this.a = a;
+
+          this.setA = function(a){
+            this.a = a;
+            //do something
+            //log(a);
+          }
+        }
+
+        var obj = new A('a value');
+        //如果我想伴随着a 值的改变做些处理
+        obj.setA('new a value');
+        //但是由于对象不存在访问控制
+        obj.a = 'new b value'; //此时不会执行对应的操作
+      </script>
+      </textarea>
+    </pre>
+    <p>所以我们需要这样一种属性：</p>
+    <ul class="tutor-list">
+      <li>能够对属性的设置和访问做限制</li>
+      <li>属性的改变能够通知其他对象</li>
+      <li>配置项通过初始化能够转成属性</li>
+    </ul>
+    <h3>BUI.Base类</h3>
+    <p>所以我们使用了<code>BUI.Base</code>类，它拥有以下功能：</p>
+    <ul class="tutor-list">
+      <li>有get和set方法用于获取和设置属性，不能直接通过“.”,“[]”操作符修改属性值。</li>
+      <li>属性值发生改变时触发 <code>beforeXxxChange</code> 和 <code>afterXxxChange</code> 事件，其中属性名是<code>xxx</code></li>
+      <li>构造函数的配置项可以转换成属性值</li>
+    </ul>
+    <p>属性的细节和使用接下来我们会详细的讲解，所有需要使用属性的类，继承BUI.Base类即可</p>
+    <pre>
+      <textarea>
+      <script>
+        function A (config){
+          A.superclass.constructor.call(this,config)
+        }
+
+        BUI.extend(A,BUI.Base); //继承属性类
+
+        A.ATTRS = {  //在ATTRS上定义属性
+          a : {
+            value : 'a' //默认值
+          },
+          b : {
+
+          }
+        };
+
+        var a = new A({ a : 'initial a',b : 'b'}); //创建A 的实例
+
+        a.get('a'); //initial a
+        a.set('a','new a'); //new a
+        b.get('b'); //b
+
+        a.set('c','c');
+        a.get('c'); //c
+      </script>
+      </textarea>
+    </pre>
+    <ol>
+      <li>声明新的类A，并在构造函数里调用父类的构造函数</li>
+      <li>继承<code>BUI.Base</code>使用<code>BUI.extend</code>方法</li>
+      <li>声明属性值，每个属性是一个对象，<code>value</code>是默认值，属性的定义下面有更详细的介绍</li>
+      <li>创建A的实例a，传递配置项，配置项会转变成属性值</li>
+      <li>通过A的示例获取，设置定义的属性，会触发（beforeXxxChange,afterXxxChange)事件，例如name 属性会触发（beforeNameChange,afterNameChange)</li>
+      <li>设置未定义的属性，依然会生效，但是不会有默认值，依然会触发事件</li>
+    </ol>
+    <h3>属性的定义</h3>
+    <p>上面的示例说明了如何定义一个属性，和如何设置默认值<code>value</code>，接下来我们来看属性还支持哪些功能</p>
+    <pre>
+      <textarea>
+      <script>
+        function A (config){
+          A.superclass.constructor.call(this,config)
+        }
+
+        BUI.extend(A,BUI.Base); //继承属性类
+
+        A.ATTRS = {  //在ATTRS上定义属性
+          a : {
+            value : 'a' //默认值
+          },
+          b : {
+            getter : function(v){ //获取函数，v是当前属性设置的值，返回值为 a.get('b')的值
+              return v * 2;
+            },
+            setter : function(v){
+              return parseInt(v);
+            }
+          },
+          c : {
+            valueFn : function(){ //在第一次调用此属性是执行此函数，并作为属性的值使用，只执行一次
+              return this.get('a') + this.get('b');
+            }
+          },
+          d : {
+            value : 'd',  //如果value和valueFn同时存在，则以value优先
+            valueFn : function(){
+              return this.get('a');
+            }
+          }
+        };
+
+        var a = new A({a : 'a1',b : '2'}); //{a :'a1',b : '2'}
+
+        a.get('a'); //a1
+        a.get('b'); //2 * 2 = 4
+
+        a.get('c'); //a1 + 4 = a14
+
+        a.get('d'); //a1 
+      </script>
+      </textarea>
+    </pre>
+    <p>上面的示例说明了属性的具体用法，以及内部的成员的含义：</p>
+    <ol>
+      <li>value : 属性的默认值</li>
+      <li>getter : 获取属性时执行，并以getter的返回结果为准</li>
+      <li>setter : 设置属性时执行，以setter的返回值为准</li>
+      <li>valueFn : 属性第一次获取时执行，之后作为value来使用，如果同时定义了value ，不执行此函数。</li>
+    </ol>
+    <h3>属性图示</h3>
+    <p>下图说明了属性的执行过程</p>
+    <p class="centered"><img src="../assets/img/base.jpg"/></p>
+    <p>Base类有2个私有字段和一个静态字段：</p>
+    <ol>
+      <li>ATTRS：是在类定义时指定的属性定义</li>
+      <li>__attrs ：存放类和从父类继承来的属性定义</li>
+      <li>__attrVals：存放通过配置项设置的值或者通过set方法设置的值</li>
+    </ol>
+    <h3>属性获取</h3>
+    <ol>
+      <li>获取属性值，先查找__attrVals中是否存在值，如果存在通过getter（如果存在）格式化返回；</li>
+      <li>如果不存在查看__attrs里对应的属性，查看是否存在value，存在通过getter格式化返回</li>
+      <li>如果不存在，查看valueFn，执行完valueFn后，将返回值替换为value，通过getter格式化返回</li>
+    </ol>
+    <h3>属性设置</h3>
+    <ol>
+      <li>设置值，先通过setter（如果存在）格式化</li>
+      <li>触发beforeXxxChange事件</li>
+      <li>覆盖__attrVals中的值</li>
+      <li>触发afterXxxChange事件</li>
+    </ol>
+    <p><code>Xxx</code>代表属性名，首写字母大写，如： name => beforeNameChange,afterNameChange</p>
+    <h2>属性类的API</h2>
+    <p><code>BUI.Base</code>继承自<code>BUI.Obeservable</code>，继承来的属性和方法，请查看<a data-id="method" class="page-action" href="method.html">BUI的方法和事件</a></p>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a href="http://www.builive.com/docs/#!/api/BUI.Base">查看API文档</a></p>
+    <div id="J_API" data-name="BUI.Base">
+      
+    </div>
+
+    <h2>下一步学习</h2>
+    <p>BUI的配置和属性是所有控件的一个基础章节，接下来继续学习<a data-id="method" class="page-action" href="method.html">BUI的方法和事件</a>，你可以去看一下如何组织模块<a data-id="cmd" class="page-action" href="cmd.html">CMD组织模块</a>，然后进入到BUI<a href="#" data-id="controller" class="page-action" >控件编写</a>的学习中。</p>
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>

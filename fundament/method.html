@@ -70,7 +70,7 @@
       <li>set : 设置属性，触发属性更改事件</li>
       <li>setInternal : 设置属性，不触发属性更改事件</li>
     </ol>
-    <p>在设置属性（定义过的属性）值时，会触发2个事件,beforeXxxChagne 和 afterXxxChange事件</p>
+    <p>在设置属性值时，会触发2个事件,beforeXxxChagne 和 afterXxxChange事件</p>
     <pre>
       <textarea>
         <script>
@@ -112,11 +112,10 @@
           a.get('a'); //new a1
 
           a.get('c'); // c
-          a.set('c','new c');//不触发事件
+          a.set('c','new c');
         </script>
       </textarea>
     </pre>
-    <p><span class="label label-info">定义过的属性：</span>是指在类声明是，在<code>ATTRS</code>中声明的变量。</p>
     <h2>事件的API</h2>
     <p>下面只是简单的列表，详细信息请<a href="http://www.builive.com/docs/#!/api/BUI.Observable">查看API文档</a></p>
     <div id="J_API" data-name="BUI.Observable">

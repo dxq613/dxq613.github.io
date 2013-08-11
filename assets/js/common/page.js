@@ -63,7 +63,7 @@ define('common/page',function (require) {
       this._initAPI();
     },
     _initAPI : function(){
-      if(!$('#J_API').length){
+      if(!this._isHasAPI()){
         return;
       }
       var _self = this,
@@ -71,6 +71,9 @@ define('common/page',function (require) {
           srcNode : '#J_API'
         });
       api.render();
+    },
+    _isHasAPI : function(){
+      return $('#J_API').length;
     },
     //创建demo对象
     _initDemos : function(){
@@ -133,7 +136,7 @@ define('common/page',function (require) {
         
         node.html(innerText);
       });
-      if(window.prettyPrint){
+      if(!this._isHasAPI() && window.prettyPrint){
         prettyPrint();
       }
     },

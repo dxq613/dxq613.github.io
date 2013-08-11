@@ -89,6 +89,9 @@ pre textarea{
 }
 
 /** api style **/
+#J_API{
+  border-top:1px dotted #ddd;
+}
 .short{
   display:none;
 }
@@ -99,7 +102,7 @@ a.side{
   display:none;
 }
 
-.defined-in,.view-source,.inherited,.hierarchy,.doc-contents{
+.defined-in,.view-source,.inherited,.hierarchy{/**,.doc-contents**/
   display:none;
 }
 
