@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>类的创建和继承</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../assets/img/create.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>如何创建一个类</li>
+          <li>如何实现继承</li>
+          <li>跟继承相关的几个函数</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>初学者</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+    <h2>类的创建</h2>
+    <p>BUI里的所有类的方法在原型链上，这决定了创建类和继承类的方式。关于类的定义和实例化请<a href="http://www.w3school.com.cn/js/pro_js_object_defining.asp">参看w3school的文章</a></p>
+    <p>下面是一个BUI中创建的最简单的类，其中的细节我们在本章和接下来的几章里详细论述</p>
+    <pre>
+      <textarea>
+        <script>
+          //创建类
+          function NewClass(config){
+            NewClass.superclass.constructor.call(this,config); //调用父类的构造函数
+            //ToDo Something
+          }
+
+          BUI.extend(NewClass,BUI.Base); //继承BUI.Base类
+
+          BUI.augment(NewClass,{ //在原型链上注册方法
+            m1 : function(){
+              this.m2();
+              this.m3();
+            },
+            m2 : function(){
+
+            },
+            m3 : function(){
+
+            }
+          });
+
+          var a = new NewClass({a : '124'}); //实例化对象
+
+          a.m1();
+        </script>
+      </textarea>
+    </pre>
+    <p>上面的内容包含了以下信息：</p>
+    <ul class="tutor-list">
+      <li>声明一个类，在构造函数中调用父类的构造函数</li>
+      <li>superclass：指向父类</li>
+      <li>BUI.extend方法，实现了继承，下面会详细讲解</li>
+      <li>BUI.augment : 将对象上的成员复制到类的原型链上</li>
+    </ul>
+
+    <h2>类的继承</h2>
+    <p>BUI的类的继承使用原型链的方式，提供了BUI.extend方法，具体的实现原理请参看：<a href="http://www.cnblogs.com/zaohe/archive/2012/10/13/2723148.html">JS 继承</a></p>
+    <p>我们通过下面的示例，来了解BUI.extend方法的使用</p>
+    <pre>
+      <textarea>
+        <script>
+          //声明类A
+          function A(config){
+            BUI.mix(this,config); //将配置信息附加到实例自身，后面讲解BUI.Base后，就不再使用此方式
+          }
+          //声明A的方法
+          BUI.augment(A,{
+            m1 : function(){
+              console.log('a m1');
+            },
+            m2 : function(){
+              console.log('a m2');
+            }
+          });
+
+          //声明B
+          function B (config){
+            B.superclass.constructor.call(this,config); //B 继承A，调用A的构造函数
+          }
+
+          BUI.extend(B,A); //B 继承A
+
+          BUI.augment(B,{ //实现B的方法
+            m1 : function(){
+              console.log('b m1');
+            },
+            m3 : function(){
+              console.log('b m3');
+            }
+          });
+
+          //声明C
+          function C (config){
+            C.superclass.constructor.call(this,config); 
+          }
+
+          BUI.extend(C,B); //C 继承B
+
+          BUI.augment(C,{
+            m1 : function(){
+              console.log('c m1');
+              B.prototype.m1.call(this); //调用父类的m1方法
+              //不要使用 C.superclass.m1.call(this);
+            },
+            m2 : function(){
+              console.log('c m2');
+            }
+          });
+
+          //实例化
+          var c = new C({a : 'a',b : 'b'});
+
+          c.m1(); //c m1 > b m1
+          c.m2(); //c m2
+          c.m3(); //b m3
+
+        </script>
+      </textarea>
+    </pre>
+    <p>解释说明</p>
+    <ul class="tutor-list">
+      <li>BUI.mix ： 把一个对象的成员复制到另一个对象</li>
+      <li>构造函数里面需要调用父类的构造函数，由于javascript缺少原生的支持，所以需要自己调用</li>
+      <li>原型链上的方法会覆盖，子类的方法覆盖父类的方法</li>
+      <li>调用父类的同名方法时，直接调用父类prototype上的方法，而不要通过superclass,在<a href="http://www.cnblogs.com/zaohe/archive/2012/10/13/2723148.html">这篇文章里有论述</a></li>
+    </ul>
+    
+    <h2>继承的相关函数</h2>
+    <p>上面的示例中用到了几个继承中常用的函数：</p>
+    <ul class="tutor-list">
+      <li>BUI.extend(newclass,superclass): 实现类的继承</li>
+      <li>BUI.augment(newclass,obj): 把对象的成员复制到类的原型链上</li>
+      <li>BUI.mix(obj1,obj2,...objn): 把后面对象的成员复制到第一个</li>
+      <li>BUI.merge(obj1,obj2..objn): 把所有对象的成员复制到一个新的对象上，不影响参数中的对象</li>
+    </ul>
+    
+    <p>上面方法详细的API，请查看<a data-id="util-base" class="page-action" href="util/util-base.html">BUI的工具方法</a></p>
+    <h2>下一步学习</h2>
+    <p>首先需要了解<a data-id="config" class="page-action" href="config.html">配置和属性</a>、<a data-id="method" class="page-action" href="method.html">方法和事件</a>，再去学习<a data-id="cmd" class="page-action" href="cmd.html">CMD组织模块</a>，然后进入到BUI<a href="#" data-id="controller" class="page-action" >控件编写</a>的学习中。</p>
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
