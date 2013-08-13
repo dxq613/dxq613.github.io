@@ -78,10 +78,16 @@ define('common/api',function(require) {
       hides.parents('.not-inherited').hide();
     },
     prettyPrint : function(){
-      var el = this.get('el');
-      el.find('pre').addClass(CLS_PRETTY);
-      if(window.prettyPrint){
-        prettyPrint();
+      var el = this.get('el'),
+        pres = el.find('pre');
+      pres.addClass(CLS_PRETTY);
+
+      if(window.prettyPrintEl){
+        pres.each(function(index,element){
+          var node = $(element).find('node');
+          $(element).html(node.html());
+          prettyPrintEl(element);
+        });
       }
     }
   },{

@@ -24,8 +24,8 @@ define('common/page',function (require) {
     linkCls : {
       
     },
-    apiId : {
-      value : 'J_API'
+    api: {
+      value : '.J_API'
     },
     /**
      * 创建demo的样式
@@ -67,13 +67,17 @@ define('common/page',function (require) {
         return;
       }
       var _self = this,
+        nodes = $(_self.get('api'));
+      BUI.each(nodes,function(node){
+        var _self = this,
         api = new API({
-          srcNode : '#J_API'
+          srcNode : node
         });
-      api.render();
+        api.render();
+      });
     },
     _isHasAPI : function(){
-      return $('#J_API').length;
+      return $(this.get('api')).length;
     },
     //创建demo对象
     _initDemos : function(){
@@ -81,9 +85,10 @@ define('common/page',function (require) {
         demoCls = _self.get('demoCls');
       $('.' + demoCls).each(function(index,node){
         var demo = new Demo({
-          srcNode : node,
-          autoRender : true
+          srcNode : node
         });
+        demo.render();
+        demo.fetchSource();
         _self.get('demos').push(demo);
       });
     },
@@ -136,7 +141,8 @@ define('common/page',function (require) {
         
         node.html(innerText);
       });
-      if(!this._isHasAPI() && window.prettyPrint){
+      /**/
+      if(window.prettyPrint){
         prettyPrint();
       }
     },

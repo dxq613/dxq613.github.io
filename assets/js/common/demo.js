@@ -13,10 +13,11 @@ define('common/demo',function (require) {
   function getShareDialog(){
     var _self = this;
     if(!Demo.dialog){
-      Dialog.dialog = new Dialog({
+      Demo.dialog = new Dialog({
         title : 'Demo',
-        width:500,
-        height:300
+        elCls:'demo-dialog',
+        width:800,
+        height:500
       });
     }
     return Demo.dialog;
@@ -30,15 +31,20 @@ define('common/demo',function (require) {
     //渲染控件
     renderUI : function(){
       var _self = this,
-        toolbar = _self.get('toolbar');
+        tpl = _self.get('tpl'),
+        el = _self.get('el'),
+        toolbar = _self.get('tbar');
+      $(tpl).appendTo(el);
       toolbar.render = _self.get('el').find('.panel-header');
       toolbar = new Toolbar.Bar(toolbar);
-      _self.set('toolbar',toolbar);
+      toolbar.render();
+      _self.set('tbar',toolbar);
+
     },
     //绑定事件
     bindUI : function(){
       var _self = this,
-        toolbar = _self.get('toolbar');
+        toolbar = _self.get('tbar');
       toolbar.on('click',function(ev){
         var item = ev.target,
           type = item.get('type');
@@ -54,10 +60,20 @@ define('common/demo',function (require) {
      */
     fetchSource : function(){
       var _self = this,
+        redirectUrl  = _self.get('redirectUrl'),
         url = _self.get('url');
         
-      $.get(url,function(source){
-        _self.set('source',source);
+      $.ajax({
+        dataType : 'jsonp',
+        url : redirectUrl,
+        data : {file : url},
+        success : function(text){
+          _self.set('source',text);
+          //_self.showSource();
+        },
+        error : function(xhr,status,msg){
+
+        }
       });
     },
     /**
@@ -80,7 +96,11 @@ define('common/demo',function (require) {
         el = _self.get('el'),
         code = _self.getScriptCode(),
         scriptEl = el.find('.panel-body');
+      code = code.replace(/\\/ig,'<br/>');
       scriptEl.html(code);
+      if(window.prettyPrintEl){
+        prettyPrintEl(scriptEl[0]);
+      }
     },
     /**
      * 获取脚本代码
@@ -94,8 +114,11 @@ define('common/demo',function (require) {
       source = source || _self.get('source');
       index = source.indexOf(beginTag);
       source = source.substring(index + beginTag.length);
-      index = source.indexOf(endTag);
-      source = source.substring(0,index);
+      index = source.lastIndexOf(endTag);
+      if(index !== -1){
+        source = source.substring(0,index);
+      }
+      
       return source;
     },
     /**
@@ -122,6 +145,13 @@ define('common/demo',function (require) {
     ATTRS : {
 
       /**
+       * 将页面转成jsonp的网址
+       * @type {Object}
+       */
+      redirectUrl : {
+        value : "http://www.builive.com/fetchdemo.php"
+      },
+      /**
        * 显示代码源码，以及效果
        * @type {BUI.Overlay.Dailog}
        */
@@ -135,20 +165,20 @@ define('common/demo',function (require) {
        * @type {String}
        */
       beginTag : {
-
+        value : '&lt;!-- script start--&gt;  \n'
       },
       /**
        * 显示代码的结束标志
        * @type {String}
        */
       endTag : {
-
+        value : '&lt;!-- script end --&gt;'
       },
       /**
        * @private
        */
       sourceTpl : {
-        value : '<pre></pre>'
+        value : '<textarea></textarea>'
       },
       /**
        * @private
@@ -181,13 +211,13 @@ define('common/demo',function (require) {
             elCls : 'button button-small'
           },
           children : [
-            {content : '运行',type:'run',disabled : true},
-            {content : '源码',type:'source',disabled : true}
+            {content : '运行',type:'run'},
+            {content : '源码',type:'source'}
           ]
         }
       },
       tpl : {
-        value : '<div class="panel"><div class="panel-header"></div><div class="panel-body"></div></div>'
+        value : '<div class="panel"><div class="panel-header">代码示例</div><pre class="panel-body"></pre></div>'
       }
     }
   },{

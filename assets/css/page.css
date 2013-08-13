@@ -88,6 +88,19 @@ pre textarea{
   display: none;
 }
 
+.panel pre{
+  margin: 0;
+  border : none;
+  border-top: 1px solid #ddd;
+}
+
+.demo-dialog textarea{
+  margin:0;
+  height: 100%;
+  width: 100%;
+  overflow-y:auto;
+}
+
 /** api style **/
 #J_API{
   border-top:1px dotted #ddd;
