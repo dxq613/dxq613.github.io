@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件生命周期">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>控件生命周期</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/attr.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>生命周期的组成</li>
+          <li>控件的生成过程</li>
+          <li>控件的销毁过程</li>
+          <li>控件生命周期中的事件</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>初学者</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+    <h2>控件的生命周期</h2>
+    <p>控件在页面上的生命周期需要有统一的过程，在BUI的控件实现中，具体的环节如下图所示：</p>
+    <p class="centered">
+      <img src="../../assets/img/life.jpg" alt="控件生命周期">
+    </p>
+    <p>上面6个环节贯穿于整个BUI的所有控件，所有的控件都是按照这个生命周期，创建、绑定事件、操作和删除的，在接下来的章节里我们会详细的介绍这些环节在继承、扩展、插件中如何实现统一管理的，也会让大家学习到一种非常自然的方式编写扩展控件。</p>
+    <p>上面的6个环节主要分为2类，生成和销毁，中间的操作过程我们不在本章介绍。</p>
+
+    <h2>控件的基类</h2>
+    <p>前面的5步都与生成有关，但是侧重点各不相同，后面的环节都依赖于前面环节的完成。在具体的讲各个步骤前我们先来看BUI的基础控件的类图：</p>
+
+    <p class="centered">
+      <img src="../../assets/img/base-class.jpg" alt="顶层类图">
+    </p>
+    <ul class="tutor-list">
+      <li>BUI所有的UI控件的顶层都是Obseverble类，使的所有的控件有事件功能，详细信息参看：<a data-id="method" class="page-action" href="method.html">事件和方法</a>章节</li>
+      <li>接下来的一个抽象类是属性类： Base，统一管理控件的属性，并负责通知控件属性发生改变，引起控件的DOM发生变化，详细信息查看：<a data-id="config" class="page-action" href="config.html">配置和属性</a>，以及<a data-id="attribute" class="page-action" href="attribute.html">控件的配置和属性</a></li>
+      <li>然后是UIBase类，也是本章介绍的主要内容，主要是用于管理控件的生命周期的类，它同时管理继承、扩展和插件的生命周期，本周后面会详细介绍。</li>
+      <li>最后是Controller和View类，遵循MVC的原则，将控件的控制层和视图层分离，Controller负责控件的逻辑，View负责控件DOM的渲染和变化，它们之间的关系，我们会在<a data-id="controller" class="page-action" href="controller.html">Controller类</a>和<a data-id="view" class="page-action" href="view.html">View类中</a>介绍。</li>
+    </ul>
+
+    <h2>UIBase类</h2>
+    <p>UIBase类继承于Base类，支持事件和属性，这个类主要的功能就是管理控件的生命周期，我们首先来看控件的生成环节</p>
+    <h3>控件生成</h3>
+    <ol>
+      <li>
+        initializer :初始化，主要是将配置信息转换为属性，这个过程可以参考<a data-id="config" class="page-action" href="config.html">配置和属性</a>
+      </li>
+      <li>
+        createDom : 创建DOM，如果控件支持模板，则将模板和配置信息合并后，生成DOM
+      </li>
+      <li>renderUI : 在创建完成的DOM上设置状态，包括样式、属性等，也可以补充一些DOM，如果存在子控件，就去创建子控件。</li>
+      <li>bindUI ：绑定事件，需要监听控件的事件在这个环节处理，往往包括监听自己的DOM事件，监听其他控件的事件</li>
+      <li>syncUI ：将用户配置项和控件的默认值同步到控件上，例如用户设置的宽度、高度等属性</li>
+    </ol>
+    <p>syncUI 的一些工作和 renderUI 有相似之处，但是最重要的区别在于，renderUI中添加的控件的状态等信息是在控件的内部代码中实现的，是一些特例，bindUI时可能需要这些状态。</p>
+    <h3>继承</h3>
+    <p>控件在生成过程中上面的这些方法，子类的方法不会覆盖父类的函数执行，也就是说：父类子类都定义了renderUI方法，都会执行</p>
+    <pre>
+      <textarea>
+        <script>
+          //已经存在 A,B两个类
+          function A(){
+
+          }
+
+          BUI.extend(A,UIBase);
+          BUI.augment(A,{
+            renderUI : function(){
+              console.log('A renderUI');
+            }
+          });
+
+          function B(){
+
+          }
+
+          BUI.extend(B,A);
+
+          BUI.augment(B,{
+            renderUI : function(){
+              console.log('B renderUI');
+            }
+          });
+
+          var b = new B();
+          b.render(); //A renderUI - B renderUI
+        </script>
+      </textarea>
+    </pre>
+    <p>控件在<code>render</code>的过程中，initializer,createDom,renderUI,bindUI和syncUI的调用，都是先调用父类的方法，再调用子类的方法:</p>
+    <p class="centered">
+      <img src="../../assets/img/bindui.jpg" alt="函数的执行过程">
+    </p>
+
+
+    <h3>扩展</h3>
+    <p>我们使用mixin的方式来扩展控件（参看<a data-id="initial" class="page-action" href="#">类的创建及继承章节</a>），为了使得各个扩展的方法不受影响和覆盖父类的方法，在扩展上实现的上面几种方法，以<code>__</code>2个下划线开始，如<code>__bindUI</code>,我们来看一下具体的执行过程</p>
+    <pre>
+      <textarea>
+        <script>
+          //已经存在 A,B两个类
+          function A(){
+
+          }
+
+          BUI.augment(A,{
+            __renderUI : function(){
+              console.log('A renderUI');
+            }
+          });
+
+          function B(){
+
+          }
+
+          BUI.augment(B,{
+            __renderUI : function(){
+              console.log('B renderUI');
+            }
+          });
+
+          function C(){
+
+          }
+
+          BUI.extend(C,{
+            renderUI : function(){
+              console.log('C renderUI');
+            }
+          })
+
+          BUI.mixin(C,[A,B]);
+
+          var c = new C();
+          c.render();//执行顺序 A renderUI->B renderUI ->C renderUI
+        </script>
+      </textarea>
+    </pre>
+    <p>扩展在BUI控件中的用法在后面的章节里面<a data-id="mixin" href="#">使用mixin</a>学习到，如果感觉到理解困难可以先跳过这部分内容。</p>
+
+    <h3>插件(plugin)</h3>
+    <p>控件的插件也有 initializer,createDom,renderUI,bindUI和syncUI 方法，在控件执行完对应的方法后执行，具体的实现方式，后面的章节里也会介绍。</p>
+    
+    <h3>控件的移除</h3>
+    <p>我们使用destroy方法来移除控件，但是在控件、扩展或者插件中使用<code>destructor</code>，<code>__destructor</code>方法来实现，然而调用destructor的顺序跟其他几个方法有显著的差别：子类 destructor -> 子类扩展 destructor -> 父类 destructor -> 父类扩展 destructor</p>
+
+    <h2>事件</h2>
+    <p>在控件的创建过程中会触发以下事件：</p>
+    <ul class="tutor-list">
+      <li>beforeCreateDom,beforeRenderUI,beforeBindUI,beforeSyncUI</li>
+      <li>afterCreateDom,afterRenderUI,afterBindUI,afterSyncUI</li>
+    </ul>
+
+    <h2>API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a target="_blank" href="http://www.builive.com/docs/#!/api/BUI.Component.UIBase">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Component.UIBase">
+      
+    </div>
+
+    <h2>下一步学习</h2>
+    <p>学完本章后，你可以继续学习<a data-id="controller" class="page-action" href="controller.html">Controller 类</a>和<a data-id="view" class="page-action" href="view.html">View 类</a>更深入的了解控件的创建和移除</p>
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="http://g.tbcdn.cn/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
