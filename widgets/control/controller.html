@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件生命周期">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>Controller 类</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/control.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>如何是MVC的方式组织控件</li>
+          <li>Controller的实现</li>
+          <li>如何通过Controller创建控件</li>
+          <li>Controller使用的扩展类</li>
+          <li>Controller类的常用配置项</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+    
+    <h2>控件的MVC</h2>
+    <p>首先我们需要弄明白在页面中MVC分别指的什么?我们来看下图:</p>
+    <p class="centered">
+      <img src="../../assets/img/bui-mvc.jpg" alt="MVC">
+    </p>
+    <ul class="tutor-list">
+      <li>Model: 控件的配置项、当前的属性值或者控件代表的数据</li>
+      <li>Controller : 管理控件创建、移除的逻辑；控件的方法或者事件</li>
+      <li>View : 控件在页面创建的DOM，以及这些DOM上应用的样式</li>
+    </ul>
+    <p>所以从MVC的角度来说：</p>
+    <ul class="tutor-list">
+      <li>控件的生成过程就是将通过Controller将Model转换成View展示在页面上的过程。</li>
+      <li>控件状态的改变，就是通过Controller改变Model的值，并且引起View上对应的html或者css发生的改变。</li>
+      <li>Model变化时通过Controller改变View</li>
+    </ul>
+
+    <h2>BUI中的MVC实现</h2>
+    <p>BUI中所有的控件，Controller和View是分离的，每个控件都有对应的Controller类和View类，数据操作比较复杂的List、Grid和Tree,都有独立的Model：Store</p>
+    <p class="centered">
+      <img src="../../assets/img/base-class.jpg" alt="顶层类图">
+    </p>
+    <p>Controller和View都是继承自UIBase类，我们在<a data-id="life" class="page-action" href="life.html">上一章</a>已经进行过UIBase的讨论,本章主要介绍有关Controller的实现和如何基于Controller实现新的控件。</p>
+    <h3>Controller 类的实现</h3>
+    <p>Controller类的定义代码如下：</p>
+    <pre>
+      <textarea>
+      <script>
+        var Controller = UIBase.extend([UIBase.Decorate,UIBase.Tpl,UIBase.ChildCfg,UIBase.KeyNav,UIBase.Depends],{
+
+          //此处定义的属性放到原型链上
+          bindUI : function(){}
+        },{
+          //此处定义的属性，作为静态属性
+          ATTRS : { 
+            content : {
+              view : true
+            }
+          }
+        },{
+          xclass : 'controller'
+        });
+      </script>
+      </textarea>
+    </pre>
+    <p>上面的代码只是显示了Controller类的定义未显示具体的逻辑，详细的代码请参看<a target="_blank" href="http://www.builive.com/docs/source/controller.html#BUI-Component-Controller">Controller 代码</a>，几点说明：</p>
+    <ul class="tutor-list">
+      <li>
+        <p>
+          UIBase上有一个静态函数extend方法，同时每个通过这个方法实现的类上也会存在此静态方法
+          <pre>
+            var A = BUI.UIBase.extend({});//A从BUI.UIBase继承而来，A.extend静态方法会自动生成
+            var B = A.extend({}); //B 是A的子类，也会自动生成B.extend静态方法
+          </pre>
+        </p>
+      </li>
+      <li>UIBase.extend方法有4个参数：
+        <ol>
+          <li>第一个参数是一个数组，是所有实现这个控件的扩展类，可以省略</li>
+          <li>第二个参数是一个对象，其成员都会绑定到子控件的原型链上，等同于<code>BUI.augment</code>方法</li>
+          <li>第三个参数是一个对象，其成员复制成子控件的静态成员</li>
+          <li>最后一个参数也是一个对象，声明控件的<code>xclass</code>,用于唯一的标示一个控件类，在控件的子控件中会详细介绍</li>
+        </ol>
+      </li>
+      <li>
+        定义Controller的代码等同于下面的代码实现：
+        <pre>
+          var Controller = function(config){
+
+            Controller.superclass.constructor.call(this,config);
+          };
+
+          BUI.extend(Controller,BUI.UIBase); //实现继承
+          BUI.mixin(Controller,[UIBase.Decorate,UIBase.Tpl,UIBase.ChildCfg,UIBase.KeyNav,UIBase.Depends]); //实现扩展
+
+          BUI.mix(Controller,{ //复制静态属性
+            ATTRS : {}
+          });
+
+          //注册xclass
+          BUI.Component.Manager.setConstructorByXClass('controller', {
+              constructor: Controller
+          });
+
+        </pre>
+      </li>
+    </ul>
+    <h3>Controller的属性</h3>
+    <p>上面代码中<code>ATTRS</code>代表控件的默认属性，Controller初始化时将配置参数转换成属性,属性的详细信息请参考：<a data-id="config" class="page-action" href="config.html">配置和属性</a>，同时也有自己专有的2个属性：</p>
+    <ul class="tutor-list">
+      <li>view : 标示是否将此属性同步到对应的View类</li>
+      <li>sync : 标示是否在syncUI时执行同步属性的函数</li>
+    </ul>
+    <p>上面2个属性的具体介绍在<a data-id="attribute" class="page-action" href="attribute.html">后面的章节</a>里会有详细的介绍</p>
+    <h3>生成新的控件</h3>
+    <div class="page-demo" data-url="http://www.builive.com/demo/control/inherit.php">
+      
+    </div>
+    <p><span class="label label-info">注意：</span>实例化一个类后必须调用类的<code>render</code>方法</p>
+    <h3>Controller实现的扩展</h3>
+    <p>上面的代码中Controller类实现了以下扩展：</p>
+    <ul class="tutor-list">
+      <li>UIBase.Decorate ：通过页面上现有的html生成控件，可以查看<a data-id="decorate" class="page-action" href="decorate.html">使用Html生成控件</a>章节</li>
+      <li>UIBase.Tpl ：控件支持模板，可以配置控件的模板，通过模板生成控件内容，可以查看<a data-id="template" class="page-action" href="template.html">使用模板生成控件</a>章节</li>
+      <li>UIBase.ChildCfg ：子控件的配置项扩展，可以统一配置子控件的配置项，不需要在多个子控件中配置同一个属性值，可以查看<a data-id="children" class="page-action" href="children.html">子控件管理</a></li>
+      <li>UIBase.KeyNav：控件支持键盘导航，可以查看<a data-id="keynav" class="page-action" href="keynav.html">如何实现键盘导航</a></li>
+      <li>UIBase.Depends：控件之间支持快速绑定事件,可以查看<a data-id="depends" class="page-action" href="depends.html">控件依赖</a></li>
+    </ul>
+
+    <h2>常用属性和方法</h2>
+    <h3>常用配置项</h3>
+    <ul class="tutor-list">
+      <li>render:选择器字符串， 控件渲染到指定的容器中</li>
+      <li>content: 控件的内容，字符串可以是html</li>
+      <li>srcNode : 控件使用指定的DOM生成，此时不会利用模板生成控件</li>
+      <li>children : 子控件，详情请参看<a data-id="children" class="page-action" href="children.html">子控件管理</a></li>
+      <li>width,height,elCls等属性，请查看下面API列表中的属性和配置</li>
+    </ul>
+    <h3>常用方法</h3>
+    <ul class="tutor-list">
+      <li>render : 渲染控件</li>
+      <li>show,hide: 显示隐藏</li>
+      <li>增加、删除、查找子控件相关的方法</li>
+      <li>更多方法查看下面API中的方法</li>
+    </ul>
+    <h3>常用事件</h3>
+    <ul class="tutor-list">
+      <li>beforeAddChild,afterAddChild,afterRemoveChild,beforeRemoveChild，添加删除子控件的事件</li>
+      <li>click,mouseenter控件也支持常见DOM事件</li>
+      <li>focus,blur,show,hide等事件</li>
+    </ul>
+
+    <h2>API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a target="_blank" href="http://www.builive.com/docs/#!/api/BUI.Component.Controller">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Component.Controller">
+      
+    </div>
+
+    <h2>下一步学习</h2>
+    <p>学完本章后，你可以继续学习<a data-id="view" class="page-action" href="view.html">View 类</a>更深入的了解控件的基类</p>
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="http://g.tbcdn.cn/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
