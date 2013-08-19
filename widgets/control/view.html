@@ -66,7 +66,180 @@
       <li>View 类继承UIBase类</li>
       <li>View 类使用TplView扩展类，处理模板的html渲染，后面的<a data-id="template" class="page-action" href="template.html">使用模板章节</a>会详细介绍</li>
     </ul>
+    <h2>View类和Controller类</h2>
+    <h3>关系</h3>
+    <p>由于BUI的控件都是基于MVC的，所以每个控件都有一个View类，一个Controller类。2者的关系如下：</p>
+    <ul class="tutor-list">
+      <li>定义一个控件时，需要同时定义Controller和View（可以不创建View，默认使用父类的View）。</li>
+      <li>定义控件属性是，指定是否应用到View类</li>
+      <li>用户直接面对和创建的是Controller类，配置项在实例化控件时通过Controller类传入。</li>
+      <li>Controller类通过View类更改页面元素（HTML，CSS）</li>
+      <li>用户更改Controller的属性，如果该属性牵扯到View类，在改变Controller属性的同时，更改View类。</li>
+      <li>Controller存在子控件（一个控件可以包含多个子控件），View不存在子控件</li>
+      <li>Controller 移除的时候，移除对应的View类，删除View类的页面元素（HTML,CSS）</li>
+    </ul>
+    <h3>示例</h3>
+    <p>通过下面的示例，使大家更直观的了解2者的关系</p>
+    <pre>
+      <textarea>
+        <script>
+          //View 类
+          var AView = View.extend({
 
+            _uiSetA : function(v){ //修改a 属性时的DOM操作
+              var _self = this,
+                el = _self.get('el');
+              if(v){
+                el.addClass('a-class');
+              }else{
+                el.removeClass('a-class');
+              }
+            },
+            _uiSetB : function(v){//修改b 属性时的DOM操作
+              var _self = this,
+                el = _self.get('el');
+              if(v){
+                el.addClass('b-class');
+              }else{
+                el.removeClass('b-class');
+              }
+            }
+          },{
+            ATTRS : {
+              a : {},
+              b : {}
+            }
+          },{
+            xclass : 'a-view'
+          });
+
+          //控件类
+          var A = Controller.extend({
+            _uiSetB : function(v){ //当设置属性b的时候触发
+
+            },
+            _uiSetA : function(v){ //当设置属性a的时候触发
+              if(v){
+                //To Do
+              }else{
+                //To Do
+              }
+            }
+          },{
+            ATTRS : {
+              /**
+               * 某个状态值
+               * @type {Boolean}
+               */
+              a : {
+                view : true,
+                value : false
+              },
+              /**
+               * 另个状态值
+               * @type {Boolean}
+               */
+              b : { //因为b未设置view : true，所以不会同步到view类
+                value : false
+              },
+              xview : {  //指定View类，如果不指定，直接使用父类的View类
+                value : AView
+              }
+            }
+          },{
+            xclass : 'a'
+          });
+
+          var acontrol = new A({a : true,b : true});
+          acontrol.render(); 
+
+          acontrol.get('a');//true
+          acontrol.get('view').get('a');//true
+          acontrol.get('el')  == acontrol.get('view').get('el'); //true
+          acontrol.get('el').hasClass('a-class'); //true
+
+          acontrol.get('b'); //true
+          acontrol.get('view').get('b');// undefined
+          acontrol.get('el').hasClass('b-class'); //false
+
+          acontrol.set('a',false);
+          acontrol.get('view').get('a');//false
+          acontrol.get('el').hasClass('a-class'); //false
+
+          acontrol.set('b',false);
+          acontrol.get('view').get('b');// undefined
+          acontrol.get('el').hasClass('b-class'); //false
+
+        </script>
+      </textarea>
+    </pre>
+    <ol>
+      <li>通过配置<code>ATTRS</code>中的属性<code>xview</code>来指定View类</li>
+      <li>在<code>ATTRS</code>的属性定义中，只有设置了<code>view : true</code>的属性才回在创建控件的时候同步到View类</li>
+      <li>也只有设置了<code>view : true</code>的属性，在属性值更改时同步到View类</li>
+      <li>所有在<code>ATTRS</code>的属性定义的属性，在改变时都会调用<code>_uiSetXxx</code>的方法</li>
+      <li>Controller类中的<code>_uiSetXxx</code>,和View类中的<code>_uiSetXxx</code>分别执行，互不干扰</li>
+    </ol>
+    <h3>属性同步过程</h3>
+    <p>通过下图我们来看属性的同步过程</p>
+    <p class="centered"><img src="../../assets/img/c-v.jpg"/></p>
+
+    <h2>创建自己的View类</h2>
+    <p>以下场景需要创建自己的View类</p>
+    <ul class="tutor-list">
+      <li>定义了一个或多个属性需要进行DOM，CSS操作</li>
+      <li>引入的扩展类（Mixin类）存在对应的View类，那么需要创建自己的View类引入扩展的View类</li>
+      <li>需要覆写父类的View类的某些方法</li>
+    </ul>
+    <h3>扩展类的View类</h3>
+    <p>扩展类会在后面的章节里详细介绍，这里仅介绍为何引入扩展类的View类，看下面的示例：</p>
+    <pre>
+      <textarea>
+        <script>
+          //扩展的View类，操作DOM
+          var AMixinView = function(){
+            _uiSetAStatus :function(v){
+              //do something
+            }
+          };
+          AMixinView.ATTRS = {
+            aStatus : {}
+          };
+          //扩展类
+          var AMixin = function(){
+
+          };
+
+          AMixin.ATTRS = {
+            aStatus : {
+              view : true
+            }
+          };
+
+          //类的View类
+          var AView = View.extend([AMixinView]);
+
+          //新的控件类，使用扩展
+          var AControl = Controller.extend([AMixin],{
+
+          },{
+            ATTRS : {
+              xview : {
+                value : AView
+              }
+            }
+          });
+
+        </script>
+      </textarea>
+    </pre>
+    <ul class="tutor-list">
+      <li>由于AControl类使用了扩展AMixin，而AMixin中由DOM操作，所以创建 AMixinView类</li>
+      <li>AControl使用了AMixin后，对应的默认View类（Controller类的View类）不支持AMixinView的属性</li>
+      <li>所以引入AView类继承自A的父类的View类，同时在AControl上指定</li>
+    </ul>
+
+    <p>在实现控件的时候，很多场景下不需要实现自己的View类，具体的实现方式由开发者自己去权衡。</p>
 
     <h2>API</h2>
     <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a target="_blank" href="http://www.builive.com/docs/#!/api/BUI.Component.View">查看API文档</a></p>
