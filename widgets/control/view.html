@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件生命周期">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>Controller 类</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/view.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>View类的实现</li>
+          <li>如何与Controller类通信</li>
+          <li>如何实现自己的View类</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+    <h2>View 类</h2>
+    <p>首先我们回顾一下上一章节讲的内容：</p>
+    <p class="centered">
+      <img src="../../assets/img/bui-mvc.jpg" alt="MVC">
+    </p>
+    <ul class="tutor-list">
+      <li>Model: 控件的配置项、当前的属性值或者控件代表的数据</li>
+      <li>Controller : 管理控件创建、移除的逻辑；控件的方法或者事件</li>
+      <li>View : 控件在页面创建的DOM，以及这些DOM上应用的样式</li>
+    </ul>
+    <p>在上一章里主要讲解了Controller类，本章主要讲解View类的实现和如何通过Controller来控制View类</p>
+    <h3>View类的实现</h3>
+    <p>View类也是继承于UIBase类，支持事件、属性和控件的<a data-id="life" class="page-action" href="life.html">生命周期管理</a>：</p>
+    <p class="centered">
+      <img src="../../assets/img/base-class.jpg" alt="顶层类图">
+    </p>
+    <pre>
+      <textarea>
+        <script>
+        var View = UIBase.extend([UIBase.TplView], {
+
+        },{
+          ATTRS : {
+
+          }
+        },{
+          xclass : 'view'
+        });   
+        </script>
+      </textarea>
+    </pre>
+    <ul class="tutor-list">
+      <li>View 类继承UIBase类</li>
+      <li>View 类使用TplView扩展类，处理模板的html渲染，后面的<a data-id="template" class="page-action" href="template.html">使用模板章节</a>会详细介绍</li>
+    </ul>
+
+
+    <h2>API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a target="_blank" href="http://www.builive.com/docs/#!/api/BUI.Component.View">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Component.View">
+      
+    </div>
+
+    <h2>下一步学习</h2>
+    <p>学完本章后，你可以继续学习<a data-id="view" class="page-action" href="view.html">通用管理类</a>了解如何在页面上管理所有的控件</p>
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="http://g.tbcdn.cn/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
