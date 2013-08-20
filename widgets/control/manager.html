@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>配置项和属性</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/manager.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>控件的统一管理机制</li>
+          <li>命名空间</li>
+          <li>统一管理类</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>初学者</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>统一管理</h2>
+    <p>由于下面的一些原因我们需要对所有的控件进行统一的管理：</p>
+    <ol>
+      <li>以一种简单方便的方式查找所有UI组件的构造函数</li>
+      <li>方便配置父控件的子控件，父控件可以一种延迟的方式生成子控件</li>
+      <li>查找已经生成在页面上的UI控件</li>
+    </ol>
+    <p>BUI中使用2中统一管理控件的方式：</p>
+    <ol>
+      <li>命名控件的方式管理类</li>
+      <li>使用统一的Manager管理类</li>
+    </ol>
+    <h2>命名空间</h2>
+    <p>控件的一种管理方式是使用命名空间，命名空间是一个个的Object,类是上面的一个个的属性，BUI提供了命名空间的功能：</p>
+    <ul class="tutor-list">
+      <li><code>BUI</code>是全局的命名空间，是BUI控件库的入口</li>
+      <li><code>BUI.namespace</code>可以来创建命名空间，创建出的命名空间直接绑定到<code>BUI</code></li>
+      <li>可以通过<code>BUI.app</code>创建自己的全局命名空间，使用<code>BUI.namespace</code>创建子命名空间</li>
+    </ul>
+    <pre>
+      <textarea>
+        <script>
+          var Menu = BUI.namespace('Menu'); //创建BUI.Menu = {};
+          var Menu1 = BUI.namespace('Menu'); //由于BUI.Menu已经存在，所以直接返回
+          Menu == Menu1; //true
+
+          var MyApp = BUI.app('MyApp'); //window.MyApp = {};
+          var MyMenu = BUI.namespace('Menu',MyApp); //MyApp.Menu = {};
+
+        </script>
+      </textarea>
+    </pre>
+    <p>在使用BUI的整体打包文件<code>bui-min.js</code>时，可以直接使用控件的命名空间来访问控件</p>
+    <pre>
+      <textarea>
+        <script>
+          var Grid = BUI.Grid,
+            Menu = BUI.Menu,
+            Tree = BUI.Tree;
+
+          var tree = new Tree.TreeList({
+            render : '#t1',
+            nodes : []
+          });
+          tree.render();
+        </script>
+      </textarea>
+    </pre>
+
+    <h2>统一管理类</h2>
+    <p>BUI使用<code>BUI.Component.Manager</code>来统一管理所有创建的控件类，和实例化的控件对象，我们来介绍一下这个类的功能：</p>
+    <ul class="tutor-list">
+      <li>注册创建的类，在调用<code>Controller.extend</code>的时候，根据<code>xclass</code>注册类</li>
+      <li>注册创建的实例对象,创建对象的时候将对象注册到管理器</li>
+      <li>查找类和实例对象，通过类的xclass或者对象的id属性完成此功能</li>
+    </ul>
+    <h3>示例</h3>
+    <pre>
+      <textarea>
+        <script>
+          var A = Controller.extend({ //将 xclass : 'a' 作为key注册类A
+
+          },{
+            ATTRS : {
+
+            }
+          },{
+            xclass : 'a'
+          });
+
+          //我们此时可以这样查找A
+          var aClass = BUI.Component.Manager.getConstructorByXClass('a'),
+            a = new aClass({//创建对象 == new A({});
+              id : 'atest', //如果没设置，则自动生成id
+              render : '#a1'
+            }); 
+          BUI.Component.Manager.getComponent('a1');//可以获得atest
+
+        </script>
+      </textarea>
+    </pre>
+    <h3>查找</h3>
+    <p>注册类和注册实例对象，BUI控件会在继承和实例化过程中自动进行，所以查找类或者实例是使用最多的场景：</p>
+    <ul class="tutor-list">
+      <li><code>BUI.Component</code>上面有个静态函数<code>BUI.Component.create</code>可以通过xclass实例化类</li>
+      <li>配置控件的<code>children</code>时，可以不用直接配置子控件的实例对象而是直接配置一个Object指定xclass</li>
+      <li>在不同的模块中创建类，可以通过<code>BUI.Component.getComponent(id)</code>的形式获取其他模块的类</li>
+    </ul>
+    <pre>
+      <textarea>
+        <script>
+          var A = Controller.extend({ //将 xclass : 'a' 作为key注册类A
+
+          },{
+            ATTRS : {
+
+            }
+          },{
+            xclass : 'a'
+          });
+
+          var B = Controller.extend({ //将 xclass : 'a' 作为key注册类A
+
+          },{
+            ATTRS : {
+
+            }
+          },{
+            xclass : 'b'
+          });
+
+          //你可以这样创建控件
+          var a = new A({
+            children : [{
+              new B({}),
+              new B({})
+            }]
+          });
+
+          //也可以这样创建控件
+          var a1 = new A({
+            children : [{
+              {xclass : 'b'},
+              {xclass : 'b'}
+            }]
+          });
+
+        </script>
+      </textarea>
+    </pre>
+    <p>使用第二种创建方式有很多好处：</p>
+    <ol>
+      <li>延迟创建子控件，不需要再配置父控件的时候全部生成子控件</li>
+      <li>xclass的缩写形式便于记忆，便于理解。可以不去关注子控件的具体命名控件的位置</li>
+      <li>使用模块，异步加载模块时可以不使用require的形式引入子控件的模块，减少模块依赖</li>
+      <li>xclass也可以省略，具体可以查看<a data-id="children" class="page-action" href="children.html">子控件管理</a></li>
+    </ol>
+
+    <p>下面只是简单的列表，详细信息请<a href="http://www.builive.com/docs/#!/api/BUI.Component.Manager">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Component.Manager">
+      
+    </div>
+
+    <h2>下一步学习</h2>
+    <p>学完本章后，你可以继续学习<a data-id="children" class="page-action" href="children.html">子控件管理</a></p>
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="http://g.tbcdn.cn/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
