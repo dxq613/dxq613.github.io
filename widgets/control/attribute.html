@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件生命周期">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>控件的配置和属性</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/attr.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>控件的属性的定义</li>
+          <li>控件配置项和属性的对应关系</li>
+          <li>属性的同步</li>
+          <li>控件属性的覆盖</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+    <h2>定义属性</h2>
+    <p>在前面的BUI基础中的<a data-id="config" class="page-action" href="config.html">配置项和属性</a>章节里面我们已经详细的讲过配置项和属性，但是在实现具体控件的过程中，属性有一些自己的特点和约定，熟悉这些细节，可以让你方便灵活的扩展控件</p>
+
+    <h3>示例</h3>
+    <p>通过示例来说明在控件中是如何使用属性，如何在更改属性的过程中同步页面内容</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/control/content.php"></div>
+    <p>上面的示例中我们实现了一下功能：</p>
+    <ol>
+      <li>定义了属性<code>title,bodyText</code></li>
+      <li>将配置项转换成属性,并同步到<code>AView</code>上并将<code>title,bodyText</code>展示在页面上</li>
+      <li>修改<code>title,bodyText</code>属性，并且同时在页面上反馈</li>
+      <li>修改<code>title</code>的同时，如果没提供<code>bodyText</code>，显示默认的文本</li>
+    </ol>
+    <h3>属性和配置</h3>
+    <p>在构造函数传入以键值对的形式的对象，对象的所有的字段会转换成控件对象上的属性值，但是定义过的属性和未定义的属性有一定的差异：</p>
+    <ol>
+      <li>定义过的属性在初始化的时候会进行数据同步和向View类上同步，如果定义的时候设置<code>sync:false</code>则不进行同步</li>
+      <li>同步是指调用类上的<code>_uiSetXxx</code>方法，例如： <code>title</code>调用<code>_uiSetTitle</code>方法，修改属性值时也会触发<code>_uiSetXxx</code>方法。</li>
+      <li>向View类上同步需要属性上声明<code>view : true</code>,同时更改对应的属性时也会同步到View类</li>
+    </ol>
+
+    <h2>属性覆盖</h2>
+    <p>在章节<a data-id="life" class="page-action" href="life.html">控件的生命周期中</a>我们介绍了，<code>renderUI,syncUI,bindUI</code>等方法是不会覆盖的，会按照一定的顺序执行，但是属性会进行覆盖，只是在覆盖方式上,继承或者扩展来的属性会进行合并，传入的配置项会对属性进行覆盖，看下面的示例：</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/control/override.php"></div>
+    <p>运行结果看一下，你会发现以下结果：</p>
+    <pre>
+      title:title C,
+      info1:{"a":"3","b":"2","c":"1"},
+      info2:{"a":"3","b":"1","c":"1"}
+      info3:{"b":"custom"}
+    </pre>
+    <ul class="tutor-list">
+      <li>对于非对象属性，继承或者扩展过程中进行覆盖，如<code>title</code>属性C覆盖B覆盖A</li>
+      <li>对于对象属性，继承或者扩展过程中进行合并，C优先于B优先A</li>
+      <li>传入的对象属性，会覆盖（替换）整个对象，如：<code>info3</code>属性</li>
+    </ul>
+    <p>属性覆盖对于继承和扩展非常重要，也是非常方便的方式，但是使用过程中需要对此有理解，否则会出现难以理解的情况。</p>
+
+    <h2>下一步学习</h2>
+    <p>学完本章后，你可以继续学习<a data-id="inherit" class="page-action" href="inherit.html">控件继承</a>和<a data-id="children" class="page-action" href="children.html">子控件管理</a>更深入的了解控件的继承和嵌套子控件</p>
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="http://g.tbcdn.cn/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
