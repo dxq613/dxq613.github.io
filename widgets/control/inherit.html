@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件生命周期">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>BUI控件的继承</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/inherit.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>BUI的继承体系</li>
+          <li>如何通过继承实现一个控件</li>
+          <li>如何通过实现扩展</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>初级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+    
+    <h2>BUI的继承体系</h2>
+    <p>在<a data-id="life" class="page-action" href="life.html">前面的章节</a>里已经介绍过BUI的继承，本章进行更详细的介绍，我们依然从最顶层的类开始：</p>
+    <p class="centered">
+      <img src="../../assets/img/base-class.jpg" alt="顶层类图">
+    </p>
+
+    <h2>实现继承</h2>
+    <ul class="tutor-list">
+      <li>BUI的所有的UI控件都是从<a data-id="controller" class="page-action" href="controller.html">Controller类</a>开始的，如果需要进行DOM操作，那么就需要实现<a data-id="view" class="page-action" href="view.html">View类</a></li>
+      <li>大量的共性的功能，在BUI中实现成了Mixin,如果在Mixin需要操作DOM也需要实现对应的View类</li>
+    </ul>
+      
+    <div class="page-demo" data-url="http://www.builive.com/demo/control/content.php"></div>
+    <p>上面是一个简单的示例，说明了类继承过程中需要实现的步骤：</p>
+    <ol>
+      <li>通过继承声明类，通过父类的<code>extend</code>方法</li>
+      <li>声明类的属性,设置默认值</li>
+      <li>创建属性对应的函数，当属性值发生改变时执行</li>
+      <li>创建指定View类</li>
+      <li>根据需要创建<a data-id="life" class="page-action" href="life.html">控件生命周期</a>中的方法</li>
+    </ol>
+
+    <h3>使用mixin</h3>
+    <p>下面的示例我们提供了一个使用mixin的方式</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/control/mixin.php"></div>
+    <p>这个示例实现了一个可拖拽的控件，通过BUI中提供的几个扩展，非常容易的实现了效果，这几个扩展在后面章节中会详细的介绍，有的扩展有对应的View类，所以我们需要在对应的View类中引入</p>
+
+    
+    <h2>下一步学习</h2>
+    <p>学完本章后，你可以继续学习<a data-id="children" class="page-action" href="children.html">子控件管理</a>更深入的了解如何组织控件</p>
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="http://g.tbcdn.cn/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
