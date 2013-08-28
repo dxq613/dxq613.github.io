@@ -31,7 +31,54 @@
         </ul>
       </div>
     </div>
+
+    <h2>子控件</h2>
+    <p>BUI的控件可以嵌套子控件，可以控制子控件的创建、渲染与销毁，有一下优点：</p>
+    <ul class="tutor-list">
+      <li>可以任意组合控件，最好的做到控件的复用。例如Calendar控件中可以使用List,Toolbar等控件。</li>
+      <li>降低控件的复杂度，将部分逻辑转移到子控件间实现。</li>
+      <li>方便统一管理控件，例如可以将一个Grid实现成Dialog的子控件，当Dialog销毁时，Grid自动销毁。</li>
+    </ul>
+
+    <h2>创建子控件</h2>
+    <p>BUI中创建子控件有3种方式：</p>
+    <ul class="tutor-list">
+      <li>直接使用构造函数创建子控件</li>
+      <li>直接使用配置xclass的对象来创建子控件</li>
+      <li>使用srcNode的方式解析html创建子控件</li>
+    </ul>
+
+    <h3>直接使用构造函数</h3>
+    <p>下面是一个直接使用构造函数创建子控件的菜单，菜单和菜单项都是控件</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/menu/child-menu.php"></div>
+    <ul class="tutor-list">
+      <li>优点：概念清晰，易于理解</li>
+      <li>缺点：过于繁琐</li>
+    </ul>
+
+    <h3>子控件直接使用配置项</h3>
+    <p>我们可以优化上面的示例，把所有的子控件的配置项传入 <code>children</code>属性中</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/menu/normal-menu2.php"></div>
+    <p>BUI.Menu.MenuItem 的xclass 是menu-item，此处我们省略了配置项<code>xclass : menu-item</code>,因为所有的类从Control继承了一个属性<code>defaultChildClass</code>，此属性对于Menu来说就是<code>defaultChildClass : menu-item</code></p>
+
+    <h3>xclass 和 xtype</h3>
+    <p>对于menu-item这种xclass比较短的，并且同一个父控件只使用一种子控件场景来说，用户非常容易记忆和使用，但是看下面的例子</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/bar/all.php"></div>
+    <ul class="tutor-list">
+      <li>BUI.Toolbar.Bar类的默认xclass是 <code>defaultChildClass:bar-item</code>,所以未声明xclass的默认使用<code>bar-item</code></li>
+      <li>其他的子控件都是继承自<code>bar-item</code>代表的类，所以xclass都是以<code>bar-item-</code>为前缀</li>
+      <li>所以我们可以使用<code>xtype</code>作为缩写来使用，其中<code>xclass = defaultChildClass + '-' + xtype</code></li>
+    </ul>
+    <p>看下面的示例，来了解xclass和xtype的对应关系</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/bar/xtype.php"></div>
     
+    <h3>defaultChildCfg</h3>
+    <p>对于菜单，表单，toolbar这类子控件共性非常多的场景，每一个子控件往往需要配置相同的属性，如果我们每个子控件都一一进行配置，非常繁琐，所以BUI提供了<code>defaultChildCfg</code>属性，通过下面的示例来了解</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/bar/button-group.php"></div>
+    
+    <h3>使用srcNode方式</h3>
+    <p>使用srcNode 的方式利用html来生成子控件，在下面的<a data-id="decorate" class="page-action" href="decorate.html">使用html生成控件</a>章节中详细的介绍给大家</p>
+  
     <h2>API</h2>
     <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a target="_blank" href="http://www.builive.com/docs/#!/api/BUI.Component.UIBase.ChildCfg">查看API文档</a></p>
     <div class="J_API" data-name="BUI.Component.UIBase.ChildCfg">
