@@ -215,6 +215,9 @@ define('common/main',function (require) {
         menus = _self.get('menus'),
         tree = new Tree.TreeList({
           render: '#J_Tree',
+          accordion : true,
+          expandEvent : 'itemclick', //单击展开节点
+          collapseEvent : null,
           nodes : menus
         });
       tree.render();
