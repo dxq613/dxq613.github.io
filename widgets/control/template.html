@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件生命周期">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>使用模板</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/template.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>渲染控件的模板</li>
+          <li>控件属性的模板</li>
+          <li>配置子控件的模板</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>初级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>控件的模板</h2>
+    <p>BUI控件包含的html是通过模板来实现的，你可以把每个控件看成页面上的一个盒子，一般是一个div标签(可以通过<code>elTagName</code>改变),这个div的属性可以通过以下属性控制：</p>
+    <ul class="tutor-list">
+      <li><code>elAttrs</code>: 属性如： {title : 'title',name : 'name'}</li>
+      <li><code>elCls</code> : 应用上的css class,如： elCls : 'selected'</li>
+      <li><code>elStyle</code> : 应用的css属性： 如 ： elStyle : {border : '1px solid red'}</li>
+    </ul>
+    <p>这个盒子内部的html则可以通过属性<code>tpl，tplRender</code>来配置，BUI中的模板都是简单模板：</p>
+    <ul class="tutor-list">
+      <li>tpl格式：'&lt;li&gt;{text}&lt;/li&gt;'，使用html和花括号括起来的文本，BUI控件会将控件的配置项匹配的属性插入到html中</li>
+      <li>tplRender: 是一个函数,原型是：function(attrs}{},返回的html作为控件的模板</li>
+      <li>可以通过属性<code>childContainer</code>指定一个选择器，作为子控件的父容器</li>
+    </ul>
+    <p>我们通过两个示例，来了解上面讲述的内容，首先是控件最外层的属性配置：</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/control/attrs.php"></div>
+    <p>模板的示例：</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/control/tpl.php"></div>
+    <p><span class="label label-warning">说明</span>上面的示例中我们创建了一个列表list,包含多个子控件list-item，我们通过以下属性实现了自定义模板：</p>
+    <ul class="tutor-list">
+      <li><code>tpl</code>,list的属性，决定了list本身的模板，我们添加了一个搜索的输入框和按钮</li>
+      <li><code>defaultChildCfg.tplRender</code>，通过统一配置子控件的属性<code>tplRender</code>，来决定子控件的模板</li>
+    </ul>
+
+    <h2>控件属性的模板</h2>
+    <p>除了构成控件主体的html，还有部分html是属性发生改变时渲染到页面上的，为了提高扩展性，我们尽可能的将这些变化的html配置成为模板,我们以<code>BUI.Form.Field</code>控件的几个属性来说明：</p>
+    <ul class="tutor-list">
+      <li><code>errorTpl</code>：是显示错误信息的模板</li>
+      <li><code>controlTpl</code>：input元素的模板</li>
+      <li><code>loadingTpl</code>: 异步验证时，loading的模板</li>
+    </ul>
+    <p><span class="label label-info">最佳实践</span>：表单字段的这些属性，一般在父控件表单中统一设置，这就是统一配置子控件的模板</p>
+    
+    <h2>配置子控件模板</h2>
+    <p>如果一个控件有多个子控件，子控件的模板又是一样的，那么可以通过<code>defaultChildCfg</code>来统一配置子控件的模板。</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/control/children.php"></div>
+
+    <h2>API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a target="_blank" href="http://www.builive.com/docs/#!/api/BUI.Component.UIBase.Tpl">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Component.UIBase.Tpl">
+      
+    </div>
+    <h2>下一步学习</h2>
+    <p>学完本章后，你可以继续学习<a data-id="decorate" class="page-action" href="decorate.html">使用html生成控件</a>更深入的了解如何方便的生成控件</p>
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="http://g.tbcdn.cn/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
