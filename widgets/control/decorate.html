@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>BUI 控件</title>
-  <meta name="description" content="BUI 控件生命周期">
+  <meta name="description" content="BUI 使用html生成控件">
   <meta name="author" content="dxq613@gmail.com">
   <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
   <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
@@ -31,14 +31,165 @@
         </ul>
       </div>
     </div>
-  
+
+    <h2>简介</h2>
+    <p>我们先来看一下各个框架是如何生成控件的</p>
+    <ul class="tutor-list">
+      <li>jQuery插件：在页面的DOM基础上生成控件</li>
+      <li>Ext: 使用JSON生成控件</li>
+      <li>dojo: 将配置项配置到DOM的属性上，转换成配置项，然后通过配置项生成控件</li>
+    </ul>
+    <p>仔细思考各种控件的本质，我们会发现有些控件适合于插件的形式，有些控件适合于JSON的形式：</p>
+    <ul class="tutor-list">
+      <li>Grid,Tree,Calendar这一类控件，用户不关心控件的DOM结构，只关心数据，适合于用JSON来创建</li>
+      <li>Form控件，最好是以用户输出到页面上的表单元素为基础，构建相应的控件</li>
+      <li>Menu,List这一类结构简单的控件，可以根据需要选择是输出DOM还是使用JSON生成</li>
+    </ul>
+    <p>接下来我们以列表为示例来生成控件</p>
+
+    <h2>生成控件</h2>
+    <p>下面是一个输出到页面的列表，以现有的Html为基础创建一个列表控件，增加选中、hover等事件</p>
+    <p>BUI控件通过属性<code>srcNode</code>指定需要的html</p>
+    <pre>
+      <textarea>
+        <div  id="list1" class="row">
+          <ul class="bui-select-list span8">
+            <li class="bui-list-item" data-value="1">选项1</li>
+            <li class="bui-list-item" data-value="2">选项2</li>
+            <li class="bui-list-item" data-value="3">选项3</li>
+            <li class="bui-list-item" data-value="4">选项4</li>
+          </ul>
+        </div>
+      </textarea>
+    </pre>
+    <div class="page-demo" data-url="http://www.builive.com/demo/list/simple-list-dec.php"></div>
+
+    <p>使用这种方式有以下优点：</p>
+    <ul class="tutor-list">
+      <li>html对于开发人员更容易理解和操作</li>
+      <li>直接生成在页面上，不必等JS执行就能显示出来</li>
+      <li>JS禁用时，也可以提供部分功能</li>
+    </ul>
+    <p>但是我们也能看到以下缺点：</p>
+    <ul class="tutor-list">
+      <li>输出的html需要有一定的规则，例如指定的DOM上输出指定的样式(css)或者配置特定的属性(attribute)</li>
+      <li>同一个控件在不同的页面上的html可能差异很大，不便于控件的统一维护和升级</li>
+      <li>JSON格式的扩展性优于html</li>
+    </ul>
+    <h3>优化输出的Html</h3>
+    <p>上面示例的html结构很复杂，不便于使用，所以我们可以进行一下优化：</p>
+    <pre>
+      <textarea>
+        <div  class="row">
+          <ul  id="list1" class="bui-select-list span8">
+            <li data-value="1">选项1</li>
+            <li data-value="2">选项2</li>
+            <li data-value="3">选项3</li>
+            <li data-value="4">选项4</li>
+          </ul>
+        </div>
+      </textarea>
+    </pre>
+
+    <h2>将html转换成控件属性</h2>
+    <p>html上面的css样式、属性都可以转换成控件的属性：</p>
+    <ul class="tutor-list">
+      <li>所有生成控件的html最外层元素上面的属性<code>data-xxx</code>都会转变成控件的配置项</li>
+      <li>id,name,title,value这些属性都会转换成控件的配置项</li>
+      <li>可以通过配置属性<code>decorateCfgFields</code>来实现特别控件的属性转换，例如Form控件的action,method属性</li>
+      <li>可以读取控件的display,visibility属性，配置控件的visible属性</li>
+    </ul>
+    <h3>简单示例</h3>
+    <p>我们通过下面的一个示例来了解上面的内容：</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/control/srcNode.php"></div>
+
+    <h3>转换特定的属性</h3>
+    <p>有些控件需要特定的属性，例如列表控件需要列表项<code>items</code>,我们如何通过html生成items属性,我们来看一下<code>BUI.List.SimpleList</ocde>类的定义</p>
+    <pre>
+      <textarea>
+        <script>
+          var SimpleList = BUI.Component.Controller.extend([DomList],{
+            //成员函数定义
+          },{
+            //静态属性定义
+            ATTRS : { //默认属性
+              items : { //列表项属性
+                value : []
+              }
+            },
+            PARSER : { //转换html来的属性
+              items : function(el){
+                var items = [];
+                //通过html获取items 集合
+                //....
+                return items;
+              }
+            }
+          },{
+            xclass : 'simple-list'
+          })
+        </script>
+      </textarea>
+    </pre>
+    <ul class="tutor-list">
+      <li>上面的示例是用伪码的形式展示出<code>BUI.List.SimpleList</code>的定义，详细的内容请参看<a href="http://www.builive.com/docs/source/domlist.html#BUI-List-DomList" target="_blank">简单列表源码</a></li>
+      <li><code>PARSER</code>属性是<code>BUI.List.SimpleList</code>的静态属性，当使用srcNode时，会执行<code>PARSER</code>中的方法</li>
+      <li><code>items</code>,在控件生成过程中，将对应的Html转换成一个数组的Object,详细的代码出于篇幅所限，自己去查找源码</li>
+    </ul>
+
+    <h2>生成子控件</h2>
+    <p>对于Form，Menu这一类的容器类控件，需要有子控件才有意义，我们首先以Menu为示例来了解如何生成MenuItem子控件</p>
+    <h3>生成菜单</h3>
+    <p>html如下：</p>
+    <pre>
+      <textarea>
+        <div  class="row">
+          <ul id="m1" class="demo-menu">
+                <li class="bui-menu-item" data-id="1">菜单一</li>
+                <li class="bui-menu-item" data-id="2">菜单二</li>
+                <li class="bui-menu-item" data-id="3">菜单三</li>
+            </ul>
+        </div>
+      </textarea>
+    </pre>
+
+    <div class="page-demo" data-url="http://www.builive.com/demo/menu/decorate.php"></div>
+    <p>控件的默认生成方式就是生成菜单的过程如下：</p>
+    <ol>
+      <li>控件生成过程中，发现srcNode属性，将对应的最外层的DOM转换成控件的<code>el</code>属性，并读取对应的属性</li>
+      <li>检测是否设置了属性<code>isDecorateChild</code>属性，如果未设置不转换内部DOM，否则继续</li>
+      <li>查看el.children()的所有节点上的class是否有对应的BUI控件，如果存在转变成子控件</li>
+    </ol>
+
+    <h3>生成表单</h3>
+    <div class="page-demo" data-url="http://www.builive.com/demo/form/simple-form.php"></div>
+    <p>生成表单的过程比Menu要复杂一些：</p>
+    <ul class="tutor-list">
+      <li>所有的input,textarea,select元素会转变成对应的表单字段</li>
+      <li>如果存在应用了<code>bui-form-field</code>或者<code>bui-form-group</code>为前缀的class样式，那么也会转变成表单的子控件</li>
+      <li>如果存在<code>bui-form-group</code>为前缀的子控件，会继续转变内部元素为<code>bui-form-group</code>的子控件</li>
+    </ul>
+     <pre>
+      <textarea>
+      <form>
+        <div class="controls bui-form-group"  data-rules="{checkRange:1}" data-messages="{checkRange:'至少勾选一项！'}" >
+          <label class="checkbox" for=""><input name="stype" value="1" type="checkbox">集市</label>
+          <label class="checkbox" for=""><input name="stype" value="2" type="checkbox">商城</label>
+          <label class="checkbox" for=""><input name="stype" value="3" type="checkbox">无名良品</label>
+        </div>
+      </form>
+      </textarea>
+    </pre>
+    <p>以这段html为例，bui-form-group会转换成form的子控件，input[type="checkbox"]的元素会转变成bui-form-group的子控件</p>
+
     <h2>API</h2>
     <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a target="_blank" href="http://www.builive.com/docs/#!/api/BUI.Component.UIBase.Decorate">查看API文档</a></p>
     <div class="J_API" data-name="BUI.Component.UIBase.Decorate">
       
     </div>
     <h2>下一步学习</h2>
-    <p>学完本章后，你可以继续学习<a data-id="loader" class="page-action" href="loader.html">异步加载控件内容</a>更深入的了解如何方便的生成控件</p>
+    <p>学完本章你会对BUI如何生成控件有了进一步的了解，你可以继续学习<a data-id="loader" class="page-action" href="loader.html">异步加载控件内容</a>了解特定的场景下可以异步加载控件的内容</p>
+    
   </div>
   <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
   <script src="http://g.tbcdn.cn/fi/bui/seed-min.js?t=201212261326"></script> 
