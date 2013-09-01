@@ -30,6 +30,19 @@
         </ul>
       </div>
     </div>
+
+    <h2>为什么提供事件依赖</h2>
+    <p>前面的章节中已经介绍过如何用<a data-id="decorate" class="page-action" href="decorate.html">Html生成控件</a>，我们可以将属性配置在html上，因此将快速注册事件实现成控件的一个属性成为了一种非常自然的方式,通过下面的简单示例，我们来认识控件的依赖属性</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/control/depends.php"></div>
+    <p>上面的示例使用了属性<code>depends</code>,使用此属性可以快速注册事件,每个依赖用一个键值对表示：</p>
+    <ul class="tutor-list">
+      <li>键是一个字符串格式如下 ： #id+事件名，其中id先遍历是否存在指定id的控件，如果查找不到，查找对应的DOM</li>
+      <li>值可以是一个数组，数组中是字符串，每个字符串都代表控件的方法名称，事件触发时，执行对应的方法</li>
+      <li>值可以是一个函数，作为事件的回调函数</li>
+    </ul>
+
+    <h2>表单示例</h2>
+    <div class="page-demo" data-url="http://www.builive.com/demo/form/depends.php"></div>
   
     <h2>API</h2>
     <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a target="_blank" href="http://www.builive.com/docs/#!/api/BUI.Component.UIBase.Depends">查看API文档</a></p>
@@ -37,7 +50,7 @@
       
     </div>
     <h2>下一步学习</h2>
-    <p>学完本章后，你可以继续学习<a data-id="decorate" class="page-action" href="decorate.html">异步加载控件内容</a>更深入的了解如何方便的生成控件</p>
+    <p>学完本章后，你可以继续学习<a data-id="position" class="page-action" href="position.html">位置和移动</a>来了解控件的对齐和位置相关的知识，为我们开始学习第一个控件<a data-id="overlay-base" class="page-action" href="overlay-base.html">Overlay</a>打下准备</p>
   </div>
   <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
   <script src="http://g.tbcdn.cn/fi/bui/seed-min.js?t=201212261326"></script> 
