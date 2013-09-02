@@ -216,6 +216,7 @@ define('common/main',function (require) {
         tree = new Tree.TreeList({
           render: '#J_Tree',
           accordion : true,
+          expandAnimate : true,
           expandEvent : 'itemclick', //单击展开节点
           collapseEvent : null,
           nodes : menus
