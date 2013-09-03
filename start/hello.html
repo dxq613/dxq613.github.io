@@ -21,8 +21,8 @@
         <h2>导引</h2>
         <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
         <ol>
-          <li>如何加载BUI文件和开始使用BUI的一些基础功能</li>
-          <li>BUI依赖的其他框架</li>
+          <li>如何加载BUI框架和开始使用BUI的一些基础功能</li>
+          <li>BUI所依赖的其他框架</li>
           <li>如何去定义模块和加载模块</li>
           <li>如何使用API以及对应的demo</li>
           <li>在使用过程中遇到的问题如何去处理</li>
@@ -35,8 +35,8 @@
     </div>
 
     <h2>如何开始</h2>
-    <p>最简单的使用BUI的方式是直接引用CDN上的文件，这能节约很多部署文件带来的问题，不过这也要求，你必须能访问公共网络。</p>
-    <p>你只需要把你要运行的页面放到一个web server上，BUI框架没有什么安全上的限制，所以不需要服务器有特别的功能，不过如果能提供Combo功能更好，Combo功能在下面会介绍。</p>
+    <p>最简单的使用BUI的方式是直接引用CDN上的BUI库，这能节约很多部署时因文件带来的问题，不过这也同时要求必须项目所部署的的计算机能访问公共网络。</p>
+    <p>BUI框架没有任何使用限制无需对服务器进行特殊的设置，现在你仅仅需要把引入了BUI框架的页面添加到服务器上运行就可以了，如果你想使用Combo功能可以进行一定的设置，Combo功能在下面会进行介绍</p>
     <h3>最简单的示例</h3>
     <pre>
       <textarea>
@@ -62,23 +62,24 @@
       </html>
       </textarea>
     </pre>
-    <p>上面的代码演示了如何使用BUI，你需要引入：</p>
+    <p>上面的代码演示了如何使用BUI，你需要注意的是：</p>
     <ol>
-      <li>BUI默认的CSS文件，如果你有自定义的样式可以不引入</li>
-      <li>BUI依赖的类库，默认是JQuery,也可以更换为Kissy，<a class="page-action" data-id="install" href="start/install">参看详情</a></li>
+      <li>在编写代码前必须检查是否已经定义了HTML规范，BUI使用的HTML规范为：<code>&lt;!DOCTYPE html&gt;</code></li>
+      <li>引入BUI默认的CSS文件（<code>dpl-min.css</code>,<code>bui-min.css</code>），如果您想使用自己的样式，可以不引入BUI的样式文件，这不会对功能造成任何影响。</li>
+      <li>引入BUI依赖的类库，默认是jQuery（<code>jquery-1.8.1.min.js</code>）,也可以更换为Kissy，如果想使用Kissy可以<a class="page-action" data-id="install" href="start/install">参看详情</a></li>
     </ol>
     <div class="row">
       <div class="span16 ">
         <p class="well">
-          你可能需要处理使用https的资源，你可以直接将地址换成类似于：<br>
-          https://s.tbcdn.cn/g/fi/bui/seed-min.js的地址
+          你可能需要处理使用https的CDN资源，而你只需要把http改成https即可，例如：<br>
+          https://s.tbcdn.cn/g/fi/bui/seed-min.js
         </p>
       </div>
     </div>
     <h3>不使用loader</h3>
-    <p>如果你对loader陌生，可以直接将整个BUI引入，但是我们不推荐这样做：</p>
+    <p>如果你对loader感到陌生，可以直接将整个BUI框架需要的文件引入，但是我们不推荐这样做：</p>
     <ol>
-      <li>整个BUI文件很大，超过200k</li>
+      <li>整个BUI框架的文件很大，超过200k</li>
       <li>有一些模块并未包含到打包好的文件中</li>
       <li>未来不排除，在新的版本中去掉这种引入方式</li>
     </ol>
@@ -105,14 +106,14 @@
     </pre>
     <p><label class="label label-info">注意</label>一下几点：</p>
     <ol>
-      <li>css文件放到<code>head</code>标签中</li>
+      <li>css文件需放到<code>head</code>标签内</li>
       <li>script文件作为<code>body</code>的最后标签，防止JS阻塞DOM加载</li>
     </ol>
 
     <div class="row">
       <div class="span16 ">
         <p class="well">
-          更多的关于加载和配置BUI的内容请参看：<a class="page-action" data-id="install" href="start/install">BUI的加载和配置</a>
+          更多的关于BUI的加载和配置方式可以参看：<a class="page-action" data-id="install" href="start/install">BUI的加载和配置</a>
         </p>
       </div>
     </div>
@@ -128,9 +129,9 @@
     -->
     <h2>模块规范</h2>
     <p>BUI的模块规范遵循<a target="_blank" href="https://github.com/cmdjs/specification/blob/master/draft/module.md">CMD规范</a>,加载默认方式使用<a target="_blank" href="http://seajs.org/docs/">seajs</a>，可以去seajs的文档了解更多的信息。</p>
-    <p>作为BUI的提供者，我们在实现和加载层次上，屏蔽了底层loader的存在，您只需要按照BUI的写法既可以无障碍的使用loader。</p>
+    <p>BUI框架在实现和加载层面上屏蔽了底层的loader的存在，一般用户无需过于关心loader层面上的实现，您只需按照BUI的规范写法既可以无障碍地使用loader。</p>
     <h3>定义模块</h3>
-    <p>模块的定义遵循<a target="_blank" href="https://github.com/cmdjs/specification/blob/master/draft/module.md">CMD规范</a>，模块的名称一般使用<code>"/"</code>，例如 <code>bui/list/simplelist</code>,模块名称必须跟目录有对应关系，上面定义的模块的文件是<code>bui/list/simplelist.js</code></p>
+    <p>模块的定义遵循<a target="_blank" href="https://github.com/cmdjs/specification/blob/master/draft/module.md">CMD规范</a>，一般使用模块文件的路径作为模块的名称，模块名称必须跟模块文件路径有对应关系，例如模块名称<code>bui/list/simplelist</code>，该模块的文件路径则为<code>bui/list/simplelist.js</code></p>
     <p class="well">这里有非常复杂的目录映射，不过日常使用中，使用最简单的方式：文件目录名跟模块名一致的规则即可。</p>
     <p>示例如下：</p>
     <pre>
@@ -147,7 +148,7 @@
 
       });
     </pre>
-    <p>CMD的规范比这里的示例要复杂，但是如果仅仅是使用BUI，了解示例的代码就足够了。</p>
+    <p>CMD的规范比以上的示例要复杂很多，但是如果仅仅是使用BUI，了解示例的代码就足够了。</p>
     <h3>模块加载</h3>
     <p>我们这里简单的展示加载BUI模块的方式：</p>
     <h4>默认的加载方式</h4>
