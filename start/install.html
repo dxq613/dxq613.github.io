@@ -1,47 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>BUI 控件</title>
-  <meta name="description" content="BUI 控件库的详细文档">
-  <meta name="author" content="dxq613@gmail.com">
-  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
-  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
-  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
-  <link href="../assets/css/prettify.css" rel="stylesheet"> 
-  <link href="../assets/css/page.css" rel="stylesheet"> 
-  <script type="text/javascript" src="../assets/js/prettify.js"></script>
+    <meta charset="utf-8">
+    <title>BUI 控件</title>
+    <meta name="description" content="BUI 控件库的详细文档">
+    <meta name="author" content="dxq613@gmail.com">
+    <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet">
+    <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+    <link href="../assets/css/prettify.css" rel="stylesheet">
+    <link href="../assets/css/page.css" rel="stylesheet">
+    <script type="text/javascript" src="../assets/js/prettify.js"></script>
 </head>
 <body>
-  <div class="container tutorial">
-    <h1>安装和加载BUI</h1>
-    <div class="intro-wraper">
-      <img class="intro-img" src="../assets/img/config.jpg"/>
-      <div class="introduce">
+<div class="container tutorial">
+<h1>安装和加载BUI</h1>
+
+<div class="intro-wraper">
+    <img class="intro-img" src="../assets/img/config.jpg"/>
+
+    <div class="introduce">
         <h2>导引</h2>
+
         <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
         <ol>
-          <li>BUI命名空间</li>
-          <li>BUI使用的Loader</li>
-          <li>不同的框架如何加载BUI</li>
-          <li>如何将BUI部署到自己的目录下</li>
-          <li>如何加载自己的模块</li>
+            <li>BUI命名空间</li>
+            <li>BUI使用的Loader</li>
+            <li>不同的框架如何加载BUI</li>
+            <li>如何将BUI部署到自己的目录下</li>
+            <li>如何加载自己的模块</li>
         </ol>
         <ul class="intro-level">
-          <li><span>难度：</span>初学者</li>
-          <li><span>版本：</span>1.0</li>
+            <li><span>难度：</span>初学者</li>
+            <li><span>版本：</span>1.0</li>
         </ul>
-      </div>
     </div>
-    <h2>BUI 命名空间</h2>
-    <p>BUI控件库提供了唯一的一个全局命名空间，主要有以下作用：</p>
-    <ol>
-      <li>不使用Loader时，整个控件库的入口，如： <code>BUI.Grid</code></li>
-      <li>加载模块的方法，以及加载模块的配置方法</li>
-      <li>全局的工具类方法，弥补JQuery工具类的缺失，和提供控件库的基础工具方法</li>
-    </ol>
-    <h3>不使用loader时</h3>
-    <p>不使用loader时，加载整个BUI文件</p>
+</div>
+<h2>BUI 命名空间</h2>
+
+<p>BUI控件库提供了唯一的一个全局命名空间<code>BUI</code>，主要有以下作用：</p>
+<ol>
+    <li>加载模块的方法，以及加载模块的配置方法</li>
+    <li>全局的工具类方法，弥补JQuery工具类的缺失，和提供控件库的基础工具方法</li>
+    <li>当不使用Loader时，整个控件库的入口，如： <code>BUI.Grid</code></li>
+</ol>
+<h3>不使用loader时</h3>
+
+<p>在不使用loader情况下，我们需要加载整个BUI框架：</p>
     <pre>
       &lt;script src="http://a.tbcdn.cn/s/bui/jquery-1.8.1.min.js"&gt;&lt;/script&gt;
       &lt;script src="http://g.tbcdn.cn/fi/bui/bui-min.js?t=201308021746"&gt;&lt;/script&gt;
@@ -51,10 +56,11 @@
           Dialog = BUI.Overlay.Dialog; //Dialog类
       &lt;/script&gt;
     </pre>
-    <h3>加载相关的函数</h3>
-    <p>这些加载相关的函数在使用kissy时，除<code>use</code>外无效</p>
-    <ul>
-      <li><strong>use</strong>: 加载需要的模块，回调函数中的模块引用和配置的模块一一对应
+<h3>加载相关的函数</h3>
+
+<p><label class="label label-info">注意</label> 当您使用的依赖库更换为Kissy时，除<code>use</code>方法外其余方法均为无效</p>
+<ul>
+    <li><strong>use</strong>: 加载需要的模块，回调函数中的模块引用和配置的模块一一对应
         <pre>
           //bui/list 对应模块 List
           //bui/picker 对应模块 Picker
@@ -62,8 +68,8 @@
 
           });
         </pre>
-      </li>
-      <li><strong>config</strong>：loader 的配置项，具体的参数<a target="_blank" href="https://github.com/seajs/seajs/issues/262">查看seajs配置项</a>
+    </li>
+    <li><strong>config</strong>：loader 的配置项，具体的参数<a target="_blank" href="https://github.com/seajs/seajs/issues/262">查看seajs配置项</a>
         <pre>
           //在服务器目录 http://a.tbcdn.cn/fi/g/common下有 my/control.js文件
           define('common/my/control',function(require){ //如果不合并模块，可以不配置模块名称
@@ -85,8 +91,8 @@
 
           });
         </pre>
-      </li>
-      <li><strong>setDebug</strong>：BUI默认加载<code>-min.js</code>，如果设置成debug状态，则加载<code>.js</code>的文件
+    </li>
+    <li><strong>setDebug</strong>：BUI默认加载文件后缀为<code>-min.js</code>，如果设置成debug状态，则加载<code>.js</code>的文件
         <pre>
           //默认加载 common/my/control-min.js
           BUI.use('common/my/control',function(){
@@ -99,15 +105,22 @@
 
           });
         </pre>
-      </li>
-    </ul>
+    </li>
+</ul>
 
-    <h2>使用的Loader</h2>
-    <p>当BUI基于JQuery时，使用<a target="_blank" href="http://seajs.org/docs">seajs</a>作为loader；当BUI基于Kissy时，使用<a target="_blank" href="http://docs.kissyui.com/">Kissy</a>的Loader，因此在这里我会描述2种loader的加载机制和注意点。更加详细的说明请参看各自的文档。</p>
-    <h3>seajs</h3>
-    <p>BUI默认使用seajs，但是做了一层封装，让用户感觉不到seajs的机制，是否使用loader加载自己的模块，用户可以选择是否阅读此章节，先来查看示例：</p>
+<h2>使用的Loader</h2>
+
+<p>当BUI基于jQuery时，使用<a target="_blank" href="http://seajs.org/docs">seajs</a>作为Loader；当BUI基于Kissy时，使用<a target="_blank"
+                                                                                                       href="http://docs.kissyui.com/">Kissy</a>的Loader，因此在这里我会描述2种loader的加载机制和注意点。更加详细的说明请参看各自的文档。
+</p>
+
+<h3>基于seajs</h3>
+
+<p>一般用户无需过于关心BUI底层的loader机制，只需掌握BUI的规范写法，用户可以选择不阅读此章节。</p>
+
+<p>BUI默认使用seajs，但是做了一层封装，让用户感觉不到seajs的机制，先来查看示例：</p>
     <pre>
-      //模块
+      //模块构建
       define('my/module/control',function(require){
         var AModule = require('a'),
           BModule = require('b');
@@ -119,248 +132,273 @@
         return control;
       });
 
+      //配置路径
       seajs.config({ //等同于BUI.config(options);
         alias : { //配置自定义路径
           'my' : 'http://a.tbcdn.cn/fi/g/my'
         }
       });
 
-      //seajs的语法
+      //seajs的USE语法
       seajs.use('my/module/control',function(Control){
         //TO DO
       });
 
-      //BUI 的语法
+      //BUI的USE语法
       BUI.use('my/module/control',function(Control){
         //TO DO
       });
     </pre>
-    <p><label class="label lable-info">注意事项</label>:</p>
-    <ul class="tutor-list">
-      <li>seajs中默认加载的文件是<code>*.js</code>,BUI默认加载的文件类型是<code>*-min.js</code></li>
-      <li>seajs默认的目录是seajs所在的目录，BUI默认的目录是seed.js或者bui.js所在的目录，下面的示例会说明默认目录</li>
-      <li>seajs对<code>./</code>或者<code>../</code>的目录按照默认目录计算,seajs.config的计算方式跟use相同</li>
-      <li>默认使用的是seajs1.3</li>
-      <li>模块定义的时候，如果未指定模块依赖的其他模块，seajs会匹配<code>require</code>关键字，运行模块前，加载依赖模块</li>
-    </ul>
+<p>更多关于seajs的规范约定可以查阅：<a href="https://github.com/seajs/seajs/issues/266" target="_blank">https://github.com/seajs/seajs/issues/266</a>
+</p>
+
+<p><label class="label lable-info">注意事项</label>:</p>
+<ul class="tutor-list">
+    <li>seajs中默认加载的文件是<code>*.js</code>,BUI默认加载的文件类型是<code>*-min.js</code></li>
+    <li>seajs默认的目录是seajs所在的目录，BUI默认的目录是seed.js或者bui.js所在的目录，下面的示例会说明默认目录</li>
+    <li>seajs对<code>./</code>或者<code>../</code>的目录按照默认目录计算，seajs.config的计算方式跟use相同</li>
+    <li>默认使用的是seajs1.3</li>
+    <li>模块定义的时候，如果未指定模块依赖的其他模块，seajs会匹配<code>require</code>关键字，运行模块前，加载依赖模块</li>
+</ul>
+<p>下面是关于加载目录的代码示例：</p>
     <pre>
       <textarea>
-      //默认目录，以BUI示例，BUI默认状况下等同seajs
-      <script src="http://localhost/a/bui/seed.js"></script>
-      <script>
-        //加载模块 my/control
-        BUI.use('my/control',function(){//此时加载的目录是 http://localhost/a/bui/my/control-min.js
+          //默认目录，以BUI示例，BUI默认状况下等同seajs
+          <script src="http://localhost/a/bui/seed.js"></script>
+          <script>
+              //加载模块 my/control
+              BUI.use('my/control', function () {//此时加载的目录是 http://localhost/a/bui/my/control-min.js
 
-        });
+              });
 
-        //如果我自定义了my目录
-        BUI.config({
-          alias : {
-            'my' : "http://localhost/a/my"
-          }
-        });
+              //如果我自定义了my目录
+              BUI.config({
+                  alias: {
+                      'my': "http://localhost/a/my"
+                  }
+              });
 
-        //加载模块 my/control
-        BUI.use('my/control',function(){//此时加载的目录是 http://localhost/a/my/control-min.js
+              //加载模块 my/control
+              BUI.use('my/control', function () {//此时加载的目录是 http://localhost/a/my/control-min.js
 
-        });
+              });
 
-        //如果我加载 ./my/control
-        BUI.use('./my/control',function(){//此时加载的目录是 http://localhost/a/bui/my/control-min.js
+              //如果我加载 ./my/control
+              BUI.use('./my/control', function () {//此时加载的目录是 http://localhost/a/bui/my/control-min.js
 
-        });
+              });
 
-        //如果我加载 ./my/control
-        BUI.use('../my/control',function(){//此时加载的目录是 http://localhost/a/my/control-min.js
+              //如果我加载 ./my/control
+              BUI.use('../my/control', function () {//此时加载的目录是 http://localhost/a/my/control-min.js
 
-        });
-      </script>
-      
+              });
+          </script>
+
       </textarea>
     </pre>
-    <h3>基于Kissy</h3>
-    <p>kissy的loader的基本使用方式跟seajs非常类似，但是也有显著的的差异：</p>
+<h3>基于Kissy</h3>
+
+<p>kissy的loader的基本使用方式跟seajs非常类似，但是也有显著的的差异：</p>
     <pre>
       <textarea>
-        <script src="http://a.tbcdn.cn/s/kissy/1.3.0/kissy-min.js"></script>
-        <script src="http://g.tbcdn.cn/fi/bui/adapter-min.js?t=201308021746"></script>
-        <script type="text/javascript">
-        //定义模块
-        KISSY.add('my/module/control',function(S,AModule,BModule){
+          <script src="http://a.tbcdn.cn/s/kissy/1.3.0/kissy-min.js"></script>
+          <script src="http://g.tbcdn.cn/fi/bui/adapter-min.js?t=201308021746"></script>
+          <script type="text/javascript">
+              //定义模块
+              KISSY.add('my/module/control', function (S, AModule, BModule) {
 
-          var Control = function(config){
+                  var Control = function (config) {
 
-          };
+                  };
 
-          //TO DO
-          return control;
-        },{
-          requires : ['a','b'] //依赖的模块
-        });
+                  //TO DO
+                  return control;
+              }, {
+                  requires: ['a', 'b'] //依赖的模块
+              });
 
 
-        KISSY.use('my/module/control',function(S,Control){
+              KISSY.use('my/module/control', function (S, Control) {
 
-        });
-        </script>
+              });
+          </script>
       </textarea>
     </pre>
-    <p><label class="label label-info">注意事项</label>:</p>
-    <ul class="tutor-list">
-      <li>KISSY.use 返回的第一个模块引用是KISSY本身，后面的依次一一对应</li>
-      <li>KISSY.use 的默认地址也是kissy.js所在的目录</li>
-      <li>KISSY.use 处理 <code>./</code> 和 <code>../</code>开始的模块名称是以kissy.js的目录开始</li>
-      <li>KISSY.config中，path定义路径以当前页面的路径出发</li>
-      <li>KISSY.add 定义模块时，如果指定了模块名称，那么模块名称一定要跟目录结构一致，比seajs要求的严格</li>
-    </ul>
+<p><label class="label label-info">注意事项</label>：</p>
+<ul class="tutor-list">
+    <li>KISSY.use 返回的第一个模块引用是KISSY本身，后面的依次一一对应</li>
+    <li>KISSY.use 的默认地址也是kissy.js所在的目录</li>
+    <li>KISSY.use 处理 <code>./</code> 和 <code>../</code>开始的模块名称是以kissy.js的目录开始</li>
+    <li>KISSY.config中，path定义路径以当前页面的路径出发</li>
+    <li>KISSY.add 定义模块时，如果指定了模块名称，那么模块名称一定要跟目录结构一致，比seajs要求的严格</li>
+</ul>
     <pre>
       <textarea>
-        <!-- 假设kissy的目录 -->
-        <script src="http://a.tbcdn.cn/s/kissy/1.3.0/kissy-min.js"></script>
-        <script>
-          //未定义 my目录
-          KISSY.use('my/module/control',function(S,Control){ 
-            //路径为http://a.tbcdn.cn/s/kissy/1.3.0/my/module/control-min.js
-          });
+          <!-- 假设kissy的目录 -->
+          <script src="http://a.tbcdn.cn/s/kissy/1.3.0/kissy-min.js"></script>
+          <script>
+              //未定义 my目录
+              KISSY.use('my/module/control', function (S, Control) {
+                  //路径为http://a.tbcdn.cn/s/kissy/1.3.0/my/module/control-min.js
+              });
 
-          //假设当前路径是 http://localhost/a/b.html
-          KISSY.use('./my/module/control',function(S,Control){
-            //路径为http://a.tbcdn.cn/s/kissy/1.3.0/my/module/control-min.js
-          });
+              //假设当前路径是 http://localhost/a/b.html
+              KISSY.use('./my/module/control', function (S, Control) {
+                  //路径为http://a.tbcdn.cn/s/kissy/1.3.0/my/module/control-min.js
+              });
 
-          KISSY.config({
-            packages:[{
-              name:"my",
-              tag:"201307042102",
-              path:"http://g.tbcdn.cn/fi",
-              charset:'utf-8'
-            }]
-          });
+              KISSY.config({
+                  packages: [
+                      {
+                          name: "my",
+                          tag: "201307042102",
+                          path: "http://g.tbcdn.cn/fi",
+                          charset: 'utf-8'
+                      }
+                  ]
+              });
 
-          //假设当前路径是 http://localhost/a/b.html
-          KISSY.use('my/module/control',function(S,Control){
-            //路径为http://g.tbcdn.cn/fi/my/module/control-min.js
-          });
+              //假设当前路径是 http://localhost/a/b.html
+              KISSY.use('my/module/control', function (S, Control) {
+                  //路径为http://g.tbcdn.cn/fi/my/module/control-min.js
+              });
 
-          KISSY.config({
-            packages:[{
-              name:"my",
-              tag:"201307042102",
-              path:"./",
-              charset:'utf-8'
-            }]
-          });
+              KISSY.config({
+                  packages: [
+                      {
+                          name: "my",
+                          tag: "201307042102",
+                          path: "./",
+                          charset: 'utf-8'
+                      }
+                  ]
+              });
 
-          //假设当前路径是 http://localhost/a/b.html
-          KISSY.use('my/module/control',function(S,Control){
-            //路径为http://localhost/a/my/module/control-min.js
-          });
+              //假设当前路径是 http://localhost/a/b.html
+              KISSY.use('my/module/control', function (S, Control) {
+                  //路径为http://localhost/a/my/module/control-min.js
+              });
 
-        </script>
+          </script>
       </textarea>
     </pre>
-    <h2>部署BUI</h2>
-    <p>git上下载的目录如下：</p>
-    <p class="centered"><img src="../assets/img/bui-dir.jpg" alt="目录结构"/></p>
-    <ul class="tutor-list">
-      <li>assets : 存放css文件包括less文件，css关联的图片目前是在CDN上，会在img下提供一份离线图片</li>
-      <li>build: 压缩、合并、中文处理过后的JS文件，以及编译好的css文件</li>
-      <li>src：控件库的源文件</li>
-      <li>test：单元测试文件</li>
-      <li>tools：进行build的工具包</li>
-    </ul>
-    <h3>仅部署bui-min.js</h3>
-    <p>build目录下的bui-min.js是将所有模块打包在一起的文件，你可以将其复制到你存放JS路径的文件夹下，此时其他的用户自己的模块目录在同一个目录下，如：common,module</p>
-    <p class="centered"><img src="../assets/img/single-bui.jpg" alt="目录结构"/></p>
-    <p>上面这样部署的好处在于：</p>
-    <ul class="tutor-list">
-      <li>结构简单，只部署bui-min.js</li>
-      <li>方便引用自己的模块，不需要配置自己模块的路径</li>
-      <li>bui-min.js所在的目录名没有要求</li>
-    </ul>
+<h2>部署BUI</h2>
+
+<p>git上下载的目录如下：</p>
+
+<p class="centered"><img src="../assets/img/bui-dir.jpg" alt="目录结构"/></p>
+<ul class="tutor-list">
+    <li>assets : 存放css文件包括less文件，css关联的图片目前是在CDN上，会在img下提供一份离线图片</li>
+    <li>build: 压缩、合并、中文处理过后的JS文件，以及编译好的css文件</li>
+    <li>src：控件库的源文件</li>
+    <li>test：单元测试文件</li>
+    <li>tools：进行build的工具包</li>
+</ul>
+<h3>仅部署bui-min.js</h3>
+
+<p>build目录下的bui-min.js是将所有模块打包在一起的文件，你可以将其复制到你存放JS路径的文件夹下，此时其他的用户自己的模块目录在同一个目录下，如：common,module</p>
+
+<p class="centered"><img src="../assets/img/single-bui.jpg" alt="目录结构"/></p>
+
+<p>上面这样部署的好处在于：</p>
+<ul class="tutor-list">
+    <li>结构简单，只部署bui-min.js</li>
+    <li>方便引用自己的模块，不需要配置自己模块的路径</li>
+    <li>bui-min.js所在的目录名没有要求</li>
+</ul>
     <pre>
       <textarea>
-        <!--使用相对路径引入bui-min.js-->
-        <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
-        <script type="text/javascript" src="../assets/js/bui-min.js"></script>
-        <script>
-          var Grid = BUI.Grid;//直接获取模块名
-          //引入自定义模块
-          BUI.use('common/main',function(Main){
+          <!--使用相对路径引入bui-min.js-->
+          <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
+          <script type="text/javascript" src="../assets/js/bui-min.js"></script>
+          <script>
+              var Grid = BUI.Grid;//直接获取模块名
+              //引入自定义模块
+              BUI.use('common/main', function (Main) {
 
-          });
-        </script> 
+              });
+          </script>
       </textarea>
     </pre>
-    <p><span class="label label-info">注意</span>：如果使用kissy仍然需要配置路径，并符合kissy的目录组织方式</p>
-    <h3>部署所有文件</h3>
-    <p>在自己的JS目录下创建bui目录，将所有JS文件复制到bui目录下，自己的模块的目录跟bui目录并行，如：common,module</p>
-    <p class="centered"><img src="../assets/img/dir.jpg" alt="目录结构"/></p>
-    <p><span class="label label-info">注意：</span>此时引用自己的模块时，需要配置自己的目录路径。</p>
+<p><span class="label label-info">注意</span>：如果使用kissy仍然需要配置路径，并符合kissy的目录组织方式</p>
+
+<h3>部署所有文件</h3>
+
+<p>在自己的JS目录下创建bui目录，将所有JS文件复制到bui目录下，自己的模块的目录跟bui目录并行，如：common,module</p>
+
+<p class="centered"><img src="../assets/img/dir.jpg" alt="目录结构"/></p>
+
+<p><span class="label label-info">注意</span>：此时引用自己的模块时，需要配置自己的目录路径。</p>
     <pre>
       <textarea>
-        <!--使用相对路径引入bui-min.js-->
-        <script type="text/javascript" src="../assets/js/bui/seed-min.js"></script>
-        <script>
+          <!--使用相对路径引入bui-min.js-->
+          <script type="text/javascript" src="../assets/js/bui/seed-min.js"></script>
+          <script>
 
-          BUI.use('bui/grid',function(Grid){//加载模块名
+              BUI.use('bui/grid', function (Grid) {//加载模块名
 
-          });    
-          BUI.config({
-            alias : {
-              'common' :'../common', //起点以自己seed-min.js开始
-              'module' :'../module'
-            }
-          });
-          //引入自定义模块
-          BUI.use('common/main',function(Main){
+              });
+              BUI.config({
+                  alias: {
+                      'common': '../common', //起点以自己seed-min.js开始
+                      'module': '../module'
+                  }
+              });
+              //引入自定义模块
+              BUI.use('common/main', function (Main) {
 
-          });
-        </script> 
+              });
+          </script>
       </textarea>
     </pre>
-    <h2>加载自己的模块</h2>
-    <p>将BUI部署到自己的目录下，上面的章节里面已经讲述过，这里主要是讲使用cdn上的bui文件时，如何引入自己的模块</p>
-    <h3>使用CDN的bui文件</h3>
-    <p>无论引入bui-min.js还是seed.js，处理方式都是一样，配置自己的绝对路径</p>
+<h2>加载自己的模块</h2>
+
+<p>将BUI部署到自己的目录下，上面的章节里面已经讲述过，这里主要是讲使用cdn上的bui文件时，如何引入自己的模块</p>
+
+<h3>使用CDN的bui文件</h3>
+
+<p>无论引入bui-min.js还是seed.js，处理方式都是一样，配置自己的绝对路径</p>
     <pre>
       <textarea>
-        <!--使用相对路径引入bui-min.js-->
-        <script type="text/javascript" src="http://g.tbcdn.cn/fi/bui/seed-min.js"></script>
-        <script>
+          <!--使用相对路径引入bui-min.js-->
+          <script type="text/javascript" src="http://g.tbcdn.cn/fi/bui/seed-min.js"></script>
+          <script>
 
-          BUI.use('bui/grid',function(Grid){//加载模块名
+              BUI.use('bui/grid', function (Grid) {//加载模块名
 
-          });    
-          BUI.config({
-            alias : {
-              'common' :'http://localhost/bui-default/assets/js/common', //配置绝对路径
-              'module' :'http://localhost/bui-default/assets/js/module'
-            }
-          });
-          //引入自定义模块
-          BUI.use('common/main',function(Main){
+              });
+              BUI.config({
+                  alias: {
+                      'common': 'http://localhost/bui-default/assets/js/common', //配置绝对路径
+                      'module': 'http://localhost/bui-default/assets/js/module'
+                  }
+              });
+              //引入自定义模块
+              BUI.use('common/main', function (Main) {
 
-          });
-        </script> 
+              });
+          </script>
       </textarea>
     </pre>
-    <p>配置绝对路径的优点和缺点都很明显：</p>
-    <ul class="tutor-list">
-      <li>优点：易于理解，各个页面都适应</li>
-      <li>缺点：线上和demo的路径不同，项目文件更换目录时很麻烦</li>
-    </ul>
-    <p><span class="label label-success">最佳实践：</span>可以将配置的路径放到一个config.js中</p>
-    <h3>计算自己的路径</h3>
-    <p>可以引入一个config.js，并在里面计算config.js的路径，并依此为基础计算出自己的模块路径，<a href="https://github.com/dxq613/bui-default/blob/master/assets/js/config.js">查看详情</a></p>
-  </div>
-  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
-  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
-  <script src="../assets/js/config.js"></script> 
-  <script>
-    BUI.use('common/page',function (Page) {
-      new Page().init();
+<p>配置绝对路径的优点和缺点都很明显：</p>
+<ul class="tutor-list">
+    <li>优点：易于理解，各个页面都适应</li>
+    <li>缺点：线上和demo的路径不同，项目文件更换目录时很麻烦</li>
+</ul>
+<p><span class="label label-success">最佳实践</span>： 可以将配置的路径放到一个config.js中</p>
+
+<h3>计算自己的路径</h3>
+
+<p>可以引入一个config.js，并在里面计算config.js的路径，并依此为基础计算出自己的模块路径，<a
+        href="https://github.com/dxq613/bui-default/blob/master/assets/js/config.js">查看详情</a></p>
+</div>
+<script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+<script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script>
+<script src="../assets/js/config.js"></script>
+<script>
+    BUI.use('common/page', function (Page) {
+        new Page().init();
     });
-  </script>
+</script>
 </body>
 </html>
