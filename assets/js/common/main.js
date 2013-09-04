@@ -218,7 +218,7 @@ define('common/main',function (require) {
           accordion : true,
           expandAnimate : true,
           expandEvent : 'itemclick', //单击展开节点
-          collapseEvent : null,
+          collapseEvent : 'itemclick',
           nodes : menus
         });
       tree.render();

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>位置和移动</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/loader.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>控件的位置</li>
+          <li>控件与元素的对齐</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>初学者</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+    
+    <h2>控件的位置</h2>
+    <p>此处我们所指的位置是控件的绝对位置，控件的对齐依赖于控件的位置，我们先从下面的示例开始：</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/control/position.php"></div>
+    <ul class="tutor-list">
+      <li>通过设置控件的<code>x,y</code>属性来控制控件的位置。</li>
+      <li><code>x,y</code>是指控件相对于整个页面的位置，不等同于 left,top</li>
+      <li>可以通过move(x,y)修改控件的位置</li>
+    </ul>
+    <p class="centered">
+      <img src="../../assets/img/pos.jpg" alt="对齐位置">
+    </p>
+
+    <h2>控件的对齐</h2>
+
+    <h3>对齐的位置：</h3>
+    <p>直接操作控件的位置非常不方便，所以BUI提供了一种更容易理解和使用的方式-对齐，控件可以指定对齐的DOM元素、对齐方式以及偏离距离，通过下图我们来认识一下可选的对齐位置：</p>
+    <p class="centered">
+      <img src="../../assets/img/align.jpg" alt="对齐位置">
+    </p> 
+    <ul class="tutor-list">
+      <li>tl: 控件的顶部，左边</li>
+      <li>tc: 控件的顶部，中间</li>
+      <li>tr: 控件的顶部，右边</li>
+      <li>cl: 控件的中间，左边</li>
+      <li>cc: 控件的中间，中间</li>
+      <li>cr: 控件的中间，右边</li>
+      <li>bl: 控件的底部，左边</li>
+      <li>bc: 控件的底部，中间</li>
+      <li>br: 控件的底部，右边</li>
+    </ul>
+
+    <h3>对齐的方式</h3>
+    <p>BUI的对齐是使用2个对齐位置构成的一个数组，下图是左上角和左上角对齐（['tl','tl']),左下角和左下角的对齐（['bl','bl']）：</p>
+    <p class="centered">
+      <img src="../../assets/img/align1.jpg" alt="对齐位置">
+    </p> 
+    <p><label class="lable lable-info">说明</label>：根据你的需求，你可以自由搭配上面的9种位置。</p>
+
+    <h3>对齐的偏移量</h3>
+    <p>BUI在支持对齐的基础上也支持偏移量：</p>
+    <p class="centered">
+      <img src="../../assets/img/align2.jpg" alt="对齐位置">
+    </p> 
+    <h3>对齐示例</h3>
+    <div class="page-demo" data-url="http://www.builive.com/demo/overlay/basic.php"></div>
+
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a href="http://www.builive.com/docs/#!/api/BUI.Component.UIBase.Position">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Component.UIBase.Position">
+      
+    </div>
+
+    <h2>下一步学习</h2>
+    <p>学完本章后，控件的基础部分就完成了，你可以从<a data-id="overlay-base" class="page-action" href="overlay-base.html">浮层</a>开始学习BUI的控件体系。</p>
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="http://g.tbcdn.cn/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
