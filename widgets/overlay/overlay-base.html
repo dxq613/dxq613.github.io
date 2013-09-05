@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>浮层</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/overlay.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>浮层的显示和隐藏</li>
+          <li>浮层的位置对齐</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>在富客户端应用中浮层的应用场景有很多：</p>
+    <ul class="tutor-list">
+      <li>鼠标移动到某个区域显示提示信息</li>
+      <li>弹出框编辑内容</li>
+      <li>显示警告信息等等</li>
+    </ul>
+    <p>在接下来的章节里我们会详细的介绍Dialog、Message、Tooltip等控件，本章主要讲述浮层的特性和常用方法，首先来看一下Overlay实现的扩展（Mixin）</p>
+    <ul class="tutor-list">
+      <li>BUI.Component.UIBase.Position : 位置相关扩展，详细信息参看章节：<a data-id="positon" class="page-action" href="positon.html">位置和对齐</a></li>
+      <li>BUI.Component.UIBase.Align ： 控件对齐的扩展，详细信息参看章节：<a data-id="positon" class="page-action" href="positon.html">位置和对齐</a></li>
+      <li>BUI.Component.UIBase.Close ： 是否可以关闭控件，详细信息参看章节：<a data-id="close" class="page-action" href="close.html">关闭控件</a></li>
+      <li>BUI.Component.UIBase.AutoShow ：自动显示控件，详细信息参看章节：<a data-id="autoshow" class="page-action" href="autoshow.html">自动显示控件</a></li>
+      <li>BUI.Component.UIBase.AutoHide ：自动隐藏控件，详细信息参看章节：<a data-id="autohide" class="page-action" href="autohide.html">自动隐藏控件</a></li>
+    </ul>
+
+    <h2>浮层的显示和隐藏</h2>
+    <p>显示浮层通常是由于鼠标悬浮或者点击某个DOM元素，浮层的隐藏通常由于鼠标的离开、点击浮层外面的元素导致，参看下面的示例：</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/overlay/basic.php"></div>
+    <p>更加详细的关于显示隐藏的信息查看章节：<a data-id="autoshow" class="page-action" href="autoshow.html">自动显示控件</a>和<a data-id="autohide" class="page-action" href="autohide.html">自动隐藏控件</a></p>
+    
+    <h2>显示隐藏的效果</h2>
+    <p>overlay支持显示或者隐藏时添加动画效果可以通过<code>effect</code>属性控制：</p>
+    <ul class="tutor-list">
+      <li>effect :
+        <ol>
+          <li>none : 没有任何效果的显示隐藏</li>
+          <li>linear : 线性的显示隐藏</li>
+          <li>fade : 渐变效果</li>
+          <li>slide：下拉效果</li>
+        </ol>
+      </li>
+      <li>duration : 执行时间(ms)</li>
+      <li>callback : 回调函数</li>
+    </ul>
+    <div class="page-demo" data-url="http://www.builive.com/demo/overlay/effect.php"></div>
+
+    <h2>浮层的对齐</h2>
+    <p>浮层对齐是通过扩展<code>BUI.Component.UIBase.Align</code>实现的，在章节<a data-id="positon" class="page-action" href="positon.html">位置和对齐</a>中我们已经详细的讨论过。</p>
+
+
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a href="http://www.builive.com/docs/#!/api/BUI.Overlay.Overlay">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Overlay.Overlay">
+      
+    </div>
+
+    <h2>下一步学习</h2>
+    <p>接下来你应该继续学习浮层中最常用的一个控件<a data-id="clandar-base" class="page-action" href="clandar-base.html">弹出框</a>。</p>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="http://g.tbcdn.cn/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>

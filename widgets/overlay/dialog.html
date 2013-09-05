@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>弹出框（Dialog）</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/message.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>显示内容</li>
+          <li>确认和取消</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+    <h2>简介</h2>
+    <p>BUI的弹出框主要有2种，Dialog和Message。本章主要讲解Dialog，Dialog主要分为3部分header,body,footer,各部分的内容都可以自己替换，可以支持下面几种设置内容的方式：</p>
+    <ul class="tutor-list">
+      <li>直接设置html</li>
+      <li>设置子控件</li>
+      <li>设置现有的DOM作为内容</li>
+      <li>异步加载html</li>
+    </ul>
+    
+    <h2>显示内容</h2>
+
+    <h3>直接设置html</h3>
+    <p>通过配置Dialog的<code>bodyContent</code>属性,直接显示在Dialog中：</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/dialog/no-model.php"></div>
+    <p>示例说明：</p>
+    <ul class="tutor-list">
+      <li><code> mask:false</code>,可以设置不显示屏蔽层</li>
+      <li><code>buttons : []</code>,不显示任何按钮</li>
+      <li>调用dialog.show前没调用render方法也可以正常显示</li>
+    </ul>
+    
+    <h3>设置子控件</h3>
+    <p>可以将控件作为dialog的子控件，当dialog显示时会创建对应的子控件，释放时子控件跟着释放。</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/dialog/child.php"></div>
+    <p>示例说明：</p>
+
+    
+    <p>你可以查看<a href="">更多Demo</a></p>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a href="http://www.builive.com/docs/#!/api/BUI.Overlay.Dialog">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Overlay.Dialog">
+      
+    </div>
+
+    <h2>下一步学习</h2>
+    <p>Dialog作为一个常用的控件，在日常使用过程中有个常用的变形<a data-id="message" class="page-action" href="message.html">提示框（Message）</a>。</p>
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="http://g.tbcdn.cn/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>

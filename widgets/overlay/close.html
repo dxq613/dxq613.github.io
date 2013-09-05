@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>关闭控件</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/close.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>如果使用关闭扩展</li>
+          <li>Overlay上使用关闭</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+    
+    <h2>简介</h2>
+    <p>BUI将控件的关闭作为一个扩展来提供，所有需要提供关闭功能的控件实现这个扩展即可，我们通过下面简单的示例，讲解关闭扩展的使用方式</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/control/close.php"></div>
+    <p>示例说明：</p>
+    <ul class="tutor-list">
+      <li><code>BUI.Component.UIBase.Close</code>有一个对应的View类,是一个私有类，只有继承时有用</li>
+      <li><code>closeable</code>属性控制是否显示关闭按钮</li>
+      <li><code>closeAction</code>属性控制控件关闭时的行为：destroy或者hide</li>
+      <li><code>closeTpl</code>属性控制显示关闭按钮的样式</li>
+    </ul>
+
+    <h2>Overlay</h2>
+    <p>Overlay实现了关闭扩展，所以所有继承自Overlay的类都支持此功能，下面是一个可以关闭的overlay的示例：</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/overlay/close.php"></div>
+    
+
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a href="http://www.builive.com/docs/#!/api/BUI.Component.UIBase.Close">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Component.UIBase.Close">
+      
+    </div>
+
+    <h2>下一步学习</h2>
+    <p>学习了关闭扩展后，你可以继续学习控件<a data-id="autoshow" class="page-action" href="autoshow.html">自动显示</a>或者<a data-id="autohide" class="page-action" href="autohide.html">自动隐藏</a>的扩展，更好的理解浮层的功能。</a>。</p>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="http://g.tbcdn.cn/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
