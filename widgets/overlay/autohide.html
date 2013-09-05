@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>关闭控件</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/overlay.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>如何使用自动显示扩展</li>
+          <li>Overlay上使用自动显示</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>弹出的控件在点击控件外部或者移出控件外部时需要自动隐藏，弹出菜单和提示信息中经常遇到：</p>
+    <ul class="tutor-list">
+      <li>点击按钮出现下拉菜单，点击菜单项时菜单隐藏，点击其他页面元素时菜单隐藏</li>
+      <li>鼠标移动到菜单项上显示子菜单，移动到子菜单后再移出子菜单隐藏，移动到其他菜单项上，隐藏其他菜单项的子菜单</li>
+      <li>鼠标移动到某个文本上显示详细信息，移出隐藏</li>
+    </ul>
+
+    <h2>示例</h2>
+    <div class="page-demo" data-url="http://www.builive.com/demo/overlay/autohide.php"></div>
+    <p>示例说明：</p>
+    <ul class="tutor-list">
+      <li><code>autoHide</code>：设置是否自动隐藏</li>
+      <li><code>autoHideType</code>: 自动隐藏的类型，目前只支持2种,click,leave</li>
+    </ul>
+
+    <h2>autoshow和autohide</h2>
+    <p>控件自动显示和自动隐藏往往有一一对应关系的，当点击显示控件时，往往需要点击控件的外部元素隐藏控件，鼠标移动到元素上显示控件，那么移出则会隐藏控件，已经在上一章<a data-id="autoshow" class="page-action" href="autoshow.html">自动显示</a>章节中我们已经详细介绍控件自动显示。</p>
+    
+    <h2>API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a href="http://www.builive.com/docs/#!/api/BUI.Component.UIBase.AutoHide">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Component.UIBase.AutoHide">
+      
+    </div>
+
+    <h2>下一步学习</h2>
+    <p>你可以继续学习控件<a data-id="autohide" class="page-action" href="autohide.html">自动隐藏</a>的扩展，更好的理解浮层的功能。</a>。</p>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
