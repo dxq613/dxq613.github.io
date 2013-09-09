@@ -35,22 +35,22 @@
     <h2>Combine 概念</h2>
     <p>我们先来看一下下面几个问题：</p>
     <ol>
-      <li>我引入了所有模块的JS(bui-min.js),请求的文件很大,但是仅仅用到了几个模块</li>
-      <li>我使用按需加载，但是引入多个请求</li>
+      <li>我引入了已经包含所有模块的JS(bui-min.js)文件，请求的文件很大，但是仅仅用到了几个模块</li>
+      <li>我使用按需加载，但是在使用时产生多个js文件的请求</li>
       <li>我如何做到仅使用一个请求，又仅加载自己需要的JS文件呢</li>
     </ol>
-    <p>我们可以打包合并需要的模块，引入一个js文件的链接，但是存在的问题是：不灵活，复用度低</p>
+    <p>我们可以打包合并需要的模块，引入一个js文件的链接，但是存在的问题是：不灵活，复用度低，每一个应用场景都有可能需要独立的打包合并一个js文件。</p>
     <p>业界的流行方案是资源文件服务器，支持combine语法，例如：</p>
     <pre>
       <textarea>
+        <!--这里的样式链接中把a.css和b.css以逗号分隔作为一个参数，然后服务器通过参数分别把a.css和b.css合并成一个文件返回-->
         <link href="http://a.tbcdn.cn/s/??a.css,b.css" rel="stylesheet">
-        <script src="http://a.tbcdn.cn/s/??a.js,b.js,c.js"></script>
-      </textarea>
+        <script src="http://a.tbcdn.cn/s/??a.js,b.js,c.js"></script></textarea>
     </pre>
-    <p>最终请求来的文件会将多个文件自动合并成一个</p>
+    <p>Combine的概念简单地说就是根据参数把多个js文件合并成一个文件，当然Combine也有其优缺点，用户可以根据场景分析判断是否使用。</p>
     <ul class="tutor-list">
       <li>优点：使用灵活，便于增删模块；有效的减小文件大小和请求数量</li>
-      <li>缺点：多个页面间利用缓存效率不高</li>
+      <li>缺点：多个页面间利用缓存效率不高，难以复用浏览器的缓存js文件。</li>
     </ul>
 
     <h2>BUI 的模块</h2>
@@ -76,7 +76,7 @@
       <li>tree: 功能丰富的树控件，勾选、连接线、异步加载等功能</li>
     </ol>
     <h2>Combine BUI模块</h2>
-    <p>BUI所在的cdn支持combine语法，可以自由的combine所需要的模块</p>
+    <p>BUI所使用的cdn支持combine语法，可以自由地combine所需要的模块</p>
     <pre><textarea>
       <link href="https://s.tbcdn.cn/g/fi/bui/css??dpl-min.css,bui-min.css" rel="stylesheet">
 
@@ -96,7 +96,7 @@
       <li>调试不方便</li>
       <li>多页面如果combine不同，缓存的利用效率很低</li>
     </ul>
-    <p><span class="label label-info">综上所述</span>，在使用单页面或者页面较少而又近似度很高的页面；请求模块特别多，并且影响页面加载性能的页面，推荐使用combine模式</p>
+    <p><span class="label label-info">综上所述</span>：在使用单页面或者页面较少而又近似度很高的页面；请求模块特别多，并且影响页面加载性能的页面，推荐使用combine模式</p>
   </div>
   <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
   <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 

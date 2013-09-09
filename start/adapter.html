@@ -35,7 +35,7 @@
     <h2>为什么支持Kissy</h2>
     <ul class="tutor-list">
       <li>首先我们面临的业务环境，有大量的系统使用了Kissy，而且Kissy缺少一套成体系的富客户端控件，应大量开发者的需求，我们做了Kissy的支持。</li>
-      <li>我们开发BUI过程中使用的是jQuery，从Kissy与jQuery在核心库方面非常类似，适配的成本很低，loader方面跟seajs又是一脉相承。</li>
+      <li>我们开发BUI过程中使用的是jQuery，由于从Kissy与jQuery在核心库方面非常类似，适配的成本很低，loader方面跟seajs又是一脉相承等原因所以我们选择支持Kissy。</li>
     </ul>
 
     <h2>适配了那些内容</h2>
@@ -46,14 +46,14 @@
       <li>Kissy的NodeList对象与jQuery对象的适配，缺少的函数和参数不一致的函数</li>
       <li>Kissy的loader适配兼容seajs的语法</li>
     </ol>
-    <p>在项目实践过程中发现，kissy的适配取得了很好的成果，未发现有不能适配的场景，控件的表现完全一致。使用方式也非常自然，具体实现<a target="_blank" href="https://github.com/dxq613/bui/blob/master/src/common/adapter.js">参看github上的代码</a></p>
+    <p>在项目实践过程中发现，kissy的适配取得了很好的成果，未发现有不能适配的场景，控件的表现完全一致。使用方式也非常自然，具体实现可参看github上的<a target="_blank" href="https://github.com/dxq613/bui/blob/master/src/common/adapter.js">源码</a></p>
 
     <h2>兼容kissy的控件开发</h2>
     <p>在开发BUI控件的过程中，可以完全按照jquery的语法，不必考虑kissy的语法，但是有以下方面需要注意：</p>
     <ul class="tutor-list">
       <li>选择器：仅使用简单选择器，不使用复杂选择器。kissy默认不支持复杂选择器，需要引入<code>sizzle</code>模块；复杂选择器的效率没有简单选择器高。</li>
       <li>事件注册：目前只适配了on,off,delegate等函数，click(),change()之类的事件监听语法，kissy未作支持。</li>
-      <li>jquery新版本增加的函数，未做兼容。</li>
+      <li>jquery新版本（>1.8）所增加的函数，并未做兼容。</li>
     </ul>
     <p>虽然很多jquery的函数未做支持，但是目前的使用来看，足够满足应用的需求，您在开发BUI控件时，如果有Kissy的兼容性需求得不到满足，<a target="_blank" href="https://github.com/dxq613/bui/issues/new">联系我们</a>，并提出需要兼容的函数</p>
 
