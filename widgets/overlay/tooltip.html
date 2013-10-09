@@ -23,7 +23,7 @@
         <ol>
           <li>简介</li>
           <li>显示提示信息</li>
-          <li>批量显示</li>
+          <li>统一生成提示信息</li>
           <li>组合使用提示信息</li>
         </ol>
         <ul class="intro-level">
@@ -32,8 +32,56 @@
         </ul>
       </div>
     </div>
+
+    <h2>简介</h2>
+    <p>Tooltip一般用于显示提示信息替代浏览器默认的title属性，为了方便用户使用，我们提供了以下方式使用Tooltip:</p>
+    <ol>
+      <li>生成单个提示信息</li>
+      <li>统一生成提示信息</li>
+      <li>更改提示信息的样式和模板</li>
+    </ol>
+
+    <h2>生成单个提示信息</h2>
+    <p><code>BUI.Tooltip.Tip</code>类是提示信息的类，继承自<code>BUI.Overlay.Overlay</code>，通过下面的示例我们来生成单个提示信息：</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/tooltip/single.php"></div>
+    <p>示例中提供了多个提示信息的实例，一般而言Tooltip的以下属性需要详细了解：</p>
+    <ol>
+      <li><code>alignType</code>：对齐方式，提供了top,left,right,left,top-left,top-right,bottom-left,bottom-right 八种对齐方式</li>
+      <li><code>title</code>: 显示的信息，可以使字符串或者Object对象，跟属性<code>titleTpl</code>相关联</li>
+      <li><code>titleTpl</code>: 显示信息的模板,将title属性跟模板合并就是显示的信息</li>
+      <li><code>offset</code> : 偏移的距离</li>
+    </ol>
+
+    <h2>统一生成提示信息</h2>
+    <p>当一个页面上有多个提示信息时，每次都单独创建非常不方便，所以提供了<code>BUI.Tooltip.Tips</code>类，用于处理页面上有多个提示信息的场景，也可以处理页面内容动态变化，新增加的需要提示的内容不需要单独做处理</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/tooltip/delegate.php"></div>
+    <p>通过<code>tip</code>属性配置<code>BUI.Tooltip.Tip</code>类的信息，你可以直接将下面的属性写在需要显示提示信息的dom上：</p>
+    <ol>
+      <li><code>title</code>:标题，可以通过 data-title或者title属性配置</li>
+      <li><code>alignType</code>：可以通过data-align配置</li>
+    </ol>
+    <pre>
+      <textarea>
+        <a href="#" data-align="top-left" title="top left tip">of them</a>
+      </textarea>
+    </pre>
+    <p>上面的DOM表明在这个元素的左上方显示文本"top left tip"</p>
+
+    <h2>自定义提示信息</h2>
+    <p>BUI中对于Tooltip没有提供默认的样式，上面示例的样式是通过2个属性决定的：</p>
+    <ol>
+      <li>elCls：应用到ToolTip的样式</li>
+      <li>titleTpl : 内容的模板</li>
+    </ol>
+    <p>之所以能实现这些样式的愿意在于dpl.css中提供的基础样式：<a target="blank" href="http://www.builive.com/base/tips.php">查看API文档</a>，因此如果你需要实现自己的tooltip样式可以通过修改<code>elCls</code>属性，并定义相应的css，值得注意的是指向箭头的css样式需要你自己重写。</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/tooltip/custom.php"></div>
     
-    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a href="http://www.builive.com/docs/#!/api/BUI.Tooltip.Tip">查看API文档</a></p>
+    <h2>跟其他控件联用</h2>
+    <p>Tooltip可以很简单容易的跟其他控件联用，下面的示例将表单的错误提示信息通过Tooltip显示</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/tooltip/custom.php"></div>
+
+    <h2>API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a target="blank" href="http://www.builive.com/docs/#!/api/BUI.Tooltip.Tip">查看API文档</a></p>
     <div class="J_API" data-name="BUI.Tooltip.Tip">
       
     </div>
