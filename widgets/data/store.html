@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>数据缓冲类</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/store.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>加载本地数据</li>
+          <li>异步加载数据</li>
+          <li>排序</li>
+          <li>增删改</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>BUI的控件是基于MVC的，在前面的章节里已经详细的介绍过<a data-id="controller" class="page-action" href="../control/controller.html">Controller</a>和<a data-id="view" class="page-action" href="../control/view.html">View</a>,而Model我们并没有进行介绍，对于一般的控件，Model的意义不大，但是对于列表、表格、树这类的显示/操作数据的控件来说使用Model是非常方便的</p>
+    <p>Model对于控件主要用于以下场景：</p>
+    <ol>
+      <li>加载数据：从内存中加载或者异步加载数据</li>
+      <li>操作数据：增删改、排序、过滤等数据操作</li>
+    </ol>
+    <p>BUI通过<code>Store</code>来实现加载数据、操作数据，同时通过事件通知对应的控件去更新自己的ＵＩ</p>
+
+    <h2>加载数据</h2>
+    <p>目前Store支持2中加载数据的方式：</p>
+    <ol>
+      <li>内存中加载，加载内存中的数据</li>
+      <li>异步加载，通过异步请求加载数据</li>
+    </ol>
+
+    <h3>加载内存中的数据</h3>
+    <p>下面是将数据显示在表格中的一个简单示例：</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/grid/grid-percent.php"></div>
+    <p>Store通过<code>data</code>属性加载内存中的数据</p>
+
+    <h3>异步加载数据</h3>
+    <p>下面是一个异步加载数据的示例，返回数据是一个数组</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/grid/grid-remote-data.php"></div>
+    <p>异步加载数据时下面2个属性一定要设置：</p>
+    <ol>
+      <li>url：加载的路径</li>
+      <li>autoLoad : 是否自动加载，如果设置autoLoad:false，需要自己调用store.load()方法</li>
+    </ol>
+    
+    <h3>分页加载数据</h3>
+    <p>分页加载数据时需要配置分页信息：</p>
+    <ol>
+      <li>pageSize : 每页多少条记录</li>
+      <li>start ：加载记录的位置</li>
+    </ol>
+    <p>对应的传到后台的参数有下面几个：</p>
+    <ol>
+      <li>start: 开始记录的起始数，如第 20 条,从0开始</li>
+      <li>limit : 单页多少条记录</li>
+      <li>pageIndex : 第几页，同start参数重复，可以选择其中一个使用</li>
+    </ol>
+    <div class="page-demo" data-url="http://www.builive.com/demo/grid/grid-remote.php"></div>
+    <p>传到后台的参数名称可以自己修改，具体的修改方式请参看<a data-id="proxy" class="page-action" href="proxy.html">数据代理</a>章节,返回的数据格式：</p>
+    <ol>
+      <li>rows: 传回的数据集合</li>
+      <li>results : 记录总数</li>
+      <li>hasError : 只有出错的时候提供此字段</li>
+      <li>error:出错信息，仅在 hasError : true 时使用</li>
+    </ol>
+
+    <p>加载数据时的其他配置项：</p>
+    <ol>
+      <li>params：是一个键值对的对象，首次加载数据时调用</li>
+      <li>sortInfo: 默认的排序信息，在下面的排序中会详细介绍</li>
+      <li>root  : 返回数据的数据集合的字段，默认是rows</li>
+      <li>totalProperty  : 返回数据的记录总数字段，默认是results</li>
+      <li>hasErrorProperty  : 返回数据的是否包含错误，默认是 hasError </li>
+      <li>errorProperty : 返回数据的错误信息字段，默认是 error</li>
+    </ol>
+    <div class="page-demo" data-url="http://www.builive.com/demo/grid/grid-remote-params.php"></div>
+
+    <h2>排序</h2>
+    <p>Store的排序是由扩展<code>BUI.Data.Sortable引入的</code>,详细信息查看<a target="_blank" href="http://www.builive.com/docs/#!/api/BUI.Data.Sortable">查看API文档</a>，store的排序方式也是有2种：</p>
+    <ol>
+      <li>本地排序: 内存中对数据进行排序</li>
+      <li>远程排序：发起新的请求，后台返回排序好的字段</li>
+    </ol>
+    
+    <h3>本地排序</h3>
+    <p>Store的默认排序方式是本地排序,此时调用<code>store.sort(field, direction)</code>方法会进行内存内排序</p>
+
+    <h3>远程排序</h3>
+    <p>配置Store的属性<code>remoteSort:true</code>时，调用<code>store.sort(field, direction)</code>方法会触发新的请求,将排序信息通过参数传输到后台</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/grid/grid-remote-sort.php"></div>
+    
+    <h2>增删改</h2>
+    <p>Store的增删改，都会反映到对应的控件上，增删改过程中牵扯到数据的比较，所以有一个配置项<code>matchFunction</code>在这个过程中非常重要,下面是增删改的几个函数</p>
+    <ol>
+      <li>add( data, [noRepeat], [match] )：添加记录
+        <ol>
+          <li>data: 可以是单条记录也可以是一个数组</li>
+          <li>noRepeat：可选参数，是否去重，防止添加重复的记录</li>
+          <li>match：匹配函数，如果为空则使用<code>matchFunction</code></li>
+        </ol>
+      </li>
+      <li>update( obj, [isMatch] )：更新记录
+        <ol>
+          <li>obj: 更新的记录</li>
+          <li>isMatch：可选参数，是否进行<code>matchFunction</code>匹配，未设置，则假设obj为store中的数据，如果设置true，则根据<code>matchFunction</code>进行匹配</li>
+        </ol>
+      </li>
+      <li>remove(obj,[match]) : 删除记录
+        <li>obj: 删除的记录</li>
+        <li>match：匹配函数，如果为空则使用<code>matchFunction</code></li>
+      </li>
+    </ol>
+    <p>增删改过程发生改变的数据存放在下面几个属性中：</p>
+    <ol>
+      <li>newRecords : 新增的数据，可以通过store.get('newRecords')获取</li>
+      <li>modifiedRecords ，可以通过store.get('modifiedRecords')获取</li>
+      <li>deletedRecords ，可以通过store.get('deletedRecords')获取</li>
+    </ol>
+
+    <h2>API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a target="_blank" href="http://www.builive.com/docs/#!/api/BUI.Data.Store">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Data.Store">
+      
+    </div>
+    
+    <h2>下一步学习</h2>
+    <p>本章介绍了Store的一些常用方式，Store的使用在后面的章节中有更多具体的示例，接下来你需要了解store是如何加载内存数据和异步数据的<a data-id="proxy" class="page-action" href="proxy.html">数据代理</a>,然后学习树形数据结构的数据缓冲类<a data-id="data-store" class="page-action" href="proxy.html">TreeStore</a></p>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>

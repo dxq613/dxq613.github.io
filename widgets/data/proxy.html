@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>数据代理</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/store.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>内存数据代理类</li>
+          <li>异步数据代理类</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>上一章主要讲述了Store的加载和操作，Store的加载过程并没有特别的介绍，同时加载过程中传输到后台的参数都是固定的，对于本地加载和异步加载的区别是如何屏蔽的都没有详细的讲述，本章解决上面的问题</p>
+
+    <p>目前数据代理类主要实现的是加载、排序和过滤，本质上排序和过滤也是一次全新的加载，所以本章主要讲的是加载，</p>
+    
+    <h2>自动生成数据代理类</h2>
+    <p>一般而言代理类是Store自动生成的不需要用户直接创建，以下属性决定自动生成那种代理类：</p>
+    <ol>
+      <li>url : 如果配置了url属性，那么会自动生成<code>BUI.Data.Proxy.Ajax</code>的实例</li>
+      <li>data : 如果配置了data属性，那么会自动生成<code>BUI.Data.Proxy.Memery</code>的实例</li>
+    </ol>
+
+    <h2>内存数据代理类</h2>
+    <p><code>BUI.Data.Proxy.Memery</code>实现了内存加载数据，实现的非常简单，只是将数据源作为属性，当store.load的时候进行加载数据,可以通过传入的参数进行排序，过滤和内存分页，具体实现参看：<a target="_blank" href="http://www.builive.com/docs/source/proxy.html#BUI-Data-Proxy-Memery">代码</a></p>
+    
+    <h2>异步数据代理类</h2>
+    <p><code>BUI.Data.Proxy.Ajax</code>实现了异步加载数据，异步加载数据源是最常用的方式，加载代码本质上是一个ajax请求，所有的参数都是ajax请求的配置项，可以配置的配置项有以下几个：</p>
+    <ol>
+      <li>url : 加载数据的路径</li>
+      <li>method : 加载数据的类型 get,post</li>
+      <li>dataType : 返回数据的类型，目前仅支持json或者jsonp</li>
+      <li>limitParam : 传输到后台标示每页记录数的参数名称，默认是 limit</li>
+      <li>pageIndexParam : 传输到后台标示请求第几页的参数名称，默认是pageIndex</li>
+      <li>startParam : 传输到后台标示请求开始记录的索引</li>
+      <li>pageStart : 请求分页从0开始还是从1开始，默认是 ：0</li>
+    </ol>
+
+    <h3>自定义请求参数</h3>
+    <p>默认的请求方式是get，可以通过method更改为post,也可以更改默认的参数名，看下面的示例：</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/grid/grid-proxy.php"></div>
+
+    <h2>排序</h2>
+    <p>当配置了<code>remoteSort:true</code>后Store调用sort方法时，内存的代理类是通过匹配字段进行内存排序，然后返回排序完成的数据，异步数据的代理类，则是重新发送请求</p>
+
+    <h2>Proxy API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a target="_blank" href="http://www.builive.com/docs/#!/api/BUI.Data.Proxy">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Data.Proxy">
+      
+    </div>
+
+    <h2>Ajax Proxy API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a target="_blank" href="http://www.builive.com/docs/#!/api/BUI.Data.Proxy.Ajax">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Data.Proxy.Ajax">
+      
+    </div>
+    
+    <h2>下一步学习</h2>
+    <p>本章介绍了如何加载数据，对于Store和TreeStore完全一样，如果你对<a data-id="tree-list" class="page-action" href="tree-list.html">树控件</a>跟兴趣，那么你可以继续学习树形数据结构的数据缓冲类<a data-id="data-store" class="page-action" href="proxy.html">TreeStore</a>，否则直接进入<a data-id="simple-list" class="page-action" href="simple-list.html">列表</a>章节的学习</p>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>

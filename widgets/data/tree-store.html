@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>TreeStore（树形数据结构的缓冲类）</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/store.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>根节点</li>
+          <li>数据结构</li>
+          <li>异步加载节点</li>
+          <li>增删改</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>TreeStore用于树形数据结构，它非常好的实现了一下功能：</p>
+    <ol>
+      <li>加载内存数据</li>
+      <li>异步加载节点</li>
+      <li>查找节点</li>
+      <li>增删改节点</li>
+
+    </ol>
+    <p>TreeStore不仅仅用于<a data-id="tree-base" class="page-action" href="tree-base.html">树控件</a>，在级联下拉列表中也得到了很好的使用，所有需要树形数据源的控件，选择TreeStore是一个非常好的选择。</p>
+
+    <h2>根节点</h2>
+    <p>树形数据结构的一个特点是必须有一个根节点，在TreeStore中使用<code>root</code>属性来配置，它有几个属性：</p>
+    <ol>
+      <li>id : 根节点的id，用于异步加载子节点时使用</li>
+      <li>children : 子节点集合</li>
+      <li>leaf : 是否为叶子节点，默认为false</li>
+    </ol>
+    <p><code>root</code>属性是一个<code>BUI.Data.Node</code>类的实例，具有这个类的所有属性，如果未配置<code>root</code>属性，会自动生成一个<code>BUI.Data.Node</code>类的实例</p>
+    <p>配置项中的<code>data</code>属性会自动转换成<code>root</code>属性的children</p>
+
+    <h2>节点的数据结构</h2>
+    <p>TreeStore中的所有节点会转换成<code>BUI.Data.Node</code>类的对象，这个类主要有下面几个重要属性：</p>
+    <ol>
+      <li>id : 根节点的id，用于异步加载子节点时使用</li>
+      <li>children : 子节点集合</li>
+      <li>leaf : 是否为叶子节点，默认为null</li>
+      <li>text : 节点显示的文本</li>
+      <li>parent：父节点</li>
+      <li>path ：从根节点到当前节点的路径，是一个数组例如[0,1,11,112],说明根节点的id=0，下一级父节点id=1....当前节点的id=112</li>
+      <li>level ：节点的level级别，根节点为0</li>
+    </ol>
+    <p>更多的属性，请查看<a target="_blank" href="http://www.builive.com/docs/#!/api/BUI.Data.Node">Node API</a></p>
+    <div class="page-demo" data-url=" http://www.builive.com/demo/tree/map.php"></div>
+    <p>上面的例子中，原始的数据结构跟我们要求的数据格式不一致，可以通过TreeStore的<code>map</code>属性进行映射。</p>
+
+    <h2>内存中加载数据</h2>
+    <p>当树形结构的数据较少时，直接加载所有的数据是最合理的方式，可以通过下面2中方式实现：</p>
+    <ol>
+      <li>直接配置在root的children属性中</li>
+      <li>配置在TreeStore的data属性上</li>
+    </ol>
+    <h3>root的children属性</h3>
+    <p>配置在root的children属性上，等同于把整个树形数据结构直接设置到TreeStore上</p>
+    <pre>
+      <textarea>
+        var store = new TreeStore({
+          root : {
+            text : '根节点',
+            id : 'root',
+            children : [{id : '1',text : 1},{id : '2',text : 2}]
+          }
+        });
+      </textarea>
+    </pre>
+    <h3>data属性</h3>
+    <p>如果根节点无意义，不配置跟节点时TreeStore会自动生成根节点，此时需要配置TreeStore的<code>data</code>属性</p>
+    <pre>
+      <textarea>
+        var store = new TreeStore({
+          data : [{id : '1',text : 1},{id : '2',text : 2}]
+        });
+      </textarea>
+    </pre>
+
+    <h2>异步加载节点</h2>
+    <p>当配置了<code>url</code>属性时，展开节点时会触发加载节点的判断：</p>
+    <ol>
+      <li>如果TreeStore设置了<code>autoLoad:true</code>，那么store初始化的时候会判断根节点是否需要加载</li>
+      <li>如果节点是非叶子节点<code>leaf == false</code>同时<code>children.length == 0</code>那么会加载此节点，为了防止<code>leaf==false && children.length == 0 </code>的节点已经加载过，添加一个判断条件<code>loaded != true</code>,如果以上3个条件都满足，那么就会发送异步请求http://xxx.xxx.xx?id=xxx</li>
+    </ol>
+    <p>所以你可以在初始化时在root上设置一些子节点，也可以完全不设置，节点的是否加载仅跟节点的当前状态相关</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/tree/async.php"></div>
+    
+    <p>TreeStore进行以异步加载子节点时，默认使用?id=xxx的方式，但是可以通过配置属性<code>pidField</code>更改id的字段名称</p>
+
+    <h2>查找节点</h2>
+    <p>store提供了几个查找节点的函数：</p>
+    <ol>
+      <li>findNode( id, [parent], [deep=true] ) ：根据节点id查找节点，可以指定开始查找的父节点,和是否进行级联查找</li>
+      <li>findNodesBy( func, [parent] )：根据回调函数查找节点</li>
+      <li>findNodeByPath (path): 根据路径查找节点，是一个使用','分割的字符串</li>
+    </ol>
+
+    <pre><textarea>
+      var node = store.findNode('1');//从根节点开始查找节点
+ 
+      var subNode = store.findNode('123',node); //从指定节点开始查找
+
+      //根据回调函数查找
+      var nodes = store.findNodesBy(function(node){
+        if(node.status == '0'){
+          return true;
+        }
+        return false;
+      });
+    </textarea></pre>
+
+    <h2>增删改</h2>
+    <p>TreeStore通过下面的几个增删改函数进行数据操作：</p>
+    <ol>
+      <li>add( node, [parent=root], [index] ) :添加节点，可以指定父节点和节点在父节点子节点集合中的位置，默认添加在父节点的最后面</li>
+      <li>update( node )：更新节点</li>
+      <li>remove( node ) ：移除节点</li>
+    </ol>
+
+    <h2>API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a target="_blank" href="http://www.builive.com/docs/#!/api/BUI.Data.TreeStore">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Data.TreeStore">
+      
+    </div>
+    
+    <h2>下一步学习</h2>
+    <p>本章介绍了TreeStore的一些常用方式,熟悉了TreeStore的加载和操作后在学习<a data-id="tree-base" class="page-action" href="tree-base.html">树控件</a>的时候就非常轻松了。</p>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
