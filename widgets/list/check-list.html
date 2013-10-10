@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>可勾选列表</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/selection.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>可勾选列表的实现</li>
+          <li>可勾选列表的应用</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>初级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>简单列表的使用中一种常用的场景是多选，在多选的时候显示checkbox是一种非常好的体验，本章我们通过类<code>BUI.List.Listbox</code>来了解如何继承简单列表。</p>
+
+    <h2>实现</h2>
+    <p>可勾选列表的实现非常简单，仅仅是通过属性<code>itemTpl</code>覆写了列表的模板,同时通过设置<code>multipleSelect:true</code>来设置默认多选，下面是实现代码：</p>
+
+    <pre>
+      <textarea>
+        var listbox = SimpleList.extend({
+          
+        },{
+          ATTRS : {
+            /**
+             * 选项模板
+             * @override
+             * @type {String}
+             */
+            itemTpl : {
+              value : '<li><span class="x-checkbox"></span>{text}</li>'
+            },
+            /**
+             * 选项模板
+             * @override
+             * @type {Boolean}
+             */
+            multipleSelect : {
+              value : true
+            }
+          }
+        },{
+          xclass: 'listbox'
+        });
+      </textarea>
+    </pre>
+
+    <h2>应用</h2>
+    <p>下面我们通过2个简单的示例来看一下这个类的使用情况：</p>
+
+    <h3>简单示例</h3>
+    <div class="page-demo" data-url="http://www.builive.com/demo/list/listbox.php"></div>
+    <p>这是一个非常简单的应用，代码也非常简洁</p>
+    <h3>复杂的应用</h3>
+    <div class="page-demo" data-url="http://www.builive.com/demo/list/listboxapp.php"></div>
+    
+    <h2>API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a target="_blank" href="http://www.builive.com/docs/#!/api/BUI.List.Listbox">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.List.Listbox">
+      
+    </div>
+    
+    <h2>下一步学习</h2>
+    <p>本章介绍了简单列表的子类，通过这个子类可以了解如果扩展简单列表，你可以继续学习：<a data-id="list-create" class="page-action" href="list-create.html">列表生成</a>和<a data-id="list-status" class="page-action" href="list-status.html">列表状态</a></p>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>

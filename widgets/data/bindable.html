@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>数据绑定</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/bindable.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>Bindable简介</li>
+          <li>控件如何支持Store</li>
+          <li>Store的事件与控件</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>在前面的章节里我们介绍了Store和TreeStore,单独使用Store或者TreeStore意义不大，是否有一种机制能在Store加载完成数据时，增删改数据时，自动更新控件的数据，在这里BUI引入了一个扩展<code>BUI.Component.UIBase.Bindable</code>,这个扩展支持一下功能：</p>
+    <ul class="tutor-list">
+      <li>支持Store（TreeStore）和 LoadMask</li>
+      <li>数据加载完成后，通知控件更新数据</li>
+      <li>增删改、本地排序后，通知控件更新数据</li>
+      <li>初始化时跟控件同步数据</li>
+    </ul>
+
+    <h2>控件支持Store</h2>
+    <p>当一个控件实现了Bindable扩展时就支持Store，覆盖掉对应的方法就会在Store触发相应的事件时做出相应,下面是<a data-id="simple-list" class="page-action" href="simple-list.html">SimpleList控件</a>的实现：</p>
+    <pre>
+      <textarea>
+        var  simpleList = BUI.Component.Controller.extend([DomList,UIBase.Bindable,KeyNav],{
+          /**
+           * 添加
+           * @protected
+           */
+          onAdd : function(e){
+            var _self = this,
+              item = e.record;
+            _self.addItemToView(item,e.index);
+          },
+          /**
+           * 删除
+          * @protected
+          */
+          onRemove : function(e){
+            var _self = this,
+              item = e.record;
+            _self.removeItem(item);
+          },
+          /**
+           * 更新
+          * @protected
+          */
+          onUpdate : function(e){
+            this.updateItem(e.record);
+          },
+          /**
+          * 本地排序
+          * @protected
+          */
+          onLocalSort : function(e){
+            this.onLoad(e);
+          },
+          /**
+           * 加载数据
+           * @protected
+           */
+          onLoad:function(){
+            var _self = this,
+              store = _self.get('store'),
+              items = store.getResult();
+            _self.set('items',items);
+          }
+        },{
+          xclass : 'simple-list'
+        });
+      </textarea>
+    </pre>
+    <p>我们看到SimpleList控件覆写了Bindable扩展的onAdd,onRemove,onUpdate,onLocalSort,onLoad方法，而这些方法是Store在对应的事件触发时调用的，所以就实现了控件跟Store的同步</p>
+
+    <h3>初始化同步</h3>
+    <p>当初始化时Store中就已经有数据了，在控件初始化时会判断Store中是否有数据，通过<code>store.hasData()</code>来判断，如果有数据就会调用<code>onLoad</code>方法</p>
+
+    <h2>Store的事件与对应的方法</h2>
+    <p>Store中的数据发生改变的事件Bindable扩展都会有一个对应的protected方法：</p>
+    <table class="table  table-striped">
+      <thead>
+        <tr>
+          <th>事件名</th>
+          <th>方法名</th>
+          <th width="50%">描述</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>add</td>
+          <td>onAdd</td>
+          <td>添加记录后触发</td>
+        </tr>
+        <tr>
+          <td>remove</td>
+          <td>onRemove</td>
+          <td>删除记录后触发</td>
+        </tr>
+        <tr>
+          <td>update</td>
+          <td>onUpdate</td>
+          <td>更新记录后触发</td>
+        </tr>
+        <tr>
+          <td>load</td>
+          <td>onLoad</td>
+          <td>加载完成后触发</td>
+        </tr>
+        <tr>
+          <td>beforeload</td>
+          <td>onBeforeLoad</td>
+          <td>加载数据前触发</td>
+        </tr>
+        <tr>
+          <td>exception</td>
+          <td>onException</td>
+          <td>加载数据过程中发生错误</td>
+        </tr>
+        <tr>
+          <td>localsort</td>
+          <td>onLocalSort</td>
+          <td>本地排序</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>实现Bindable的控件</h2>
+    <p>BUI中实现了Bindable接口的控件有以下几个：</p>
+    <ul class="tutor-list">
+      <li>SimpleList以及其子类SimpleGrid，Grid，TreeList,TreeGrid,TreeMenu</li>
+      <li>表单的级联选择框（<code>BUI.Form.Group.Select</code>）</li>
+      <li>PagingBar及其子类NumberPagingBar</li>
+    </ul>
+
+    <h2> API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a target="_blank" href="http://www.builive.com/docs/#!/api/BUI.Component.UIBase.Bindable">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Component.UIBase.Bindable">
+      
+    </div>
+    
+    <h2>下一步学习</h2>
+    <p>本章介绍了如何加载数据，对于Store和TreeStore完全一样，如果你对<a data-id="tree-list" class="page-action" href="tree-list.html">树控件</a>跟兴趣，那么你可以继续学习树形数据结构的数据缓冲类<a data-id="data-store" class="page-action" href="proxy.html">TreeStore</a>，否则直接进入<a data-id="simple-list" class="page-action" href="simple-list.html">列表</a>章节的学习</p>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
