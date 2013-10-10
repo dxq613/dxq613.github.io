@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>简单列表</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/list.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>列表项</li>
+          <li>列表操作</li>
+          <li>列表和Store</li>
+          <li>列表的使用和继承</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>列表的应用范围很广，考虑以下场景：</p>
+    <ul class="tutor-list">
+      <li>日历控件中的天、月、年都是列表，时分秒的选择也都是列表</li>
+      <li>选择框的下拉选项、表格、树也都是列表</li>
+      <li>表单中的多个复选框框、单选框也可以用列表实现</li>
+    </ul>
+    <h3>列表展示的数据</h3>
+    <p>列表对应的数据结构是数组，每个列表项跟列表控件中的一段</p>
+
+    <h3>列表的功能</h3>
+    <p>在具体介绍列表前，先来讨论一下列表需要实现的功能：</p>
+    <ol>
+      <li>展示数组数据</li>
+      <li>选中数据：单选、多选</li>
+      <li>呈现数据的状态</li>
+      <li>增删改数据项</li>
+      <li>支持键盘事件</li>
+    </ol>
+    <p>列表的选中、状态和键盘事件在后面的章节里讨论</p>
+    
+    <h2>列表项</h2>
+    <p></p>
+
+    <h2>API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a target="_blank" href="http://www.builive.com/docs/#!/api/BUI.List.DomList">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.List.DomList">
+      
+    </div>
+    
+    <h2>下一步学习</h2>
+    <p>本章介绍了简单列表的使用，更多的内容在后面的章节里面详细介绍：<a data-id="selection" class="page-action" href="selection.html">列表选中</a>、<a data-id="list-status" class="page-action" href="list-status.html">列表状态</a></p>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>

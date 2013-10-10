@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>列表</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/list.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>列表和简单列表</li>
+          <li>列表操作</li>
+          <li>列表查找</li>
+          <li>列表事件</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>列表的应用范围很广，所有的使用数组作为数据源的控件都可以使用列表，BUI中为了针对不同的列表进行针对性的处理，我们将列表分为2类：</p>
+    <ol>
+      <li>列表项是控件的列表：菜单、Tab标签、Toolbar以及进度条都是这一类控件</li>
+      <li>列表项不是控件，仅仅是一个Object对应一个DOM：简单列表、表格、树就是这一类控件</li>
+    </ol>
+
+    <h3>列表的功能</h3>
+    <p>在具体介绍列表前，先来讨论一下列表需要实现的功能：</p>
+    <ol>
+      <li>展示数组数据</li>
+      <li>选中数据：单选、多选</li>
+      <li>呈现数据的状态</li>
+      <li>增删改数据项</li>
+      <li>支持键盘事件</li>
+    </ol>
+
+    <h2>列表和简单列表</h2>
+    <p>菜单、工具栏一类的控件，列表项是子控件的原因在于这些控件非常复杂，列表项也可能嵌套一些其他控件，例如一个菜单项中可以有子菜单；一个Tab标签项里面可能有表单、表格等控件</p>
+    <p>而简单列表、表格、树这一类控件是用于展示、操作数据，所以关注点在数据集合上，所以不将列表项实现为子控件</p>
+    <p>列表和简单列表从概念上来说没有任何差别，数据的展示、操作、选中都完全一致，只是具体的实现上有所差异，两者的抽象接口都定义在<code>BUI.Component.UIBase.List</code>中，选中定义在<code>BUI.Component.UIBase.Selection</code>中</p>
+    <p>列表和简单列表最大的差异在于列表项，对于列表而言所有的列表项时一个个的Controller类，所有的属性通过get,set访问和设置，而简单列表的列表项是一个个的Object，可以直接操作Object，但是对应的DOM状态需要函数同步。</p>
+
+    <h2>列表操作</h2>
+    <p>这里仅介绍列表的增删改，列表的选中在后面的<a data-id="menu-base" class="page-action" href="menu-base.html">菜单</a>、<a data-id="tab-base" class="page-action" href="tab-base.html">Selection章节</a>里介绍，所有的列表都支持下面的操作：</p>
+    <ol>
+      <li>addItem( item ),addItemAt( item, index ) : 添加选项</li>
+      <li>addItems( items ),addItemsAt( items,index ) ： 批量添加选项</li>
+      <li>removeItem(item),removeItemAt(index) : 移除选项</li>
+      <li>removeItems(items) : 批量移除选项</li>
+      <li>updateItem( item ) ：更新选项</li>
+    </ol>
+
+    <h2>列表项的查找</h2>
+    <p>对列表项进行操作就牵扯到列表项的查找问题，BUI的列表提供了下面几个查找函数：</p>
+    <ol>
+      <li>indexOfItem( item ) : 查找选项的索引值</li>
+      <li>getItems( ) ： 获取所有的选项</li>
+      <li>getFirstItem( ),getLastItem( ) : 获取第一个、最后一个选项</li>
+      <li>getItemAt( index )  ： 根据索引查找选项</li>
+      <li>getItem( id ): 根据选项的id获取选项</li>
+      <li>getItemCount( ) : 获取所有选项的数量</li>
+    </ol>
+
+    <h2>列表的事件</h2>
+    <p>由于列表项是Controller类，所有包含Controller的所有事件，但是简单列表的事件需要重新定义，所以2者共同的事件只有一个（除选中引起的事件）：<code>itemclick</code>,具体每个控件的事件会在后面的章节里一一介绍</p>
+
+    <h2>API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a target="_blank" href="http://www.builive.com/docs/#!/api/BUI.Component.UIBase.List">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Component.UIBase.List">
+      
+    </div>
+    
+    <h2>下一步学习</h2>
+    <p>本章介绍了列表的概念，对于列表项是控件的列表控件你可以去学习<a data-id="menu-base" class="page-action" href="menu-base.html">菜单</a>、<a data-id="tab-base" class="page-action" href="tab-base.html">Tab标签</a>、<a data-id="button-group" class="page-action" href="button-group.html">工具栏</a>，对于一般的简单列表你可以继续下面<a data-id="simple-list" class="page-action" href="simple-list.html">简单列表</a>的学习</p>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>

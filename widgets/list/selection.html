@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>列表</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/selection.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>单选和多选</li>
+          <li>选中操作</li>
+          <li>选中事件</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>列表的选中是一个非常重要的功能，首先来看一下下面的场景：</p>
+    <ol>
+      <li>菜单项的选中</li>
+      <li>日历控件中选择日，月，年以及时分秒</li>
+      <li>下拉列表中的选择，表格、Tree的勾选等等</li>
+    </ol>
+    <p>上面的所有选中本质上都是一样的，都是分为单选和多选2中情形，所以我们将选中抽象成为一个扩展<code>BUI.Component.UIBase.Selection</code></p>
+    <p><label class="label label-warning">注意</label>为了方便起见，菜单和简单列表之类的控件在本章都简称列表</p>
+
+    <h2>单选</h2>
+    <p>列表的单选是：选中一个列表选项时，清除其他选中的选项，保证一个列表最多只有一个选项被选中。</p>
+    <p>列表的多选是：列表项的选中只跟列表项自身相关，选中一个选项时不会影响其他选项的选中状态。</p>
+    <p>选择方式是使用<code>multipleSelect</code>属性相关，默认是false</p>
+
+    <h2>选中操作</h2>
+    <p>选中的操作主要有选中、取消选中、获取选中以及判断选中的操作，支持的函数如下：</p>
+    <ol>
+      <li>setSelected( item ) : 设置选中的选项</li>
+      <li>setAllSelection( )： 选中所有记录，仅在多选状况下有效</li>
+      <li>setSelectedByField( field, value ): 根据键值选中选项</li>
+      <li>setSelectionByField( field, values ) : 根据键值，批量选中选项</li>
+      <li>setSelection( items ) : 选中多个选项，仅在多选状况下有效</li>
+      <li>clearSelected( [item] ): 清除选中的记录，如果单选模式下，未指定清除的选项，清除当前选中的记录的选中状态</li>
+      <li>clearSelection( ): 清除所有选中</li>
+      <li>getSelected( ) ： 获取选中的一个选项，如果是多选，那么仅返回选中的第一个选项</li>
+      <li>getSelection( ) ：获取返回的所有选项</li>
+      <li>isItemSelected( item )  : 记录是否被选中</li>
+    </ol>
+
+    <h2>选中事件</h2>
+    <p>选中或者取消选中过程中会触发下列事件：</p>
+    <ul class="tutor-list">
+      <li>itemselected : 选项选中的事件</li>
+      <li>itemunselected ： 选项取消选中的事件</li>
+      <li>selectedchange ： 选项的选中状态发生改变</li>
+    </ul>
+    <p>上面这3个事件之间存在关联，同时单选和多选时事件的触发机制有些差异：</p>
+    <ul class="tutor-list">
+      <li>单选状态下：选中一个选项时(选项未选中)，查找当前选中的选项，清除当前选中选项的选中状态，触发itemunselected；设置要选中选项的选中状态触发itemselected事件；最后触发selectedchange事件</li>
+      <li>单选状态下：清除一个选项的选中状态时（选项已经选中），清除选项的选中状态触发itemunselected事件,然后触发selectedchange事件</li>
+      <li>多选状态下：选中一个选项时(选项未选中)，设置选项的选中状态触发itemselected事件,然后触发selectedchange事件</li>
+      <li>多选状态下：清除一个选项的选中状态时(选项已经选中)，清除选项的选中状态触发itemunselected事件,然后触发selectedchange事件</li>
+    </ul>
+    <p>我们看到单选和多选在清除选项的选中时，触发事件的方式是一致的，但是选中某一项时是不完全一样的，但是无论如何都会触发selectedchange事件</p>
+    <p>事件的具体API可以查看下面的API中，也可以去<a target="_blank" href="http://www.builive.com/docs/#!/api/BUI.Component.UIBase.Selection">查看API文档</a>查看</p>
+
+    <h2>API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a target="_blank" href="http://www.builive.com/docs/#!/api/BUI.Component.UIBase.Selection">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Component.UIBase.Selection">
+      
+    </div>
+    
+    <h2>下一步学习</h2>
+    <p>本章介绍了列表的选中，你可以继续下面<a data-id="simple-list" class="page-action" href="simple-list.html">简单列表</a>的学习</p>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
