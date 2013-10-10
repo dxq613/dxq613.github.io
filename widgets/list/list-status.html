@@ -34,7 +34,44 @@
 
     <h2>简介</h2>
     <p>列表项的状态往往代表列表项对应数据的一个属性，所以为了能够体现出列表项的属性，需要有一种非常简便的方式初始化、同步列表项的状态，对于列表项是子控件和列表项是Object的列表来说，实现方式是不一样的，但是配置方式非常相近，在下面的内容中我们会详细介绍。</p>
+
+    <h2>列表项是控件</h2>
+    <p>BUI的控件有一些状态，<code>hover</code>,<code>focused</code>,<code>disabled</code>等等，都可以通过相应的值来设置,所有实现了<code>BUI.Component.UIBase.ChildList</code>扩展的类，都可以使用列表项类作为子控件的实例，这个类有一个特殊的状态<code>selected</code>，我们通过下面的示例来看一下列表项是如何初始化和同步状态的：</p>
+
+    <div class="page-demo" data-url="http://www.builive.com/demo/bar/button-group.php"></div>
+    <p>这是示例中使用的是工具栏<code>BUI.Toolbar.Bar</code>，这是一个实现了<code>BUI.Component.UIBase.ChildList</code>扩展的类，在上面的几个实例中分别呈现了不同的内容</p>
+    <p>对于列表项是子类的控件：</p>
+    <ul class="tutor-list">
+      <li>在初始化的时候：只需要配置对应的状态值即可，如 selected:true</li>
+      <li>可以通过set,get设置和获取对应的状态，如：item.set('selected',true);item.set('selected',false);</li>
+      <li>可以通过属性<code>itemStatusCls  </code>来配置状态对应的css</li>
+    </ul>
+
+    <h2>列表项是Object对象</h2>
+    <p>列表项是Object对象的类是<code>BUI.List.SimpleList</code>或者继承自<code>BUI.List.SimpleList</code>的子类，这些类对应的控件的列表项由于仅仅是Object，所以操作列表项的状态需要使用一些列表的方法：</p>
+    <ul class="tutor-list">
+      <li>setItemStatus( item, status, value, [element] ):设置选项状态</li>
+      <li>getItemsByStatus( status ) ：获取有某种状态的选项集合</li>
+      <li>hasStatus( item, status, [element] )：是否有某种状态</li>
+      <li>clearItemStatus( item )：清除选项的所有状态</li>
+    </ul>
+
+    <p>我们通过下面的示例来看一下简单列表是如何设置状态的：</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/list/status.php"></div>
+    <p><label class="label label-info">说明：</label></p>
+    <ol>
+      <li>简单列表默认有：selected,disabled,hover等状态，但是这些状态在默认场景下无法跟初始数据同步</li>
+      <li>当在属性<code>itemStatusFields</code>配置了对应的状态对应的字段后，可以进行状态的同步</li>
+      <li>可以自定义任何状态，通过设置状态的函数设置即可</li>
+      <li>列表项的状态对应的样式默认是 itemCls + status,例如简单列表的itemCls : bui-list-item，那么选中的样式是bui-list-item-selected，可以通过属性<code>itemStatusCls</code>配置状态对应的css</li>
+    </ol>
     
+    <p>由于Grid,Tree继承自简单列表，所以Grid,Tree都可以自定义状态，看下面的示例：</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/grid/grid-status.php"></div>
+
+    <h2>更多信息</h2>
+    <p>列表项的状态改变使得列表控件呈现出不同的状态，在几乎所有的BUI控件中都是用本章讲述的内容，所以理解列表项的状态变化非常有用；而且可以通过自定义列表项的状态实现非常强大的功能，你会在<a data-id="grid-base" class="page-action" href="grid-base.html">表格</a>和<a data-id="tree-base" class="page-action" href="tree-base.html">表格</a>章节中遇到更多的使用状态实现特性。</p>
+
     <h2>下一步学习</h2>
     <p>本章介绍了列表项的状态设置，本章完成后基础的列表就讲到这里了，后面的章节里会经常用到这几个章节里的内容。你可以继续学习：<a data-id="menu-base" class="page-action" href="list-create.html">菜单</a>、<a data-id="tab-base" class="page-action" href="tab-base.html">Tab标签</a>或者<a data-id="grid-base" class="page-action" href="grid-base.html">表格</a></p>
 
