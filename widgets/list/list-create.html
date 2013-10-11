@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>列表的创建</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/create.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习一下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>列表的创建方式</li>
+          <li>利用DOM生成列表</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>初级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+    
+    <h2>简介</h2>
+    <p>在前面的章节里面我们探讨过控件的生成方式，主要有2种方式：</p>
+    <ul class="tutor-list">
+      <li>直接使用配置项生成控件，包括其子控件放置在配置项<code>children</code>中,详情查看<a data-id="children" class="page-action" href="children.html">子控件管理</a></li>
+      <li>利用Html来生成控件和对应的子控件，详情查看<a data-id="decorate" class="page-action" href="decorate.html">使用html生成控件</a>章节</li>
+    </ul>
+    <p>对于列表来说这2种方式都是很好理解和实现的方式，下面针对子控件是控件的列表和简单列表进行分别的介绍。</p>
+    
+    <h2>列表项是子控件</h2>
+    <p>对于菜单之类的列表项是子控件的控件的生成有下面几点需要注意：</p>
+    <ul class="tutor-list">
+      <li>列表项可以配置在<code>children</code>属性中也可以配置在<code>items</code>属性中，2者等同</li>
+      <li>列表项相同的配置项可以在列表的<code>defaultChildCfg</code>属性中配置</li>
+      <li>列表中包含<code>itemStatusCls</code>和<code>itemTpl</code>，可以快速配置常用的子控件的属性</li>
+    </ul>
+    <h3>直接使用children</h3>
+    <p>下面的示例是直接生成子控件的方式</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/menu/normal-menu2.php"></div>
+    <p>也可以通过<code>defaultChildCfg</code>属性和<code>itemStatusCls</code>实现更强大的效果，下面的示例中有多个实例：</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/bar/button-group.php"></div>
+
+    <h3>使用Html生成</h3>
+    <p>使用html生成控件时，子控件需要指定对应的样式，<code>'bui-' + xclass</code>,通过下面的示例来了解一下：</p>
+    <p>html如下：</p>
+    <pre>
+      <textarea>
+        <div  class="row">
+          <ul id="m1" class="demo-menu">
+                <li class="bui-menu-item" data-id="1">菜单一</li>
+                <li class="bui-menu-item" data-id="2">菜单二</li>
+                <li class="bui-menu-item" data-id="3">菜单三</li>
+            </ul>
+        </div>
+      </textarea>
+    </pre>
+
+    <div class="page-demo" data-url="http://www.builive.com/demo/menu/decorate.php"></div>
+    <p>控件的默认生成方式就是生成菜单的过程如下：</p>
+    <ol>
+      <li>控件生成过程中，发现srcNode属性，将对应的最外层的DOM转换成控件的<code>el</code>属性，并读取对应的属性</li>
+      <li>检测是否设置了属性<code>isDecorateChild</code>属性，如果未设置不转换内部DOM，否则继续</li>
+      <li>查看el.children()的所有节点上的class是否有对应的BUI控件，如果存在转变成子控件</li>
+    </ol>
+
+    <h2>简单列表</h2>
+    <p>简单列表中的列表项不是子控件而是一个个的Object，所以通过配置<code>items</code>属性很容易的生成列表，首先我们来看一下配置项生成列表的方式：</p>
+    
+    <h3>通过配置项生成列表项</h3>
+    <div class="page-demo" data-url="http://www.builive.com/demo/list/simple-list1.php"></div>
+    <p>这种方式非常容易理解，但是存在几点问题：</p>
+    <ol>
+      <li>列表在JS加载完成后执行，本来列表的区域为空</li>
+      <li>需要在script标签里面输出JSON</li>
+    </ol>
+
+    <h3>使用html生成列表项</h3>
+    <pre>
+      <textarea>
+        <div  id="list1" class="row">
+          <ul class="bui-select-list span8">
+            <li class="bui-list-item" data-value="1">选项1</li>
+            <li class="bui-list-item" data-value="2">选项2</li>
+            <li class="bui-list-item" data-value="3">选项3</li>
+            <li class="bui-list-item" data-value="4">选项4</li>
+          </ul>
+        </div>
+      </textarea>
+    </pre>
+    <div class="page-demo" data-url="http://www.builive.com/demo/list/simple-list-dec.php"></div>
+    <p>上面示例中的<code>bui-list-item</code>样式可以省略，列表生成后会自动添加对应的样式，但是也会一起样式的变化</p>
+
+    <h3>表单中的简单列表</h3>
+    <p>在表单中我们也可以使用简单列表，模拟单选框，复选框</p>
+     <div class="page-demo" data-url="http://www.builive.com/demo/form/list.php"></div>
+
+    <h2>下一步学习</h2>
+    <p>本章介绍了列表的生成方式，你会发现在不同的场景下选择不同的生成方式会给你带来灵活性和便利性,接下来你可以进一步学习<a data-id="list-status" class="page-action" href="list-status.html">列表状态</a>章节，然后进行<a data-id="menu-base" class="page-action" href="menu-base.html">菜单</a>章节的学习。</p>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
