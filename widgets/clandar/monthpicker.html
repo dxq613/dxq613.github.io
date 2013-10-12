@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet">
+  <link href="../../assets/css/page.css" rel="stylesheet">
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>月份选择</h1>
+
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/monthpicker.jpg"/>
+
+      <div class="introduce">
+        <h2 id="_2">导引</h2>
+
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>选择月份的文本框</li>
+        </ol>
+        <ul class="intro-level">
+          <li>
+            <span>难度：</span>
+            中级
+          </li>
+          <li>
+            <span>版本：</span>
+            1.0
+          </li>
+        </ul>
+
+      </div>
+    </div>
+
+    <h2 id="_2">简介</h2>
+    <p>大部分应用中都需要让用户快速选择或填写正确的一个日期格式，所以BUI在提供了日期选择的同时也提供了月份的选择：</p>
+    <div class="page-demo" data-url="http://builive.com/demo/calendar/month.php"></div>
+
+    <ul class="tutor-list">
+      <li>month 设置默认选中月份，值为：0-11</li>
+      <li>visible 控件是否可见</li>
+      <li>
+        align 对齐方式，详细可见
+        <a data-id="positon" class="page-action" href="file://C:\Users\Administrator\Desktop/positon.html">位置和对齐</a>
+      </li>
+      <li>year 设置默认选中的年份</li>
+      <li>success 成功的回调方法</li>
+    </ul>
+    <h2 id="_3">选择月份的文本框</h2>
+    <p>大部分表单都需要填写一个月份的日期格式，而BUI的月份选择控件只需要通过简单的配置和修改即可使用。</p>
+    <div class="page-demo" data-url="http://builive.com/demo/calendar/monthpicker.php"></div>
+
+    <ul class="tutor-list">
+      <li>trigger 触发显示控件的DOM选择器</li>
+      <li>autoHide 为控件自动隐藏，当控件完时工作它将自动隐藏</li>
+      <li>success 回调方法中，获取到返回的值然后把值显示在trigger的文本框上。</li>
+      <li>show 事件绑定，当月份选择控件展现的时候，我们需要把文本框上的值与月份选择控件的值同步。</li>
+    </ul>
+    <h2 id="api">API</h2>
+    <p>
+      下面只是简单的列表，未显示从父类继承来的方法，详细信息请查
+      <a href="http://builive.com/docs/index.html#!/api/BUI.Calendar.MonthPicker">看API文档</a>
+    </p>
+    <div class="J_API" data-name="BUI.Calendar.MonthPicker"></div>
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script>
+  <script src="../../assets/js/config.js"></script>
+  <script>
+    BUI.use('common/page', function (Page) {
+        new Page().init();
+    });
+</script>
+</body>
+</html>
