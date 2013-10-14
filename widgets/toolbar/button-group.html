@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>按钮组</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/button-group.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>按钮栏的实现</li>
+          <li>勾选按钮</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>工具栏的使用中，按钮是非常重要的元素，往往按钮会多个一起出现，由此构成了按钮组,我们可以通过使用图片的方式使的按钮组更加精细，可以使用具有勾选功能的按钮组，本章中你会看到工具栏的灵活性。</p>
+
+    <h2>按钮组的实现</h2>
+
+    <h3>一般示例</h3>
+    <p>下面的示例是最简单的按钮组实现：</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/bar/bg1.php"></div>
+    <p>几点说明：</p>
+    <ul class="tutor-list">
+      <li>按钮组我们并没有使用新的类实现，而是通过更改属性和模板实现的按钮组</li>
+      <li>配置<code>elCls : 'button-group'</code>，使控件外层使用这个样式</li>
+      <li>配置<code>defaultChildCfg</code>配置所有的子控件的共同属性</li>
+      <li>这里的每个按钮是li标签，下面的示例使用button</li>
+    </ul>
+
+    <h3>子项为button</h3>
+    <div class="page-demo" data-url="http://www.builive.com/demo/bar/bg2.php"></div>
+    <p>几点说明：</p>
+    <ul class="tutor-list">
+      <li><code>BUI.Toolbar.Bar</code>类的默认标签<code>elTagName : 'ul'<code>，工具栏项的默认标签是<code>elTagName : 'li'<code></li>
+      <li>通过修改elTagName可以实现控件和子控件的标签更加有语义性。</li>
+      <li>这里没有使用<code>BUI.Toolbar.BarItem.Button</code>类的原因是，这个类的示例最外层是li,里面有一个button，会导致html语义上的错乱。</li>
+    </li>
+    
+    <h2>下一步学习</h2>
+    <p>本章更进一步的讲解了工具栏的使用，按钮组是最长使用的工具栏，你可以继续学习另一种常用工具栏：<a data-id="paging" class="page-action" href="paging.html">分页栏</a></p>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>

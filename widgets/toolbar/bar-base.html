@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>工具栏</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/bar.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>工具栏选项</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>工具栏主要用于放置按钮等操作的容器，可以放置多个按钮、链接、文本以及分隔符，常用于操作表格、树等控件，BUI中提供了下面几种工具栏：</p>
+    <ol>
+      <li>一般工具栏：可以任意搭配，包括按钮、文本等工具栏项</li>
+      <li>按钮栏：由按钮组成的工具栏,可以用于命令、选中等操作</li>
+      <li>分页栏：包括一般的分页栏和数字分页栏</li>
+    </ol>
+    <p>一般工具栏由<code>BUI.Toolbar.Bar</code>类实现，其他工具栏是其子类，<code>BUI.Toolbar.Bar</code>类实现了<code>BUI.Component.UIBase.ChildList</code>扩展，这个扩展实现了列表的所有功能，详情可以参看<a data-id="list-base" class="page-action" href="list-base.html">列表简介</a></p>
+
+    <h2>工具栏的选项</h2>
+    <p>工具栏的工具栏项是一个个的控件，工具栏项又以下几种：</p>
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th></th>
+          <th>类</th>
+          <td>xclass</td>
+          <th width="50%">描述</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>通用工具栏项</td>
+          <td><code>BUI.Toolbar.BarItem</code></td>
+          <td><code>bar-item</code></td>
+          <td>通用的工具栏项，可以通过配置模板实现所有任意种类的工具栏项</td>
+        </tr>
+        <tr>
+          <td>按钮工具栏项</td>
+          <td><code>BUI.Toolbar.BarItem.Button</code></td>
+          <td><code>bar-item-button</code></td>
+          <td>快速方便的实现按钮功能</td>
+        </tr>
+        <tr>
+          <td>文本工具栏项</td>
+          <td><code>BUI.Toolbar.BarItem.Text</code></td>
+          <td><code>bar-item-text</code></td>
+          <td>快速方便的在工具栏上显示文本</td>
+        </tr>
+        <tr>
+          <td>空格工具栏项</td>
+          <td><code>BUI.Toolbar.BarItem.Spacer</code></td>
+          <td><code>bar-item-spacer</code></td>
+          <td>方便的实现空格功能</td>
+        </tr>
+        <tr>
+          <td>分隔符工具栏项</td>
+          <td><code>BUI.Toolbar.BarItem.Separator</code></td>
+          <td><code>bar-item-separator</code></td>
+          <td>快速方便的在工具栏上生成分隔符</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>示例</h3>
+    <p>下面是一个配置工具栏的示例：</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/bar/toolbar.php"></div>
+    <p>几点说明：</p>
+    <ol>
+      <li><code>BUI.Toolbar.Bar</code>类的默认xclass是<code>bar-item</code>，使用属性<a data-id="children" class="page-action"  href="control/children.html">defaultChildClass</a>标示，所以第一个子控件没有声明xclass,xtype，就默认作为<code>bar-item</code>来实现</li>
+      <li>由于 defaultChildClass = "bar-item",同时 xclass = defaultChildClass + '-' + xtype，所以当声明xtype : button时，即指定xclass="bar-item-button",其他工具栏项同样实现</li>
+      <li>spacer类只有一个常用属性<code>width</code>用于指定宽度，separator类，不需要指定任何属性</li>
+      <li>button类有2个常用属性：<code>btnCls</code>,<code>text</code>,可以通过<code>handler</code>属性快速绑定点击事件</li>
+      <li>text 类常用<code>text</code>属性指定文本</li>
+    </ol>
+
+    <h3>工具栏嵌套</h3>
+    <p>工具栏可以嵌套使用，一般我们可以使用居左<code>pull-left</code>或者居右<code>pull-left</code>的工具样式定义子工具栏的位置</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/bar/nest-bar.php"></div>
+
+    <h2>API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a target="_blank" href="http://www.builive.com/docs/#!/api/BUI.Toolbar.Bar">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Toolbar.Bar">
+      
+    </div>
+    
+    <h2>下一步学习</h2>
+    <p>本章简单的讲述了工具栏的使用和如何配置工具栏的子控件，下面的章节里我们来讨论常用的工具栏：<a data-id="button-group" class="page-action" href="button-group.html">按钮组</a>和<a data-id="paging" class="page-action" href="paging.html">分页栏</a></p>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
