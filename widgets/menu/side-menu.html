@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet">
+  <link href="../../assets/css/page.css" rel="stylesheet">
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>左侧菜单</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/list.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>侧边栏菜单</li>
+          <li>复杂的左侧菜单</li>
+        </ol>
+        <ul class="intro-level">
+          <li>
+            <span>难度：</span>
+            中级
+          </li>
+          <li>
+            <span>版本：</span>
+            1.0
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>
+      侧边栏菜单更多的应用在导航作用上，以一种可伸缩的菜单依附在应用的侧边。所以BUI提供了一种便捷的方式快速的生成一个侧边栏菜单
+    </p>
+
+    <h2>侧边栏菜单</h2>
+    <div class="page-demo" data-url="http://builive.com/demo/menu/sidebar-menu.php"></div>
+
+    <h2>复杂的左侧菜单</h2>
+    <p>
+      由于菜单是基于
+      <code>List</code>
+      进行扩展，对于创建复杂的左侧菜单，BUI也能轻松应付。下面逐步的教大家如何创建复杂的左侧菜单。
+    </p>
+    <p>首先我们需要认识一下初始化的参数</p>
+    <ul class="tutor-list">
+      <li>itemStatusCls  设置对应状态时的class名，状态其中包括：hover、collapsed</li>
+      <li>itemTplRender 列表项的渲染函数，可以针对场景不同设置不同的渲染方式。</li>
+    </ul>
+    <p>
+      适当的运用以上参数和进行事件绑定，侧边栏就可以适应不同的应用场景。这里提供了一个天猫菜单的
+      <a target="_blank" href="http://builive.com/demo/menu.php#menu/tmall-menu.php">DEMO</a>
+      ，大家可以参考学习。
+    </p>
+
+    <h2>API</h2>
+    <p>
+      下面只是简单的列表，未显示从父类继承来的方法，详细信息请
+      <a target="_blank" href="http://builive.com/docs/index.html#!/api/BUI.Menu.SideMenu">查看API文档</a>
+    </p>
+    <div class="J_API" data-name="BUI.Menu.SideMenu"></div>
+
+    <h2>下一步学习</h2>
+    <p>
+     本章介绍的左侧菜单相对于基本菜单稍微复杂，但这也证明了BUI的灵活、可配置，接下来我们学习的是
+      <a data-id="side-menu" class="page-action" href="side-menu.html">弹出菜单</a>
+      。
+    </p>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script>
+  <script src="../../assets/js/config.js"></script>
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>

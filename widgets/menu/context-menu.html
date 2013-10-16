@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet">
+  <link href="../../assets/css/page.css" rel="stylesheet">
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>上下文菜单</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/list.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>上下文菜单</li>
+        </ol>
+        <ul class="intro-level">
+          <li>
+            <span>难度：</span>
+            中级
+          </li>
+          <li>
+            <span>版本：</span>
+            1.0
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>
+      上下文菜单一般用在应用需要右键选中选项并且弹出菜单。这种形式在本地应用比较常见，但在Web应用中用得较少。
+    </p>
+
+    <h2>上下文菜单</h2>
+    <div class="page-demo" data-url="http://builive.com/demo/menu/context-menu.php"></div>
+    <p>对于上下文菜单大部分用户都习惯以右键弹出，但BUI的控件部分暂时未支持contextmenu事件，所以大家可以参考以下代码对树控件进行一个右键的Contextmenu绑定。</p>
+    <pre>
+      var _self = this,
+            tree = _self.get("tree"), 
+            itemCls = tree.get('itemCls'),
+            itemContainer = tree.get('view').getItemContainer();
+
+        itemContainer.delegate('.' + itemCls, 'contextmenu', function (ev) {
+            var itemEl = $(ev.currentTarget),
+                item = tree.getItemByElement(itemEl),
+                treeContextMenu = _self.get("treeContextMenu");
+            if (tree.isItemDisabled(item, itemEl)) { //禁用状态下阻止选中
+                return;
+            }
+            tree.setItemSelectedStatus(item, itemEl);
+            treeContextMenu.set('xy', [ev.pageX, ev.pageY]);
+            treeContextMenu.show();
+            return false;
+        });
+    </pre>
+    <p>首先我们获取到Tree的view然后通过项的样式绑定事件到每一个项。“contextmenu”即绑定了右键的事件，事件执行完之后我们必须 <code>return false</code> 阻止浏览器的右键事件。</p>
+    
+    
+
+    <h2>API</h2>
+    <p>
+      下面只是简单的列表，未显示从父类继承来的方法，详细信息请
+      <a target="_blank" href="http://builive.com/docs/index.html#!/api/BUI.Menu.ContextMenu">查看API文档</a>
+    </p>
+    <div class="J_API" data-name="BUI.Menu.ContextMenu"></div>
+
+    
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script>
+  <script src="../../assets/js/config.js"></script>
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>

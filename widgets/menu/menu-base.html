@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>基础菜单</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/list.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>菜单的操作</li>
+          <li>简单的菜单</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>菜单的应用范围很广，一般应用都会需要复杂的应用程序菜单。BUI中为了针对这一使用场景，提供了便捷的菜单功能。</p>
+
+    <h3>菜单和列表</h3>
+    <p>菜单是和列表一脉相承的，简单的菜单和列表的展示方式、选中方式几乎没有差别的，只是在实现上有所差异。菜单和列表两者都继承于同一个抽象接口<code>BUI.Component.UIBase.ChildList</code>，所以在使用上和列表几乎无异。更多的资料可以查看<a data-id="list-base" class="page-action" href="list-base.html">列表的介绍</a></p>
+
+    <h2>菜单的操作</h2>
+    <p>所有菜单都支持下面的操作：</p>
+    <ol>
+      <li>addItem( item ),addItemAt( item, index ) : 添加选项</li>
+      <li>addItems( items ),addItemsAt( items,index ) ： 批量添加选项</li>
+      <li>removeItem(item),removeItemAt(index) : 移除选项</li>
+      <li>removeItems(items) : 批量移除选项</li>
+      <li>updateItem( item ) ：更新选项</li>
+      <li>setSelected( item ) ：设置选中项</li>
+      <li>getSelected( ),getSelection( ) ：获取选中项</li>
+    </ol>
+
+    <p>菜单的大部分操作都可以参看列表的操作，这里就不作一一介绍。</p>
+
+    <h2>简单的菜单</h2>
+  <div class="page-demo" data-url="http://builive.com/demo/menu/normal-menu1.php"></div>
+    <h2>API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a target="_blank" href="http://builive.com/docs/index.html#!/api/BUI.Menu.Menu">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Menu.Menu">
+      
+    </div>
+
+    <h2>下一步学习</h2>
+    <p>本章中介绍了关于菜单的基本概念和例子，接下来我们学习的是在实际应用如何使用<a data-id="side-menu" class="page-action" href="side-menu.html">左侧菜单</a>。</p>
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
