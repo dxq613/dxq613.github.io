@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>分页栏</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/paging.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>分页栏的项</li>
+          <li>分页栏和Store</li>
+          <li>分页栏的应用</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+    
+    <h2>简介</h2>
+    <p>分页栏常跟表格、列表一起组合使用显示一部分数据，避免一次加载的数据量过大，一般的分页栏有以下常用功能：</p>
+    <ul class="tutor-list">
+      <li>首页、下一页、上一页、最后一页按钮</li>
+      <li>显示总记录条数、总页数、当前页数、每页多少条记录</li>
+      <li>刷新、跳转功能</li>
+    </ul>
+    <p>BUI的分页栏实现了上面的所有功能，用户可以自定义按钮栏需要实现的功能</p>
+
+    <h2>分页栏的项</h2>
+    <p>分页栏根据上面的功能提供了以下分页栏项：</p>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>子项</th>
+          <th>ID</th>
+          <th>类型</th>
+          <th width="40%">文本/模板（对应的属性）</th>
+          <th>功能</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>首页</td>
+          <td>first</td>
+          <td>button</td>
+          <td>首 页 (firstText)</td>
+          <td>首页按钮</td>
+        </tr>
+        <tr>
+          <td>上一页</td>
+          <td>prev</td>
+          <td>button</td>
+          <td>上一页 (prevText)</td>
+          <td>上一页按钮</td>
+        </tr>
+        <tr>
+          <td>下一页</td>
+          <td>next</td>
+          <td>button</td>
+          <td>下一页 (nextText)</td>
+          <td>下一页按钮</td>
+        </tr>
+        <tr>
+          <td>末页</td>
+          <td>last</td>
+          <td>button</td>
+          <td>末 页 (lastText)</td>
+          <td>末页按钮</td>
+        </tr>
+        <tr>
+          <td>跳转</td>
+          <td>skip</td>
+          <td>button</td>
+          <td>确定 (skipText)</td>
+          <td>跳转按钮</td>
+        </tr>
+        <tr>
+          <td>刷新</td>
+          <td>refresh</td>
+          <td>button</td>
+          <td>刷新 (refreshText)</td>
+          <td>刷新按钮</td>
+        </tr>
+        <tr>
+          <td>当前页码</td>
+          <td>curPage</td>
+          <td>text</td>
+          <td><code>'第 &lt;input type="text" autocomplete="off" class="bui-pb-page" size="20" name="inputItem"&gt; 页'</code> (curPageTpl)</td>
+          <td>显示当前页码</td>
+        </tr>
+        <tr>
+          <td>总页数</td>
+          <td>totalPage</td>
+          <td>text</td>
+          <td><code>共 {totalPage} 页</code> (totalPageTpl)</td>
+          <td>显示总页数</td>
+        </tr>
+        <tr>
+          <td>总记录数</td>
+          <td>totalCount</td>
+          <td>text</td>
+          <td><code>共{totalCount}条记录</code> (totalCountTpl)</td>
+          <td>一共多少条记录</td>
+        </tr>
+        <tr>
+          <td>分割线</td>
+          <td>separator</td>
+          <td>separator</td>
+          <td>-</td>
+          <td>分页栏各项之间的分割线</td>
+        </tr>
+        <tr>
+          <td>空白</td>
+          <td>spacer</td>
+          <td>spacer</td>
+          <td>-</td>
+          <td>分页栏各项之间的空白内容，用于分割子项</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>这个表格中列出的信息非常重要，你可以通过这个表的的内容定制自己的分页栏</p>
+    
+
+    <h2>自定义分页栏</h2>
+    <p>我们可以通过修改文本/模板、调整子项顺序以及自定义子项内容来实现自定义的分页栏</p>
+    <p>下面的示例是默认的没有应用任何样式的分页栏，和应用了图标样式的分页栏</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/bar/pagingbar.php"></div>
+
+    <h3>修改文本/模板</h3>
+    <p>BUI中的分页栏的所有子项都可以通过属性来更改显示内容，在上面的表格中“文本/模板（对应的属性）”一列展示了显示内容与分页栏项的对应关系：</p>
+    <ol>
+      <li>首页、上一页、末页等按钮，可以通过<code>id+'Text'</code> 的属性来设置按钮的的文本，如：<code>'firstText' </code>来设置首页按钮的文本</li>
+      <li>当前页码、总页码和总页数这一类的文本项，通过<code>id+'Tpl'</code>的属性来设置模板</li>
+      <li><code>separator,spacer</code>用于分割分页栏子项</li>
+    </ol>
+    <p>下面的示例，我们通过更改子项的文本来自定义分页栏</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/bar/pagingbar-text.php"></div>
+
+    <h3>通过id设置子项</h3>
+    <p>我们可以通过指定每个子项的id，来实现分页栏，在这个过程中你可以任意设置选项的顺序:</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/bar/pagingbar-custom.php"></div>
+    <p>几点说明：</p>
+    <ul class="tutor-list">
+      <li>在<code>items</code>属性中可以配置代表子项的id，也可以是子项的配置项</li>
+      <li>使用id时，子项的生成顺序等于id的顺序</li>
+      <li>未指定的id项，不会生成，分页信息改变时也不会出现</li>
+    </ul>
+
+    <h2>分页栏和Store</h2>
+    <p>在上面的示例中我们看到每个分页栏中使用了<code>store</code>属性，分页信息通过store计算出来，store每次加载完成会触发一次计算，同时设置各个分页栏子项的状态和对应的值,分页栏实现了<a data-id="bindable" class="page-action" href="data/bindable.html">数据绑定</a>扩展，所以可以监听Store的事件,有以下几点需要注意：</p>
+    <ol>
+      <li>分页栏的pageSize属性取自store</li>
+      <li>通过读取本次请求的 start,limit参数，读取返回的总数，来计算出当前多少页，一共多少页</li>
+      <li>设置文本类型的子项时根据对应子项的的模板，例如设置 curPage时，判断id是curPage的子项是否存在，如果存在读取curPageTpl根据当前的属性状态设置文本</li>
+      <li>也可以设置未在上面指定的id,其模板也是 id+'Tpl'，可以以实用工具栏的属性与其合并，例如"displayed {start}-{end} records'，就是取分页栏的<code>start,end</code>属性。</li>
+    </ol>
+    
+    <h2>API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a target="_blank" href="http://www.builive.com/docs/#!/api/BUI.Toolbar.PagingBar">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Toolbar.PagingBar">
+      
+    </div>
+    
+    <h2>下一步学习</h2>
+    <p>本章简单的讲述了分页栏的使用，特别是分页栏可以跟其他实现了<a data-id="bindable" class="page-action" href="data/bindable.html">Bindable扩展</a>的控件一起联用，下一章节介绍另外一种常用的分页栏：<a data-id="number-paging" class="page-action" href="number-paging.html">数字分页栏</a></p>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
