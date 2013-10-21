@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet">
+  <link href="../../assets/css/page.css" rel="stylesheet">
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>导航标签</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/nav-tab.png"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>导航标签</li>
+        </ol>
+        <ul class="intro-level">
+          <li>
+            <span>难度：</span>
+            中级
+          </li>
+          <li>
+            <span>版本：</span>
+            1.0
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>
+      导航标签打开的内容窗口一般为IFrame，并且同时打开多个标签所以在后台应用中比较常见、占用应用的篇幅也比较大。
+    </p>
+    
+   
+    <h2>导航标签</h2>
+    <div class="page-demo" data-url="http://builive.com/demo/tab/noscroll.php"></div>
+    <p>示例说明：</p>
+    <ul class="tutor-list">
+      <li>
+        <code>forceFit</code>
+        ：为自适应宽度。
+      </li>
+      <li>
+        <code>href</code>
+        ：需要打开的网址。
+      </li>
+      <li>
+        <code>actived</code>
+        : 标签的激活状态
+      </li>
+    </ul>
+
+    <h2>API</h2>
+    <p>
+      下面只是简单的列表，未显示从父类继承来的方法，详细信息请
+      <a href="http://builive.com/docs/index.html#!/api/BUI.Tab.NavTab">查看API文档</a>
+    </p>
+    <div class="J_API" data-name="BUI.Tab.NavTab"></div>
+
+</div>
+<script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+<script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script>
+<script src="../../assets/js/config.js"></script>
+<script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
