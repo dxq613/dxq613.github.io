@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet">
+  <link href="../../assets/css/page.css" rel="stylesheet">
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>切换标签及面板</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/tab-panel.png"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>带内容的切换标签</li>
+        </ol>
+        <ul class="intro-level">
+          <li>
+            <span>难度：</span>
+            中级
+          </li>
+          <li>
+            <span>版本：</span>
+            1.0
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>
+      标签面板的内容一般随着标签的切换而切换，所以BUI提供了十分便捷的功能使标签和面板进行了绑定。其中面板内容的加载方式有三种：
+    </p>
+    <ul class="tutor-list">
+      <li>默认内容</li>
+      <li>自定义内容</li>
+      <li>异步加载内容</li>
+    </ul>
+   
+    <h2>带内容的切换标签</h2>
+    <div class="page-demo" data-url="http://builive.com/demo/tab/tab-panel.php"></div>
+    <p>示例说明：</p>
+    <ul class="tutor-list">
+      <li>
+        <code>panelContainer</code>
+        ：内容面板的容器。
+      </li>
+      <li>
+        <code>selectedEvent</code>
+        ：标签的选中模式，默认会点击。示例中为“鼠标进入”事件。
+      </li>
+      <li>
+        <code>panelContent</code>
+        ：自定义内容的加载方式。
+      </li>
+      <li>
+        <code>loader</code>
+        ：控件内容的加载器。
+      </li>
+    </ul>
+
+    <h2>API</h2>
+    <p>
+      下面只是简单的列表，未显示从父类继承来的方法，详细信息请
+      <a href="http://builive.com/docs/index.html#!/api/BUI.Tab.TabPanel">查看API文档</a>
+    </p>
+    <div class="J_API" data-name="BUI.Tab.TabPanel"></div>
+
+    <h2>下一步学习</h2>
+    <p>
+      你可以继续学习控件
+      <a data-id="nav-tab" class="page-action" href="nav-tab.html">导航标签</a>
+      ，更好的理解标签的功能。
+    </a>
+    。
+  </p>
+
+</div>
+<script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+<script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script>
+<script src="../../assets/js/config.js"></script>
+<script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>

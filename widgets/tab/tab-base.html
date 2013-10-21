@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet">
+  <link href="../../assets/css/page.css" rel="stylesheet">
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>基础标签</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/tab-base.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>如何使用简单的切换标签</li>
+          <li>多种标签风格</li>
+        </ol>
+        <ul class="intro-level">
+          <li>
+            <span>难度：</span>
+            中级
+          </li>
+          <li>
+            <span>版本：</span>
+            1.0
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>
+      切换标签在日常应用场景的应用是最为广泛，在一组内容需要分类在同一位置上展示的时候我们一般都会采用标签（Tab）的形式作为展示：
+    </p>
+    <ul class="tutor-list">
+      <li>基础标签。点击不同的标签，内容随着更换，一般用来对内容进行同区分组。</li>
+      <li>导航标签。一把作为非同类内容之间的切换，如：不同的工作模块、页面。</li>
+    </ul>
+    <p>
+      基础的切换标签由
+      <code>BUI.Tab.Tab</code>
+      实现，导航切换标签则由
+      <code>BUI.Tab.NavTab</code>
+      实现。
+    </p>
+    <h2>如何使用简单的切换标签</h2>
+    <div class="page-demo" data-url="http://builive.com/demo/tab/nav-button.php"></div>
+    <p>示例说明：</p>
+    <ul class="tutor-list">
+      <li>
+        <code>children</code>
+        ：标签的队列，也就是TabItem的集合。
+      </li>
+      <li>
+        <code>selectedchange</code>
+        事件
+        : 标签的切换事件。
+      </li>
+    </ul>
+    <p>
+      需要注意的是：这个简单切换标签BUI只是提供了头部的Tab，内容区我们并没有做任何处理。实例中内容的改变是通过调用
+      <code>selectedchange</code>
+      事件进行了改变，如果需要做更多的操作也可以通过Tab通过的事件进行处理。在接下来的下一章节《
+      <a data-id="tab-panel" class="page-action" href="tab-panel.html">切换标签及面板</a>
+      》中会介绍如何把面板和标签绑定，无需做额外的处理。
+    </p>
+    <h2>多种标签风格</h2>
+    <p>作为灵活通用的前端框架BUI的标签不仅仅只有一种风格，BUI的标签不可以通过<code>elCls</code>初始化参数进行风格选择。</p>
+    <h3>按钮标签</h3>
+    <div class="page-demo" data-url="http://builive.com/demo/tab/button.php"></div>
+    <h3>链接式标签</h3>
+    <div class="page-demo" data-url="http://builive.com/demo/tab/link.php"></div>
+    <h2>API</h2>
+    <p>
+      下面只是简单的列表，未显示从父类继承来的方法，详细信息请
+      <a href="http://builive.com/docs/index.html#!/api/BUI.Tab.Tab">查看API文档</a>
+    </p>
+    <div class="J_API" data-name="BUI.Tab.Tab"></div>
+
+    <h2>下一步学习</h2>
+    <p>
+      你可以继续学习控件
+      <a data-id="tab-panel" class="page-action" href="tab-panel.html">切换标签及面板</a>
+      ，更好的理解标签的功能。
+    </a>
+    。
+  </p>
+
+</div>
+<script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+<script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script>
+<script src="../../assets/js/config.js"></script>
+<script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
