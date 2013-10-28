@@ -23,7 +23,7 @@
         <ol>
           <li>简介</li>
           <li>数字分页栏</li>
-          <li>自定义分页栏按钮</li>
+          <li>数字分页栏的使用</li>
         </ol>
         <ul class="intro-level">
           <li><span>难度：</span>中级</li>
@@ -32,7 +32,37 @@
       </div>
     </div>
     
+    <h2>简介</h2>
+    <p>前面一章我们讲解了一般的分页栏的用法，用户可以通过id自定义分页栏的按钮，本章我们讲解继承于一般分页栏的自动生成页码的分页栏控件，这个控件主要有以下特点：</p>
+    <ol>
+      <li>支持一般工具栏的属性和方法</li>
+      <li>自动生成页码</li>
+      <li>可以设置生成页码跟当前页码的距离</li>
+    </ol>
+
+    <h2>功能</h2>
+    <p>下面的示例是一个数字分页栏</p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/bar/numberpagingbar.php"></div>
+    <p>注意事项</p>
+    <ul class="totur-list">
+      <li>数字分页栏与一般工具栏一样，需要配合<code>Store</code>使用</li>
+      <li>数字分页栏会计算总页数和当前页数，设置第一页、最后页、前一页和最后一页按钮的可用</li>
+      <li>数字分页栏在当前页2边生成一定范围内的按钮，可以通过<code>showRangeCount</code>属性配置</li>
+      <li>可以修改前一页，后一页的文本</li>
+    </ul>
+
+    <h3>修改显示范围</h3>
+    <div class="page-demo" data-url="http://www.builive.com/demo/bar/numberpagingbar-n.php"></div>
     
+
+    <h2>应用</h2>
+    <p>因为分页栏使用Store，所以分页栏可以同任何其他支持Store的控件一起使用</p>
+
+    <h3>同Grid一起使用</h3>
+    <div class="page-demo" data-url="http://www.builive.com/demo/bar/grid-numberpagingbar.php"></div>
+
+    <h3>同列表一起使用</h3>
+    <div class="page-demo" data-url="http://www.builive.com/demo/list/paging-list.php"></div>
 
     <h2>API</h2>
     <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a target="_blank" href="http://www.builive.com/docs/#!/api/BUI.Toolbar.NumberPagingBar">查看API文档</a></p>

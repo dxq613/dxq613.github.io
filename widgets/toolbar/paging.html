@@ -170,6 +170,15 @@
       <li>设置文本类型的子项时根据对应子项的的模板，例如设置 curPage时，判断id是curPage的子项是否存在，如果存在读取curPageTpl根据当前的属性状态设置文本</li>
       <li>也可以设置未在上面指定的id,其模板也是 id+'Tpl'，可以以实用工具栏的属性与其合并，例如"displayed {start}-{end} records'，就是取分页栏的<code>start,end</code>属性。</li>
     </ol>
+
+    <h2>分页栏的使用</h2>
+    <p>由于分页栏依赖于Store，所以任何应用了Store的控件都可以与分页栏一起使用，如：表格、列表控件</p>
+
+    <h3>同Grid一起使用</h3>
+    <div class="page-demo" data-url="http://www.builive.com/demo/grid/grid-remote.php"></div>
+
+    <h3>同列表一起使用</h3>
+    <div class="page-demo" data-url="http://www.builive.com/demo/list/paging-list.php"></div>
     
     <h2>API</h2>
     <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a target="_blank" href="http://www.builive.com/docs/#!/api/BUI.Toolbar.PagingBar">查看API文档</a></p>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>列表</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/list.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容:</p>
+        <ol>
+          <li>角色(role)的定义</li>
+          <li>控件的角色(role)</li>
+          <li>控件内部的role元素</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>高级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>角色定义</h2>
+    <p>本章主要讲解在富客户端规范中关于<a target="_blank" href="http://www.w3.org/TR/wai-aria/roles">角色的定义</a>，由此规范推导出对应控件应支持的功能，需要了解一下概念：</p>
+    <ol>
+      <li>Superclass Role : 被继承的角色，与之对应的是 Subclass Roles</li>
+      <li>Related Concepts：关联的概念，简单的说就是一个控件在某个状态下的一个名称，举例说明：一个进度条用于标识“状态指示”时，一个相关的概念就是“状态”</li>
+      <li>Base Concept：基础概念,就是说用于标示一个角色概念，例如：我们用 Html中"checkbox"来标示 角色中的"checkbox"</li>
+    </ol>
+
+    <h3>角色的特征</h3>
+    <p>我们用一些特征来表述一个角色，用来说明一个角色是什么，一个角色必须包含什么，同时在控件中一个角色如何跟浏览器进行交互，富客户端规范中一个角色必须支持的属性有哪一些,下面的一些特征用来描述角色：</p>
+    <ul class="tutor-list">
+      <li>Abstract Roles:抽象角色，所有其他的角色都是建立在抽象角色基础上的，不能直接使用，主要用于：
+        <ol>
+          <li>组织角色分类，和提供角色的最基础的概念</li>
+          <li>使角色包含必须的属性</li>
+        </ol></li>
+      <li>Required States and Properties：必须的状态和属性，继承的角色也必须实现这些状态和属性</li>
+      <li>Supported States and Properties ： 标示适用的属性和状态，这些状态应用于对应的角色和子角色</li>
+      <li>Inherited States and Properties：继承的状态和属性，属性和状态可以继承自父类角色，不受DOM中的父元素所影响</li>
+      <li>Required Owned Elements：必须包含的元素，可能必须包含的元素有多种，只有一个即可</li>
+      <li>Required Context Role: 必须的上下文角色，即一个角色必须包含在那个角色内部</li>
+    </ul>
+
+
+    <h2>控件对应的角色</h2>
+
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
