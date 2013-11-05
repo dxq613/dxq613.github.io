@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>CMD 组织模块</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../assets/img/css.jpg"/>
+      <div class="introduce">
+        <h2>使用css文件</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容:</p>
+        <ol>
+          <li>BUI的css文件</li>
+          <li>不同的引用css的方式</li>
+          <li>定义自己的css样式</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>BUI的css文件</h2>
+    <p>BUI提供了以下css文件</p>
+    <table class="table">
+      <thead>
+        <tr>
+          <td>种类</td>
+          <td>文件</td>
+          <td>内容</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>基础样式文件</td>
+          <td>dpl.css</td>
+          <td>BUI提供的基于bootstrap兼容ie6,7的基础样式</td>
+        </tr>
+        <tr>
+          <td>控件样式文件</td>
+          <td>bui.css</td>
+          <td>BUI控件库中的所有样式的css</td>
+        </tr>
+        <tr>
+          <td>扩展的样式文件</td>
+          <td>extend.css</td>
+          <td>不使用基础样式文件（dpl.css）时，提供控件样式正常的扩展样式</td>
+        </tr>
+        <tr>
+          <td>各个控件的样式文件</td>
+          <td>calendar.css,grid.css,menu.css,overlay.css,select.css,slider.css,tab.css</td>
+          <td>各个控件对应的css</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>样式的使用</h2>
+    <p>使用BUI的样式，有下面几种方式：</p>
+    <ol>
+      <li>同时引用dpl.css和bui.css，这也是BUI demo中提供的的css引用方式，可以使用BUI提供的html和基础样式</li>
+      <li>不引入基础样式，引入bui.css和extend.css，此时BUI的所有控件的样式都可以正常显示，但是无法使用BUI提供的html和基础样式</li>
+      <li>仅引入使用单个控件的css</li>
+    </ol>
+
+    <h3>基础样式和控件库</h3>
+    <pre>
+      <textarea>
+        <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+        <link href="https://g.tbcdn.cn/g/bui/css/bui-min.css" rel="stylesheet">
+
+        <!--使用combo-->
+        <link href="https://s.tbcdn.cn/g/fi/bui/css/??dpl-min.css,bui-min.css" rel="stylesheet">
+        
+      </textarea>
+    </pre>
+
+    <h3>不使用基础样式</h3>
+    <pre>
+      <textarea>
+        
+        <link href="https://g.tbcdn.cn/g/bui/css/bui-min.css" rel="stylesheet">
+        <link href="https://s.tbcdn.cn/g/fi/bui/css/extend-min.css" rel="stylesheet"> 
+
+        <!--使用combo-->
+        <link href="https://s.tbcdn.cn/g/fi/bui/css/??bui-min.css,extend-min.css" rel="stylesheet">
+        
+      </textarea>
+    </pre>
+
+    <h3>单独控件的样式</h3>
+    <pre>
+      <textarea>
+        <!--使用日历样式-->
+        <link href="https://s.tbcdn.cn/g/fi/bui/css/calendar-min.css" rel="stylesheet"> 
+
+        <!--使用Grid样式-->
+        <link href="https://g.tbcdn.cn/g/bui/css/grid-min.css" rel="stylesheet">
+
+        <!--使用combo-->
+        <link href="https://s.tbcdn.cn/g/fi/bui/css/??grid-min.css,calendar-min.css" rel="stylesheet">
+        
+      </textarea>
+    </pre>
+
+    <h2>定义自己的css样式</h2>
+    <p>在BUI的源码中：<code>assets/css/less</code>中是上面的css生成的源码，有下面几个目录：</p>
+    <ul class="tutor-list">
+      <li>base: 基础样式的less文件</li>
+      <li>bui: BUI的所有控件的样式文件</li>
+      <li>extend : 各个控件不使用基础样式时，需要附加的样式</li>
+      <li>single : 各个控件单独编译成单个css文件的less文件，基本通过导入extend和bui目录中的less文件来实现</li>
+    </ul>
+
+    <h3>修改现有的less文件</h3>
+    <p>你可以通过直接修改less文件中的样式或者修改base和bui目录中variables.less中的参数,重新编译后就可以生成自己的样式：</p>
+    <ul class="totur-list">
+      <li>通过修改参数的方式对于替换皮肤颜色来说是最好的方式</li>
+      <li>修改具体less中的样式，一般来说不建议这样做，如果有覆盖样式的需求，可以增加样式或者编译出自己的文件</li>
+      <li>你可以修改less入口文件中引入的less文件，可以去掉不需要的或者增加自定义的less文件</li>
+    </ul>
+  
+    <h2>下一步学习</h2>
+    <p>不同的场景下你可以选择不同的引用方式，如果你想完全重置BUI的所有样式，你需要修改less文件后，使用less重新编译对应的less文件，接下来你可以查看一下<a data-id="util-base" class="page-action" href="util/util-base.html">工具类</a>，然后进入到BUI<a href="#" data-id="controller" class="page-action" >控件编写</a>的学习中。</p>
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
