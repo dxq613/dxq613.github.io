@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet">
+  <link href="../../assets/css/page.css" rel="stylesheet">
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>表单</h1>
+
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/clandar-base.png"/>
+
+      <div class="introduce">
+        <h2 id="_2">导引</h2>
+
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容：</p>
+        <ol>
+          <li>简介</li>
+          <li>简单表单</li>
+        </ol>
+        <ul class="intro-level">
+          <li>
+            <span>难度：</span>
+            中级
+          </li>
+          <li>
+            <span>版本：</span>
+            1.0
+          </li>
+        </ul>
+
+      </div>
+    </div>
+
+    <h2 id="_3">简介</h2>
+    <p>在大量的实践过程中，表单往往在细节上花费大量的时间，BUI力争把遇到的不顺之处，全部集成到控件中，BUI表单中集成了以下功能：</p>
+    <ul class="tutor-list">
+      <li>表单提示（placeholder或 tips）</li>
+      <li>验证：表单字段的验证，表单分组的验证，整个表单的验证</li>
+	  <li>显示错误的层级：字段后，分组后，表单统一显示错误</li>
+	  <li>表单联动：表单字段之间、字段与表单分组的联动，都可以通过简单的配置完成，避免写js</li>
+    </ul>
+    <p>
+      接下来的章节里我们将会详细的介绍表单字段、表单验证、自定义验证、表单提示，本章主要讲表单的基本方法。
+    </p>
+    <h2 id="_4">简单表单</h2>
+    <p>
+	下面是简单的示例，内容在下面一一说明
+    </p>
+    <div class="page-demo" data-url="http://www.builive.com/demo/form/simple-form.php"></div>
+  <h2 id="api">API</h2>
+  <p>
+    下面只是简单的列表，未显示从父类继承来的方法，详细信息请查看
+    <a href="http://builive.com/docs/index.html#!/api/BUI.Form.Form">API文档</a>
+  </p>
+  <div class="J_API" data-name="BUI.Form.Form"></div>
+
+  <h2 id="_6">下一步学习</h2>
+  <p>
+    接下来你应该继续学习表单字段的基本使用
+    <a data-id="datepicker" class="page-action" href="field.html">表单字段</a>
+    。
+  </p>
+</div>
+<script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+<script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script>
+<script src="../../assets/js/config.js"></script>
+<script>
+    BUI.use('common/page', function (Page) {
+        new Page().init();
+    });
+</script>
+</body>
+</html>
