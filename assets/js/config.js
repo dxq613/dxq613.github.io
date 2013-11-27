@@ -39,15 +39,15 @@
   if(!baseUrl){//如果未指定项目路径，进行匹配。
     baseUrl = getBaseUrl();
   }
+  BUI.setDebug(true);//调试环境下使用'*.js'，如果发布上线前，使用*-min.js去掉下面的map
 
   BUI.config({
     alias : {
       'common' : baseUrl + jsBase + '/common',
       'module' : baseUrl + jsBase + '/module'
     },
-    map : [ //调试环境下使用'*.js'，如果发布上线前，使用*-min.js去掉下面的map
-      [/common\/(.*)-min.js/,'common/$1.js'],
-      [/module\/(.*)-min.js/,'module/$1.js']
+    map : [ 
+      [/bui\/(.*).js/,'bui/$1-min.js']
     ]
   });
 

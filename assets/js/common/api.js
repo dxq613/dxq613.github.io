@@ -3,7 +3,7 @@
  * @ignore
  */
 
-define('common/api',function(require) {
+define('common/api',['bui/common'],function(require) {
   var BUI = require('bui/common'),
    CLS_PRETTY = 'prettyprint linenums';
 

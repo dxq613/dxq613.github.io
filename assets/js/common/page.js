@@ -3,7 +3,7 @@
  * @ignore
  */
 
-define('common/page',function (require) {
+define('common/page',['bui/common','common/link','bui/menu','common/demo','common/api'],function (require) {
   var BUI = require('bui/common'),
     Link = require('common/link'),
     Menu = require('bui/menu'),

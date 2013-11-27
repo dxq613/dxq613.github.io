@@ -3,7 +3,7 @@
  * @ignore
  */
 
-define('common/demo',function (require) {
+define('common/demo',['bui/common','bui/toolbar','bui/overlay'],function (require) {
   var BUI = require('bui/common'),
     Toolbar = require('bui/toolbar'),
     Overlay = require('bui/overlay'),

@@ -4,7 +4,7 @@
  * @ignore
  */
 
-define('common/main',function (require) {
+define('common/main',['bui/common','bui/tree','bui/tab'],function (require) {
   var win = window,
     BUI = require('bui/common'),
     Tree = require('bui/tree'),
