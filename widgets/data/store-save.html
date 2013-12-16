@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>数据保存</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/store.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>增加、删除、修改数据的保存</li>
+          <li>跟数据源同步数据</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>在前面的章节里，我们学习的主要是加载数据，然而在常用的应用中还有以下操作：</p>
+    <ul class="tutor-list">
+      <li>添加数据</li>
+      <li>修改数据</li>
+      <li>删除数据</li>
+      <li>重新加载数据</li>
+    </ul>
+    <p>数据变化后，我们面临的一个问题是数据保存的问题，对于数据保存有2种策略：</p>
+    <ul class="tutor-list">
+      <li>每次发生增加、修改、删除都会触发保存</li>
+      <li>增删改时不触发保存，通过一次操作保存所有的发生更改的数据</li>
+    </ul>
+    <p>上面的这2种策略，在不同的场景下各有利弊，由用户自己决定使用哪种策略</p>
+
+    <h2>保存数据方法</h2>
+    <p>在BUI.Data.Store类中我们提供了一个函数用于保存数据：</p>
+    <pre>
+    /**
+     * 保存数据，有几种类型：
+     * 
+     *  - add 保存添加的记录,
+     *  - remove 保存删除,
+     *  - update 保存更新,
+     *  - all 保存store从上次加载到目前更改的记录
+     *
+     * 
+     * @param {String} type 保存的类型
+     * @param {Object} saveData 数据
+     * @param {Function} callback
+     */
+    save : function(type,saveData,callback){
+      //保存数据
+    }
+    </pre>
+    <p>这个方法的使用非常灵活，默认情况下3个参数按顺序传入即可，但是存在以下用法：</p>
+    <ul class="tutor-list">
+      <li>默认方式：
+        <pre>
+          //添加
+          var obj = {};
+          store.add(obj); //添加记录
+          store.save('add',obj,function(data){ //保存添加的记录，并使用回调函数
+
+          });
+          
+          //更改
+          var obj = store.find('value','1'); //查找记录
+          obj.text = 'new';
+          store.update(obj);
+          store.save('update',obj);
+          
+          //删除
+          var obj = store.find('value','1'); //查找记录
+          store.remove(obj);
+          store.save('remove',obj);
+        </pre>
+      </li>
+      <li>不指定保存类型，指定保存的数据：
+        <pre>
+          //添加
+          var obj = {};
+          store.add(obj); //添加记录
+          store.save(obj,function(data){ //保存添加的记录，并使用回调函数
+
+          });
+          
+          //更改
+          var obj = store.find('value','1'); //查找记录
+          obj.text = 'new';
+          store.update(obj);
+          store.save(obj);
+          
+          //删除
+          var obj = store.find('value','1'); //查找记录
+          store.remove(obj);
+          store.save(obj);
+        </pre>
+      </li>
+      <li>全部保存
+        <pre>
+          //添加
+          var obj = {};
+          store.add(obj); //添加记录
+         
+          
+          //更改
+          var obj = store.find('value','1'); //查找记录
+          obj.text = 'new';
+          store.update(obj);
+          
+          //删除
+          var obj = store.find('value','1'); //查找记录
+          store.remove(obj);
+
+          store.save(); //store.save('all');
+        </pre>
+      </li>
+    </ul>
+    
+    <h2>保存数据的过程</h2>
+    <p>在前面的章节里面我们讲到过Store使用不同的代理类来加载不同的数据源，针对保存我们主要关注异步数据源，想实现store的保存需要以下步骤：</p>
+    <ol>
+      <li>配置保存数据的URL</li>
+      <li>调用保存数据的函数
+        <ol>
+          <li>如果指定类型，按照类型调用对应的url和配置参数</li>
+          <li>如果未指定类型，查看保存的数据，根据数据判断保存的类型</li>
+        </ol>
+      </li>
+      <li>如果需要，重新加载数据源</li>
+    </ol>
+    <p><span class="label label-info">注意：</span>指定保存类型的目的是为了决定调用对应的url，在下面的示例中会详细的介绍如何调用对应的url,和添加附加的参数</p>
+
+    <h3>配置保存数据的url</h3>
+    <p>配置路径有以下几种方式：</p>
+    <ul class="tutor-list">
+      <li>加载、增加、删除、修改配置同一个url
+        <pre>
+          //
+          var store = new Store({
+            url : 'a.php'
+          });
+
+          store.load(); //此时调用a.php
+
+          var obj = {p1 : 'p1'};
+          store.add(obj);
+          store.save(obj); //此时调用a.php?saveType=add&p1=p1
+
+          //更改
+          var obj = store.find('value','1'); //查找记录
+          obj.text = 'new';
+          store.update(obj);
+          store.save(obj); //此时调用a.php?saveType=update&value=1&text=new
+          
+          //删除
+          var obj = store.find('value','1'); //查找记录 {value : '1',text : '1'}
+          store.remove(obj);
+          store.save(obj); //此时调用a.php?saveType=remove&value=1&text=1
+        </pre>
+      </li>
+      <li>
+        加载配置一个url,增删改配置一个url
+        <pre>
+          //
+          var store = new Store({
+            url : 'a.php',
+            proxy : {
+              save : 'b.php'
+            }
+          });
+
+          store.load(); //此时调用a.php
+
+          var obj = {p1 : 'p1'};
+          store.add(obj);
+          store.save(obj); //此时调用b.php?saveType=add&p1=p1
+
+          //更改
+          var obj = store.find('value','1'); //查找记录
+          obj.text = 'new';
+          store.update(obj);
+          store.save(obj); //此时调用b.php?saveType=update&value=1&text=new
+          
+          //删除
+          var obj = store.find('value','1'); //查找记录 {value : '1',text : '1'}
+          store.remove(obj);
+          store.save(obj); //此时调用b.php?saveType=remove&value=1&text=1
+        </pre>
+      </li>
+      <li>
+        加载、增加、删除、修改各自配置不同的url
+        <pre>
+          //
+          var store = new Store({
+            url : 'a.php',
+            proxy : {
+              save : {
+                addUrl : 'add.php',
+                updateUrl : 'update.php',
+                removeUrl : 'remove.php'
+              }
+            }
+          });
+
+          store.load(); //此时调用a.php
+
+          var obj = {p1 : 'p1'};
+          store.add(obj);
+          store.save(obj); //此时调用add.php?p1=p1
+
+          //更改
+          var obj = store.find('value','1'); //查找记录
+          obj.text = 'new';
+          store.update(obj);
+          store.save(obj); //此时调用update.php?value=1&text=new
+          
+          //删除
+          var obj = store.find('value','1'); //查找记录 {value : '1',text : '1'}
+          store.remove(obj);
+          store.save(obj); //此时调用remove.php?value=1&text=1
+        </pre>
+      </li>
+      <li>对于一次性保存所有数据的方式：
+          //单一的url
+          var store = new Store({
+            url : 'a.php'
+          });
+          //TO DO  增删改记录
+          
+          store.save();//调用 a.php?saveType=all&add=[{..},{..}]&update=[{..},{..}]&remove=[{..},{..}]
+                       //在上面增删改的记录都序列化成json作为参数值传输到后台
+
+          //分别的路径
+          var store = new Store({
+            url : 'a.php',
+            proxy : {
+              save : 'b.php'
+            }
+          });
+          
+          //TO DO  增删改记录
+          
+          store.save();//调用 b.php?saveType=all&add=[{..},{..}]&update=[{..},{..}]&remove=[{..},{..}]
+                       //在上面增删改的记录都序列化成json作为参数值传输到后台
+
+
+      </li>
+    </ul>
+
+    <h3>自动保存数据</h3>
+    <p>使用者希望能否每次增删改数据后store自动触发保存，由于以下几个原因，BUI并没有在Store中实现自动保存的功能：</p>
+    <ol>
+      <li>增加记录时，可能增加的仅仅是默认值，这时候保存到数据源没有意义，必须等用户填充完整数据时，才需要保存</li>
+      <li>修改数据时，可能会一个字段一个字段的修改同一条记录，如果自动保存，会导致同一条数据反复被保存</li>
+      <li>删除数据时，会批量删除数据，对于Store而言区分不开，所以会触发多次删除</li>
+    </ol>
+    <p>但是在具体的控件使用中，我们可以给控件的插件增加自动保存的功能，BUI在下面的插件中增加了自动保存的功能：</p>
+    <ul class="tutor-list">
+      <li><code>BUI.Grid.Plugins.RowEditing</code>：Grid的行编辑记录</li>
+      <li><code>BUI.Grid.Plugins.DialogEditing</code>：Grid的弹出Dialog编辑记录</li>
+    </ul>
+    <p><span class="label">注意：</span>2个插件都是通过<code>autoSave</code>属性来配置是否自动保存</p>
+
+    <h2>数据同步</h2>
+    <p>我们对数据源进行增删改时，后台数据有可能会发生改变，所以需要跟后台数据进行同步，可以：</p>
+    <ul class="tutor-list">
+      <li>直接调用 store.load()方法</li>
+      <li>也可以在初始化store式配置<code>autoSync:true</code>,这样每当发生数据保存时，都会从数据源重新加载数据</li>
+    </ul>
+    
+    <h2>下一步学习</h2>
+    <p>本章介绍了Store的数据保存，Store的使用在后面的章节中有更多具体的示例，你也可以进入<a data-id="grid" class="page-action" href="grid.html">Grid</a>的学习</p>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
