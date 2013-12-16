@@ -237,6 +237,7 @@
         </pre>
       </li>
       <li>对于一次性保存所有数据的方式：
+        <pre>
           //单一的url
           var store = new Store({
             url : 'a.php'
@@ -258,7 +259,7 @@
           
           store.save();//调用 b.php?saveType=all&add=[{..},{..}]&update=[{..},{..}]&remove=[{..},{..}]
                        //在上面增删改的记录都序列化成json作为参数值传输到后台
-
+        </pre>
 
       </li>
     </ul>
