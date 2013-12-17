@@ -213,12 +213,20 @@ define('common/main',['bui/common','bui/tree','bui/tab'],function (require) {
     _initTree : function(){
       var _self = this,
         menus = _self.get('menus'),
-        tree = new Tree.TreeList({
+        tree = new Tree.TreeMenu({
           render: '#J_Tree',
+          elCls : 'bui-tree-list',
           accordion : true,
+          itemTplRender : function(node){
+            if(node.leaf && !node.href){
+              node.href = _self._getNodeHref(node);
+            }
+            if(node.leaf){
+              return BUI.substitute('<li><a href="{href}">{text}</a></li>',node);
+            }
+            return '<li>'+node.text+'</li>'
+          },
           expandAnimate : true,
-          expandEvent : 'itemclick', //单击展开节点
-          collapseEvent : 'itemclick',
           nodes : menus
         });
       tree.render();
@@ -259,6 +267,9 @@ define('common/main',['bui/common','bui/tree','bui/tab'],function (require) {
         tree = _self.get('tree'),
         tab = _self.get('tab');
 
+      tree.get('el').delegate('a','click',function(ev){
+        ev.preventDefault();
+      });
       tree.on('itemclick',function(ev){
         var node = ev.item;
 
