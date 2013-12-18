@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>BUI 控件</title>
+    <meta name="description" content="BUI 控件库的详细文档">
+    <meta name="author" content="dxq613@gmail.com">
+    <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet">
+    <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+    <link href="../../assets/css/prettify.css" rel="stylesheet">
+    <link href="../../assets/css/page.css" rel="stylesheet">
+    <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+<div class="container tutorial">
+    <h1>选择器</h1>
+
+    <div class="intro-wraper">
+        <img class="intro-img" src="../../assets/img/picker.png"/>
+
+        <div class="introduce">
+            <h2>导引</h2>
+
+            <p>欢迎使用BUI！在这一章节里，我们将学习以下内容:</p>
+            <ol>
+                <li>选择器的定义</li>
+                <li>选择器的内容</li>
+                <li>选择器的值</li>
+                <li>显示和隐藏</li>
+            </ol>
+            <ul class="intro-level">
+                <li><span>难度：</span>中级</li>
+                <li><span>版本：</span>1.0</li>
+            </ul>
+        </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>在正式介绍选择器前，我们先思考选择器的定义：</p>
+    <ol>
+        <li>点击一个输入框，显示选择的列表（内容）</li>
+        <li>将选择的内容回填到输入框内</li>
+        <li>支持初始值和操作选中值</li>
+        <li>区分选中的文本和选中的值</li>
+    </ol>
+    <p>因此BUI中得<code>Picker</code>具有以下性质：</p>
+    <ol>
+        <li>基于Overlay，显示和隐藏灵活方便控制</li>
+        <li>内部支持列表等控件</li>
+        <li>支持存放值和存放文本的输入框</li>
+        <li>方便的设置初始值</li>
+    </ol>
+
+    <h2>选择器的内容</h2>
+    <p>选择器的内容可以是列表，也可以是复杂的控件，默认选择器的第一个子控件是选择器的内容（innerControl）,针对innerControl的操作引起输入框文本的变化，你可以非常灵活的替换选择器的内容，来实现各种各样的控件：</p>
+    <ul class="tutor-list">
+        <li>选择器中添加一个Calendar控件，则生成了Datepicker控件</li>
+        <li>选择器中添加一个List控件，则生成了ListPicker控件</li>
+    </ul>
+    <p>下面的示例是选择器中放置一个Grid</p>
+    <div class="page-demo" data-url="http://builive.com/demo/picker/grid-picker.php"></div>
+    <p>几点注意：</p>
+    <ul class="tutor-list">
+        <li>这个demo中使用的是ListPicker，所有继承自SimpleList的控件都可以填充到内部，所以注意使用列表的相关属性：
+            <ol>
+                <li>idField: 决定返回的值</li>
+                <li>textGetter ： 返回的文本，默认不需要设置，直接取该项显示的文本</li>
+                <li>items : 备选项</li>
+            </ol>
+        </li>
+        <li>可以设置<code>triggerEvent</code>,来改变触发选择器的事件</li>
+        <li>通过监听内部控件（innerControl）的<code>changeEvent</code>事件来判断选择完毕。</li>
+    </ul>
+
+    <h2>选择器的值</h2>
+    <p>从一个输入框选择内容时，返回时显示在输入框中得一般式选择的文本，但是很多场景下，需要返回选择文本对应的值看下面的示例:</p>
+    <div class="page-demo" data-url="http://builive.com/demo/picker/picker.php"></div>
+    <p>几点说明：</p>
+    <ul class="tutor-list">
+        <li>valueField : 标示存放返回结果值的字段</li>
+        <li>textField：标示存放返回结果文本的字段</li>
+        <li>trigger：作为选择器触发的DOM，如果未指定textField，则使用这个DOM</li>
+        <li>valueField中得默认值，picker会转换成值对应的文本显示在textField中</li>
+    </ul>
+
+    <h2>显示和隐藏</h2>
+    <p>关于Picker的显示和隐藏，请查看<a data-id="overlay-base" class="page-action" href="overlay-base.html">Overlay</a>章节中得 <a data-id="autoshow" class="page-action" href="overlay/autoshow.html">autoShow</a> 和 <a data-id="cdialog" class="page-action" href="overlay/autohide.html">autoHide</a></p>
+
+    <h2>API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a  target="_blank" href="http://www.builive.com/docs/#!/api/BUI.Picker.Picker">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Picker.Picker">
+
+    </div>
+
+    <h2>下一步学习</h2>
+
+    <p>你可以继续学习选择器的子类<a data-id="list-picker" class="page-action" href="list-picker.html">列表选择器</a>。</p>
+
+</div>
+<script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+<script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script>
+<script src="../../assets/js/config.js"></script>
+<script>
+    BUI.use('common/page', function (Page) {
+        new Page().init();
+    });
+</script>
+</body>
+</html>

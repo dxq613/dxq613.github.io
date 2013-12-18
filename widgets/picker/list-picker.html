@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>关闭控件</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/list-picker.png"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>设置列表</li>
+          <li>单选和多选</li>
+          <li>更多</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>列表选择器是最为常用的选择器：</p>
+    <ul class="tutor-list">
+      <li>选择框(Select)、组合框(Combox)、提示框(Suggest)本质上都是操作列表选择器</li>
+      <li>将选择器中的列表替换成表格、树控件可以很好的工作</li>
+    </ul>
+
+    <p>所以我们使用列表选择器，主要就是配置和操作选择器中的列表，我们看下面的实例：</p>
+    <div class="page-demo" data-url="http://builive.com/demo/picker/picker.php"></div>
+    <p>我们需要注意列表的这些配置项：</p>
+    <ol>
+                <li>idField: 决定返回的值</li>
+                <li>textGetter ： 返回的文本，默认不需要设置，直接取该项显示的文本</li>
+                <li>items : 备选项</li>
+    </ol>
+    
+    <h2>单选和多选</h2>
+    <p>选择器默认是单选，可以通过配置列表的配置来实现多选功能：</p>
+    <ul class="tutor-list">
+      <li>直接使用 <code>BUI.List.ListBox</code>控件作为内部的列表</li>
+      <li>使用Grid时可以配置多选的插件<code>Grid.Plugins.CheckSelection</code></li>
+      <li>使用Tree时可以通过<code>checked</code>属性实现多选</li>
+    </ul>
+
+    <h3>多选列表</h3>
+    <p>下面是多选列表的示例：</p>
+    <div class="page-demo" data-url="http://builive.com/demo/picker/multiple-picker.php"></div>
+    <p><span class="label label-info">注意：</span>自动隐藏配置<code>hideEvent : ''</code>需要设置成空，否则选中一个选项时选择器会关闭</p>
+
+    <h2>更多</h2>
+    <p>下面的示例是选择树节点内容的示例：</p>
+    <div class="page-demo" data-url="http://builive.com/demo/picker/tree-mul-picker.php"></div>
+    <p>几点说明：</p>
+    <ol>
+      <li>TreePicker是继承自ListPicker，主要增加了2个属性</li>
+      <li><code>selectStatus</code>属性标示，选中使用的属性，'selected'或者'checked'</li>
+      <li><code>filter</code> :过滤函数，过滤选中得节点</li>
+      <li>目前TreePicker对于展开时才加载子节点的树存在问题</li>
+    </ol>
+
+    <h2>API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a href="http://www.builive.com/docs/#!/api/BUI.Picker.ListPicker">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Picker.ListPicker">
+      
+    </div>
+
+    <h2>下一步学习</h2>
+    <p>你可以继续学习<a data-id="select" class="page-action" href="select.html">选择框</a>控件，这个控件从通用性和易用性方面封装了选择器，不过如果进行复杂的操作还需要了解选择器的实现。</p>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>

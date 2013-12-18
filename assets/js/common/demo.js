@@ -205,16 +205,18 @@ define('common/demo',['bui/common','bui/toolbar','bui/overlay'],function (requir
        * @type {Object}
        */
       tbar : {
-        value : {
-          elCls : 'button-group pull-right',
-          defaultChildCfg : {
-            elCls : 'button button-small'
-          },
-          children : [
-            {content : '运行',type:'run'},
-            {content : '源码',type:'source'}
-          ]
-        }
+        valueFn :function(){
+          return  {
+            elCls : 'button-group pull-right',
+            defaultChildCfg : {
+              elCls : 'button button-small'
+            },
+            children : [
+              {content : '运行',type:'run'},
+              {content : '源码',type:'source'}
+            ]
+          }
+        } 
       },
       tpl : {
         value : '<div class="panel"><div class="panel-header">代码示例</div><pre class="panel-body"></pre></div>'
