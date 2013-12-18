@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>提示框</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/suggest.png"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>提示数据</li>
+          <li>缓存</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>提示框是组合框的更为复杂的表现形式，不但可以输入文本，并且提供基于文本的提示信息,BUI中提供了2种方式来实现提示框</p>
+    <ul class="tutor-list">
+      <li>静态数据：一个数组的文本</li>
+      <li>异步数据：提供一个取数据的url</li>
+    </ul>
+
+    <h2>使用静态数据</h2>
+    <p>提示框使用静态数据的方式非常简单：</p>
+    <div class="page-demo" data-url="http://builive.com/demo/select/suggest2.php"></div>
+    <p>补充说明：</p>
+    <ol>
+      <li>数据集合是一个数组，数组内部可以是字符串也可以是一个个的对象，默认使用text属性</li>
+      <li>可以指定name,用于表单提交时的键</li>
+    </ol>
+
+    <h2>使用异步数据</h2>
+    <p>提示框为了使用异步数据提供了下面的属性：</p>
+    <ul class="tutor-list">
+      <li>store : 数据缓冲类，具体store的用法参考：<a data-id="store" class="page-action" href="store.html">数据缓冲类</a></li>
+      <li>如果未配置store属性，使用一下参数：</li>
+      <li>url : 加载数据的地址</li>
+      <li>dataType : 返回数据的类型，默认返回的数据是一个数组，可以设置'json','jsonp'</li>
+      <li>callback : 返回数据时的回调函数</li>
+    </ul>
+    <div class="page-demo" data-url="http://builive.com/demo/select/suggest1.php"></div>
+
+    <h2>使用复杂的提示</h2>
+    <p>你可以替换提示框内的列表，用更加丰富的方式展示数据：</p>
+    <div class="page-demo" data-url="http://builive.com/demo/select/suggest-grid.php"></div>
+
+    <h2>使用缓存</h2>
+    <p>为了节省请求，你可以设置<code>cacheable:true</code>,此时查询过的数据会放到缓存中，同样的关键词不会再次发出请求</p>
+
+   
+    <h2>API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a href="http://www.builive.com/docs/#!/api/BUI.Select.Combox">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Select.Combox">
+      
+    </div>
+
+    <h2>下一步学习</h2>
+    <p>本章所讲解的几种控件都需要在<a data-id="form-base" class="page-action" href="form/form-base.html">表单</a>中使用，如何方便的在表单中生成，如何方便扩展都是需要了解的内容，学习完成本章后，你在表单中得选择框得使用会非常简单和易于理解。</p>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>

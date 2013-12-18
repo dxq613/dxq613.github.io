@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>组合框</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/combox.png"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>选项和值</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>组合框是一种既可以输入又可以选择的选择框，可以使用选择框的所有功能，但是又有自己的特色：</p>
+    <ul class="tutor-list">
+      <li>组合框只使用选中的文本，而不关心文本对应的值</li>
+      <li>组合框可以输入任意的文本</li>
+    </ul>
+    <p>我们通过下面的示例来了解组合框：</p>
+    <div class="page-demo" data-url="http://builive.com/demo/select/combox.php"></div>
+    <p><span class="label label-info">注意点：</span></p>
+    <ol>
+      <li>组合框中的记录集合可以使用数组包含字符串的方式 <code>['1','2','3']</code></li>
+      <li>组合框一般不使用<code>valueField</code></li>
+    </ol>
+   
+    <h2>API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a href="http://www.builive.com/docs/#!/api/BUI.Select.Combox">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Select.Combox">
+      
+    </div>
+
+    <h2>下一步学习</h2>
+    <p>如果你在输入文本的时候需要提示信息，那么你可以继续<a data-id="suggest" class="page-action" href="suggest.html">组合框</a>的学习。</p>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>

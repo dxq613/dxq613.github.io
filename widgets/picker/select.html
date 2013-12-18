@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>选择框</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/select.png"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>选项和值</li>
+          <li>单选和多选</li>
+          <li>自定义内容和值</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>在前面的章节里我们介绍了<a data-id="picker-base" class="page-action" href="picker-base.html">选择器</a>和<a data-id="list-picker" class="page-action" href="list-picker.html">列表选择器</a>但是在使用过程中存在以下问题：</p>
+    <ul class="tutor-list">
+      <li>使用复杂，不易于理解</li>
+      <li>需要了解选择器的细节</li>
+    </ul>
+
+    <h2>选项和值</h2>
+    <p>对于一般应用而言，用户只需要提供选择项和默认值就能很好得模拟使用html中得select标签，所以BUI提供了<code>BUI.Select.Select</code>控件，使用这个控件你仅仅需要配置:</p>
+    <ul class="tutor-list">
+      <li>items : 选项，默认识别value、text</li>
+      <li>valueField : 对应的存放值的输入框，一般是隐藏域</li>
+    </ul>
+    <p>通过下面的示例说明上面属性的使用：</p>
+    <div class="page-demo" data-url="http://builive.com/demo/select/select.php"></div>
+    <p>配置项<code>items</code> 选择框的选项集合支持2种格式</p>
+    <ol>
+      <li>数组： [{text : '1',value : '1'},{text : '2',value : '2'}]</li>
+      <li>对象： {'1':'1','2':'2'}</li>
+    </ol>
+
+    <h2>单选和多选</h2>
+    <p>选择框默认是单选，可以通过<code>multipleSelect</code>属性来配置多选，多选返回的文本和值全部使用“,”分割</p>
+    <div class="page-demo" data-url="http://builive.com/demo/select/multiple-select.php"></div>
+    <p>补充说明：</p>
+    <ul class="tutor-list">
+      <li>getSelectedText 方法：可以获取选中的文本，多选使用“,”分割</li>
+      <li>getSelectedValue 方法：可以获取选中的值，多选使用“,”分割</li>
+      <li>如果不指定valueField也可以通过setSelectedValue方法设置默认值</li>
+    </ul>
+
+    <h2>定义内容和值</h2>
+    <p>选择框的本质是生成一个输入框和在输入框上附加一个选择器，所以可以替换所使用的选择器，同时改变内部的列表：</p>
+    <div class="page-demo" data-url="http://builive.com/demo/select/select-picker.php"></div>
+
+    <p>这种方式存在以下优缺点：</p>
+    <ul class="tutor-list">
+      <li>优点：灵活便于扩展，可以扩展出非常复杂的选择框</li>
+      <li>缺点：配置复杂，需要了解选择器的知识</li>
+    </ul>
+    <p>如果是数据结构不符合{text:'text',value:'value'}的模式，那么也需要创建Picker，配置List,这种实现过于复杂，在接下来的优化中，将一些列表的属性实现更容易的配置方式</p>
+
+    <h2>使用store</h2>
+    <p>选择框的数据使用异步数据时，可以配置<code>store</code>，会作为内部列表的选项进行数据的加载。</p>
+    <pre><code>
+     *  var store = new Store({
+     *    url : 'data.json',
+     *    autoLoad : true
+     *  });
+     *  var select = new Select({
+     *    render : '#s',
+     *    store : store//设置了store后，不要再设置items，会进行覆盖
+     *  });
+     *  select.render();
+    </code></pre>
+    <h2>API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a href="http://www.builive.com/docs/#!/api/BUI.Select.Select">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Select.Select">
+      
+    </div>
+
+    <h2>下一步学习</h2>
+    <p>你可以继续<a data-id="select" class="page-action" href="select.html">组合框</a>和<a data-id="suggest" class="page-action" href="suggest.html">提示框</a>的学习，方便你在系统中使用更多的选择控件。</p>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
