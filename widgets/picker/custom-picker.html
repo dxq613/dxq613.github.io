@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>自定义选择器</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/create.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>如何继承Picker</li>
+          <li>各种事件的触发</li>
+          <li>更多</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>在很多场景下我们需要扩展选择器，实现业务上的需求：</p>
+    <ul class="tutor-list">
+      <li>选择器使用Grid来选择数据；</li>
+      <li>选择器使用Tree，有时候使用单选模式，有时候使用多选模式</li>
+      <li>将特定的控件放入Picker中，返回选择的结果</li>
+    </ul>
+    
+    <p>将列表选择器的内部列表换成Grid在前面的章节已经讨论过实现方式：</p>
+    <div class="page-demo" data-url="http://builive.com/demo/picker/grid-picker.php"></div>
+    <p>这种方式是通过替换内部的控件实现的，但是要求：</p>
+    <ol>
+      <li>替换的控件跟当前选择器的内部控件有共同的接口和事件（继承或者扩展）</li>
+      <li>有差异的地方能够通过配置项更改</li>
+    </ol>
+
+    <h2>实现TreePicker</h2>
+    <p>实现内部是Tree的选择器，可以通过替换列表选择器的内部列表来实现但是存在以下问题：</p>
+    <ol>
+      <li>列表使用<code>selected</code>属性作为选中，tree经常使用'checked'</li>
+      <li>列表的所有数据都直接显示在列表中，而Tree仅显示展开的节点</li>
+      <li>列表的所有数据都是同一层次的，而Tree存在叶子节点和非叶子节点，有时候需要区分不同节点的选中</li>
+    </ol>
+    <h3>实现TreePicker的步骤</h3>
+    <p>所以在BUI中单独实现了TreePicker，下面就具体讲解如何实现TreePicker：</p>
+    <ol>
+      <li>继承列表选择器（ListPicker）</li>
+      <li>覆写设置选中和获取选中函数，包括选中文本和选中值</li>
+      <li>配置默认得子控件（内部控件）为Tree</li>
+      <li>配置触发选择改变的事件，触发Picker关闭的事件</li>
+    </ol>
+
+    <h3>具体代码</h3>
+    <pre>
+       /**  
+         * @class BUI.Extensions.TreePicker
+         * 树形选择器
+         * @extends BUI.Picker.ListPicker
+         */
+        var TreePicker = ListPicker.extend({
+
+          /**
+           * 设置选中的值
+           * @param {String} val 设置值
+           */
+          setSelectedValue : function(value){
+            value = value || '';
+            var _self = this,
+              tree = _self.get('tree');
+            if(_self.get('selectStatus') === 'selected'){ //如果不使用勾选
+              if(value){
+                tree.expandNode(value);
+              }
+              ListPicker.prototype.setSelectedValue.call(_self,value);
+            }else{
+              tree.clearAllChecked();
+              var arr = value.split(',');
+              BUI.each(arr,function(id){
+                tree.setChecked(id);
+              });
+            }
+          },
+          /**
+           * 获取选中的值，多选状态下，值以','分割
+           * @return {String} 选中的值
+           */
+          getSelectedValue : function(){
+            var _self = this,
+              tree = _self.get('tree');
+            if(_self.get('selectStatus') === 'selected'){ //如果不使用勾选
+              return  ListPicker.prototype.getSelectedValue.call(_self);
+            }
+
+            var nodes = tree.getCheckedNodes();
+            nodes = _self._getFilterNodes(nodes);
+            return BUI.Array.map(nodes,function(node){
+              return node.id;
+            }).join(',');
+            
+          },
+          /**
+           * 获取选中项的文本，多选状态下，文本以','分割
+           * @return {String} 选中的文本
+           */
+          getSelectedText : function(){
+            var _self = this,
+              tree = _self.get('tree');
+             
+            if(_self.get('selectStatus') === 'selected'){ //如果不使用勾选
+              return  ListPicker.prototype.getSelectedText.call(_self);
+            }
+
+            var nodes = tree.getCheckedNodes();
+            nodes = _self._getFilterNodes(nodes);
+            return BUI.Array.map(nodes,function(node){
+              return node.text;
+            }).join(',');
+            
+          },
+          //获取过滤的节点
+          _getFilterNodes : function(nodes){
+            var _self = this,
+              filter = _self.get('filter');
+            if(filter){
+              nodes = BUI.Array.filter(nodes,filter);
+            }
+            return nodes;
+          }
+        },{
+          ATTRS : {
+            /**
+             * 默认子控件的样式,默认为'simple-list'
+             * @type {String}
+             * @override
+             */
+            defaultChildClass:{
+              value : 'tree-list'
+            },
+            /**
+             * 选中的状态,selected,checked
+             * @type {String}
+             */
+            selectStatus : {
+              value : 'selected'
+            },
+            changeEvent : {
+              getter : function(){
+                return this.get('selectStatus') + 'change';
+              }
+            },
+            hideEvent : {
+              getter : function(v){
+                if(this.get('selectStatus') === 'checked'){
+                  return null;
+                }
+                return v;
+              }
+            },
+            /**
+             * 结果集的过滤函数
+             * @type {Function}
+             */
+            filter : {
+             
+            },
+            /**
+             * @readOnly
+             * @type {BUI.Tree.TreeList}
+             */
+            tree : {
+              getter : function(){
+                return this.get('children')[0];
+              }
+            }
+          }
+        },{
+          xclass : 'tree-picker'
+        });
+
+    </pre>
+
+    <p>几点说明：</p>
+    <ul class="tutor-list">
+      <li>设置选中值、获取选中值和选中文本时需要分辨当前使用的checked还是selected</li>
+      <li>可以设置filter过滤选中的节点</li>
+      <li>默认的子控件使用 <code>xclass : tree-list</code></li>
+    </ul>
+
+    <h2>API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a href="http://www.builive.com/docs/#!/api/BUI.Extensions.TreePicker">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Extensions.TreePicker">
+      
+    </div>
+
+    <h2>下一步学习</h2>
+    <p>本章通过<code>BUI.Extensions.TreePicker</code>来讲解如果自定义picker，如果想了解更多的自定义控件的知识，请参考：</p>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
