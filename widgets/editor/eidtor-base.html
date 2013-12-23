@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>基本的编辑器</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/editor.png"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>编辑器的功能和属性</li>
+          <li>获取文本和写入文本</li>
+          <li>验证和显示错误</li>
+          <li>支持的事件</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>首先我们来定义一下编辑器的概念和应用场景：</p>
+    <ul class="tutor-list">
+      <li>定义：为了修改页面上的内容，点击文本（按钮）弹出一个浮层，将需要编辑的文本展示在可输入的控件中，进行编辑，点击确认时进行验证，验证通过则修改内容。可以取消编辑。</li>
+      <li>场景：修改列表（表格、树）中的文本；修改展示在详情页中的用户信息等等</li>
+    </ul>
+
+    <h2>编辑器的功能和属性</h2>
+    <p>根据上面的定义和场景我们来设计编辑器支持的属性和功能：</p>
+    <p class="centered"><img src="../../assets/img/editor-action.jpg"></p>
+    <p>通过上面的流程图，BUI中对编辑器的实现提供了一下功能：</p>
+    <ul class="tutor-list">
+      <li>自动处理显示、对齐和隐藏</li>
+      <li>自动读取编辑的文本</li>
+      <li>自定义编辑文本的组件</li>
+      <li>回填编辑的内容，以及自动处理内容对应的数据</li>
+      <li>自动验证</li>
+    </ul>
+
+    <p>下面是基础编辑器的一个示例，通过这个示例，大家来了解一下编辑器的功能：</p> 
+    <div class="page-demo" data-url="http://builive.com/demo/editor/base.php"></div>
+
+    <h3>编辑器的内部控件</h3>
+    <p>编辑器的内部控件可以通过下面几个属性来指定：</p>
+    <ol>
+      <li>一般的编辑器中是一个表单字段(form-field)，通过编辑器的<code>defaultChildClass:'form-field'</code>来实现的；</li>
+      <li> 而<code>field</code>字段由<code>controlCfgField : 'field'</code>来指定</li>
+      <li>通过<code>innerValueField:'value'</code>属性来决定读取表单字段的值(value)</li>
+    </ol>
+
+    <h3>获取文本和返回文本</h3>
+    <p>对于一般的编辑器，BUI提供了2个格式化函数：</p>
+    <ol>
+      <li>parser(text,trigger) :用于转化获取的文本，填充到编辑器的内部控件中</li>
+      <li>formatter(value) : 用户将编辑器内部控件的值格式化成需要的文本</li>
+    </ol>
+
+    <h3>验证和错误信息</h3>
+    <ul>
+      <li>编辑器中，使用的是表单字段作为子控件，所以可以在其中配置验证信息 <code>rules</code></li>
+      <li>错误信息显示在一个tooltip上，可以通过<code>tooltip</code>自定义显示错误信息的容器</li>
+      <li>错误信息的显示位置可以通过,<code>errorAlign</code>来配置</li>
+    </ul>
+  
+    <h2>支持的事件</h2>
+    <p>编辑器支持以下事件：</p>
+    <ol>
+      <li>accept : 接受编辑结果，如果<code>autoUpdate : true</code>，则会自动更新编辑的结果</li>
+      <li>beforeaccept :接受前，如果return false;则会阻止accept事件触发</li>
+      <li>cancel</li>
+    </ol>
+    <h2>API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a href="http://www.builive.com/docs/#!/api/BUI.Editor.Mixin">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Editor.Mixin">
+      
+    </div>
+
+    <div class="J_API" data-name="BUI.Editor.Editor">
+      
+    </div>
+    
+    <h2>下一步学习</h2>
+    <p>本章主要介绍了编辑器的概念和实现的功能，你可以继续学习<a data-id="row-editor" class="page-action" href="row-editor.html">记录编辑器</a>控件和<a data-id="dialog-editor" class="page-action" href="dialog-editor.html">弹出框编辑器</a>。</p>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>

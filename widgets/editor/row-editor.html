@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>记录编辑器</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/list-picker.png"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>编辑器的功能和属性</li>
+          <li>获取文本和写入文本</li>
+          <li>验证和显示错误</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>中级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>上一节讲了基础的编辑器，仅仅用于编辑单个字段的信息,当我们编辑整条记录时需要以下功能：</p>
+    <ul class="tutor-list">
+      <li>触发编辑时，可以读取整条记录</li>
+      <li>编辑完记录后确认时，正确的回显</li>
+      <li>提供整条记录编辑的校验</li>
+    </ul>
+
+    <h2>功能和属性</h2>
+    <p>我们通过下面的示例来总结记录编辑器的功能和属性：</p>
+    <div class="page-demo" data-url="http://builive.com/demo/editor/record.php"></div>
+    <p>功能和属性说明：</p>
+    <ul class="tutor-list">
+      <li>记录编辑器中存在一个表单，表单的配置项由用户传入</li>
+      <li>记录编辑器又一个<code>record</code>属性，可以初始传入，也可以编辑过程中传入</li>
+      <li>记录编辑器继承自<code>BUI.Overlay.Overlay</code>，所以可以定义<code>trigger</code>和<code>align</code>属性</li>
+      <li>表单的按钮默认有确定和取消，用户也可以自定义表单的按钮，参考表单的API</li>
+      <li>触发accept时，记录编辑器会自动将编辑的值和record进行合并，但可以通过属性<code>autoUpdate:false</code>不进行自动合并</li>
+    </ul>
+
+    <h3>验证和显示错误</h3>
+    <p>记录编辑器的验证需要在表单的各个字段中定义，错误信息跟一般的编辑器等同，详情查看 <a data-id="editor-base" class="page-action" href="editor-base.html">基本编辑器</a></p>
+
+    <h2>API</h2>
+    <p>下面只是简单的列表，未显示从父类继承来的方法，详细信息请<a href="http://www.builive.com/docs/#!/api/BUI.Editor.RecordEditor">查看API文档</a></p>
+    <div class="J_API" data-name="BUI.Editor.RecordEditor">
+      
+    </div>
+    
+    <h2>下一步学习</h2>
+    <p>本章主要介绍了编辑器的概念和实现的功能，你可以继续学习<a data-id="dialog-editor" class="page-action" href="dialog-editor.html">弹出框编辑器</a>控件</p>
+
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>
