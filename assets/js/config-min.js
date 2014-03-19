@@ -1,2 +1,2 @@
-/*! doc 2013-12-18 */
+/*! doc 2014-03-19 */
 (function(e){function t(e){return/:/.test(e)?void 0:!0}function n(e){if(t(e)){var n=i();return n+"/"+e}return e}function i(){var e,t=location.href;return t=t.replace(/\?.*$/,"").replace(/\#.*$/,""),e=t.lastIndexOf("/"),t.substring(0,e)}function r(){var t=e("script"),i="";return e.each(t,function(e,t){var n=t.src,r=n.indexOf(o+"/config");return-1!==r?(i=n.substring(0,r),!1):void 0}),n(i)}var a="",o="/assets/js";a||(a=r()),BUI.config({alias:{common:a+o+"/common",module:a+o+"/module"},map:[]})})(jQuery);

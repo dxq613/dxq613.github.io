@@ -115,14 +115,14 @@ define('common/api',['bui/common'],function(require) {
        * @type {String}
        */
       baseUrl : {
-        value : 'http://www.builive.com/docs/output/'
+        value : 'http://www.builive.com/docs/api/output/'
       },
       /**
        * 在线详细API的地址
        * @type {Object}
        */
       docsUrl : {
-        value : "http://www.builive.com/docs"
+        value : "http://www.builive.com/docs/api"
       },
       /**
        * API的类名称
