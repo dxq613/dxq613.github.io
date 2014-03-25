@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet">
+  <link href="../../assets/css/page.css" rel="stylesheet">
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>布局简介</h1>
+
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/clandar-base.png"/>
+
+      <div class="introduce">
+        <h2>导引</h2>
+
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容：</p>
+        <ol>
+          <li>简介</li>
+          <li>使用方式和分类</li>
+          <li>布局和布局项</li>
+          <li>ViewPort</li>
+        </ol>
+        <ul class="intro-level">
+          <li>
+            <span>难度：</span>
+            中级
+          </li>
+          <li>
+            <span>版本：</span>
+            1.0
+          </li>
+        </ul>
+
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>在前端领域中布局一般有2种方式：</p>
+    <ul class="tutor-list">
+      <li>CSS 布局，使用CSS来布局，实现简单，一般用于框架布局。但是对于不熟悉CSS的开发人员来说有些困难；处理页面内部元素自适应时，需要一些技巧。</li>
+      <li>JS 布局，通过JS不断调整页面元素的宽高和位置来达到布局的目的。一般在窗口发生改变，收缩展开时使用，使用方便，单不够灵活。</li>
+    </ul>
+    <p>
+      本章节主要讲述JS布局，同时简单的描述了支持的布局种类
+    </p>
+
+    <h2>布局的使用和分类</h2>
+    <h3>布局的使用</h3>
+    <p>BUI的布局作为控件的插件来使用，这样的好处在于：</p>
+    <ol>
+      <li>任何控件都可以使用布局，同时不侵入控件本身的逻辑</li>
+      <li>使用灵活，各种布局方式可以嵌套使用，互不影响</li>
+      <li>可以很容易的改变布局方式</li>
+    </ol>
+
+    <h3>布局种类</h3>
+    <p>BUI中提供了一下种类的布局插件</p>
+    <tabel class="tabel">
+      <thead>
+        <tr>
+          <th>种类</th>
+          <th>类</th>
+          <th>描述</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>绝对布局</td>
+          <td>BUI.Layout.Absolute</td>
+          <td>通过绝对位置来布局，适用于位置固定不发生变化的布局场景</td>
+        </tr>
+        <tr>
+          <td>边框布局</td>
+          <td>BUI.Layout.Border</td>
+          <td>传统的东西南北中的布局方式，并提供展开折叠布局项的功能</td>
+        </tr>
+        <tr>
+          <td>伸缩布局</td>
+          <td>BUI.Layout.Accordion</td>
+          <td>可以展开收缩的布局方式</td>
+        </tr>
+        <tr>
+          <td>锚定布局</td>
+          <td>BUI.Layout.Anchor</td>
+          <td>跟各个边框锚定的布局方式</td>
+        </tr>
+        <tr>
+          <td>表格布局</td>
+          <td>BUI.Layout.Tabel</td>
+          <td>使用表格进行布局，一般适用于比较规整但是很少变化的布局项</td>
+        </tr>
+        <tr>
+          <td>多列布局</td>
+          <td>BUI.Layout.Columns</td>
+          <td>将布局项组织在多列</td>
+        </tr>
+        <tr>
+          <td>浮动布局</td>
+          <td>BUI.Layout.Flow</td>
+          <td>所有的元素进行浮动的布局方式</td>
+        </tr>
+      </tbody>
+    </tabel>
+    
+    <h2>布局和布局项</h2>
+    <p>上面的分类是基于布局内部的布局项如何定位，如何放置，如果一个控件使用了布局插件，那么控件的每一个子控件都会被一个布局项所嵌套，根据布局的种类进行定位。</p>
+    <p>我们通过下面的一个示例来看一下如何使用布局控件：</p>
+    <div class="page-demo" data-url="http://builive.com/demo/layout/anchor.php"></div>
+    <p><span class="label">注意：</span><code>plugins : [Layout.Anchor]</code>标明使用了锚定布局插件</p>
+
+    <h3>布局项的属性</h3>
+    <p>在上面的锚定布局中,我们没有看到特别的指定布局项，而是在表单的每个子控件上配置了<code>layout</code>属性，这个属性将作为布局项的配置项来解析，每种类型的布局对应的布局项的配置各不相同。在接下来的章节里一一介绍</p>
+
+    <h2>API</h2>
+    <p>
+      下面只是简单的列表，未显示从父类继承来的方法，详细信息请查看
+      <a href="http://builive.com/docs/api/index.html#!/api/BUI.Layout.Abstract">API文档</a>
+    </p>
+    <div class="J_API" data-name="BUI.Layout.Abstract"></div>
+
+    <h2>下一步学习</h2>
+    <p>
+      接下来我们从绝对布局开始讲解布局插件，以及布局项的详细使用方式
+      <a data-id="datepicker" class="page-action" href="field.html">表单字段</a>
+      。
+    </p>
+</div>
+<script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+<script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script>
+<script src="../../assets/js/config.js"></script>
+<script>
+    BUI.use('common/page', function (Page) {
+        new Page().init();
+    });
+</script>
+</body>
+</html>
