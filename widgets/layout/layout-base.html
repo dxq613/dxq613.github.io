@@ -17,7 +17,7 @@
     <h1>布局简介</h1>
 
     <div class="intro-wraper">
-      <img class="intro-img" src="../../assets/img/clandar-base.png"/>
+      <img class="intro-img" src="../../assets/img/layout-base.jpg"/>
 
       <div class="introduce">
         <h2>导引</h2>
@@ -55,7 +55,7 @@
 
     <h2>布局的使用和分类</h2>
     <h3>布局的使用</h3>
-    <p>BUI的布局作为控件的插件来使用，这样的好处在于：</p>
+    <p>BUI的布局作为控件的插件来使用，插件机制请参看章节：<a data-id="plugin" class="page-action" href="../control/plugin.html">控件的插件</a>，这样的好处在于：</p>
     <ol>
       <li>任何控件都可以使用布局，同时不侵入控件本身的逻辑</li>
       <li>使用灵活，各种布局方式可以嵌套使用，互不影响</li>
@@ -63,8 +63,8 @@
     </ol>
 
     <h3>布局种类</h3>
-    <p>BUI中提供了一下种类的布局插件</p>
-    <tabel class="tabel">
+    <p>BUI中提供了以下7种类型的布局插件</p>
+    <table class="table">
       <thead>
         <tr>
           <th>种类</th>
@@ -109,28 +109,50 @@
           <td>所有的元素进行浮动的布局方式</td>
         </tr>
       </tbody>
-    </tabel>
+    </table>
     
     <h2>布局和布局项</h2>
-    <p>上面的分类是基于布局内部的布局项如何定位，如何放置，如果一个控件使用了布局插件，那么控件的每一个子控件都会被一个布局项所嵌套，根据布局的种类进行定位。</p>
+    <p>上面的分类是基于布局内部的布局项如何定位，如何放置，如果一个控件使用了布局插件，那么控件的每一个子控件都会被一个布局项所嵌套，根据布局的种类进行定位，如下图所示：</p>
+    <p class="centered">
+      <img src="../../assets/img/layout-base.jpg" alt="">
+    </p>
     <p>我们通过下面的一个示例来看一下如何使用布局控件：</p>
     <div class="page-demo" data-url="http://builive.com/demo/layout/anchor.php"></div>
-    <p><span class="label">注意：</span><code>plugins : [Layout.Anchor]</code>标明使用了锚定布局插件</p>
+    <p><span class="label label-warning">注意：</span> <code>plugins : [Layout.Anchor]</code>标明使用了锚定布局插件</p>
 
     <h3>布局项的属性</h3>
-    <p>在上面的锚定布局中,我们没有看到特别的指定布局项，而是在表单的每个子控件上配置了<code>layout</code>属性，这个属性将作为布局项的配置项来解析，每种类型的布局对应的布局项的配置各不相同。在接下来的章节里一一介绍</p>
+    <p>在上面的锚定布局中,我们没有看到特别的指定布局项，而是在表单的每个子控件上配置了<code>layout</code>属性，这个属性将作为布局项的配置项来解析，每种类型的布局对应的布局项的配置各不相同,在接下来的章节里一一介绍</p>
+    
+    <h3>查找布局项</h3>
+    <p>布局插件提供了大量方法用于查找布局项，具体的方法查看下面的API，这里仅简单介绍几个常用的</p>
+    <ul class="tutor-list">
+      <li>getItem(childControl): 通过子控件来查找对应的布局项，例如表单使用了布局后，可以根据其中的一个表单字段来获取对应的布局项</li>
+      <li>getItemByElement( element ) ：通过DOM节点获取包含此节点的布局项</li>
+      <li>getItemsBy( fn ) ：通过匹配函数查找对应的布局项</li>
+    </ul>
+
+    <h2>ViewPort</h2>
+    <p>为了使得页面上的布局根据窗口的变化而进行调整，需要对窗口变化进行监听并且调整布局项的宽高和定位，BUI针对这个场景提供了<code>BUI.Layout.Viewport</code>控件，在<a data-id="layout-viewport" class="page-action" href="layout-viewport.html">ViewPort</a>的章节里进行介绍</p>
 
     <h2>API</h2>
+    <h3>布局插件的API</h3>
     <p>
       下面只是简单的列表，未显示从父类继承来的方法，详细信息请查看
       <a href="http://builive.com/docs/api/index.html#!/api/BUI.Layout.Abstract">API文档</a>
     </p>
     <div class="J_API" data-name="BUI.Layout.Abstract"></div>
 
+    <h3>基础布局项的API</h3>
+     <p>
+      下面只是简单的列表，未显示从父类继承来的方法，详细信息请查看
+      <a href="http://builive.com/docs/api/index.html#!/api/BUI.Layout.Item">API文档</a>
+    </p>
+    <div class="J_API" data-name="BUI.Layout.Item"></div>
+
     <h2>下一步学习</h2>
     <p>
       接下来我们从绝对布局开始讲解布局插件，以及布局项的详细使用方式
-      <a data-id="datepicker" class="page-action" href="field.html">表单字段</a>
+      <a data-id="layout-absolute" class="page-action" href="layout-absolute.html">绝对布局</a>
       。
     </p>
 </div>
