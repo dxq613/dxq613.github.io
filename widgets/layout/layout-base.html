@@ -131,6 +131,13 @@
       <li>getItemsBy( fn ) ：通过匹配函数查找对应的布局项</li>
     </ul>
 
+    <h3>布局项的宽高</h3>
+    <p>为了用户使用方便，BUI对布局项的宽高的设置做了一些改进：</p>
+    <ol>
+      <li>宽高支持数字和百分比的格式</li>
+      <li>宽高也支持简单的数学运算，例如 : width : '{width} * 0.2 + 100',表示宽度占整个布局宽度的20% + 100px</li>
+    </ol>
+
     <h2>ViewPort</h2>
     <p>为了使得页面上的布局根据窗口的变化而进行调整，需要对窗口变化进行监听并且调整布局项的宽高和定位，BUI针对这个场景提供了<code>BUI.Layout.Viewport</code>控件，在<a data-id="layout-viewport" class="page-action" href="layout-viewport.html">ViewPort</a>的章节里进行介绍</p>
 

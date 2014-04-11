@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件生命周期">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet"> 
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet"> 
+  <link href="../../assets/css/page.css" rel="stylesheet"> 
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>BUI控件的插件</h1>
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/inherit.jpg"/>
+      <div class="introduce">
+        <h2>导引</h2>
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容:</p>
+        <ol>
+          <li>简介</li>
+          <li>插件的使用方式</li>
+          <li>插件的编写</li>
+          <li>常用的插件</li>
+        </ol>
+        <ul class="intro-level">
+          <li><span>难度：</span>初级</li>
+          <li><span>版本：</span>1.0</li>
+        </ul>
+      </div>
+    </div>
+    
+    <h2>简介</h2>
+    <p>前面的章节里面介绍了extend和mixin 2种实现继承的方式，当用户或者第三方想扩展现有的控件时，可以使用上面的2种方式，但是考虑一下场景：</p>
+    <ul class="tutor-list">
+      <li>需要给Grid增加大量功能，但是这些功能互不相关，但是有可能一起使用，例如勾选行和编辑表格的功能。</li>
+      <li>需要给SimpleList增加一个过滤的输入框，有可能Grid和Tree都需要使用此功能</li>
+    </ul>
+    <p>上面的2种场景很难用继承来实现，所以BUI实现了plugins机制：</p>
+    <ul class="tutor-list">
+      <li>一个控件可以使用多个插件，一种插件也可以用于多种控件</li>
+      <li>插件的生命周期受控件的<a data-id="life" class="page-action" href="../common/children.html">生命周期</a>管理。</li>
+      <li>插件通过控件的事件和公共接口跟控件进行交互</li>
+      <li>插件可以配置自己的属性</li>
+    </ul>
+
+    <h2>插件的编写</h2>
+    <p>我们首先通过Grid的选择插件来认识一下如何实现一个插件：</p>
+    <pre>
+      <textarea>
+        function checkSelection(config){
+          checkSelection.superclass.constructor.call(this, config);
+        }
+
+        BUI.extend(checkSelection,BUI.Base);
+
+        checkSelection.ATTRS = 
+        {
+          /**
+          * column's width which contains the checkbox
+          */
+          width : {
+            value : 40
+          },
+          /**
+          * @private
+          */
+          column : {
+            
+          },
+          /**
+          * @private
+          * &lt;input  class="' + CLS_CHECKBOX + '" type="checkbox">
+          */
+          cellInner : {
+            value : '&lt;div class="'+CLS_CHECKBOX+'-container">&lt;span class="' + CLS_CHECK_ICON +'">&lt;/span>&lt;/div>'
+          }
+        };
+
+        BUI.augment(checkSelection, 
+        {
+          createDom : function(grid){
+            var _self = this;
+            var cfg = {
+                  title : '',
+                  width : _self.get('width'),
+                  fixed : true,
+                  resizable:false,
+                  sortable : false,
+                  tpl : '&lt;div class="' + PREFIX + 'grid-hd-inner">' + _self.get('cellInner') + '',
+                  cellTpl : _self.get('cellInner')
+              },
+              checkColumn = grid.addColumn(cfg,0);
+            grid.set('multipleSelect',true);
+            _self.set('column',checkColumn);
+          },
+          /**
+          * @private
+          */
+          bindUI : function(grid){
+            var _self = this,
+              col = _self.get('column'),
+              colEl = col.get('el'),
+              checkBox = colEl.find('.' + CLS_CHECK_ICON);
+            checkBox.on('click',function(){
+              var checked = colEl.hasClass('checked');     
+              if(!checked){
+                grid.setAllSelection();
+                colEl.addClass('checked');
+              }else{
+                grid.clearSelection();
+                colEl.removeClass('checked');
+              }
+            });
+            grid.on('rowunselected',function(e){
+              
+              colEl.removeClass('checked');
+            });
+            
+            //清除纪录时取全选
+            grid.on('clear',function(){
+              //checkBox.attr('checked',false);
+              colEl.removeClass('checked');
+            });
+          }
+        });
+      </textarea>
+    </pre>
+
+    <p><span class="label label-warning">注意</span>以下几点：</p>
+    <ol>
+      <li>插件存在 createDom,renderUI,bindUI,syncUI,destructor 几个等同于控件生命周期的函数，并且在控件运行到对应函数时，将控件作为参数传递到插件中</li>
+      <li>插件一般在bindUI中绑定控件的事件，根据控件的事件作出响应。</li>
+      <li>插件可以接受配置项</li>
+    </ol>
+
+    <h2>插件的使用</h2>
+    <p>插件有2种使用方式：</p>
+    <ol>
+      <li>直接将插件的类构造函数传递到控件的plugins（数组） 配置项中</li>
+      <li>通过 new 创建插件类后传递到控件的plugins（数组） 配置项中，可以配置初始化参数</li>
+    </ol>
+    <p>我们通过下面的示例来看一下插件的使用：</p>
+    <div class="page-demo" data-url="http://builive.com/demo/grid/grid-plugin-checkable.php"></div>
+    
+    <h2>常用的插件</h2>
+    <p>BUI中任何控件都支持插件机制，BUI主要在2个方面提供了大量插件：</p>
+    <ul class="tutor-list">
+      <li>Grid，由于Grid非常复杂，所以一些功能都做为插件提供出来</li>
+      <li>Layout,布局插件，为了使得所有的控件都支持多种布局方式，所以将布局实现成为插件</li>
+    </ul>
+  </div>
+  <script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script> 
+  <script src="../../assets/js/config.js"></script> 
+  <script>
+    BUI.use('common/page',function (Page) {
+      new Page().init();
+    });
+  </script>
+</body>
+</html>

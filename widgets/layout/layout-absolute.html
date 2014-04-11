@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet">
+  <link href="../../assets/css/page.css" rel="stylesheet">
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>布局简介</h1>
+
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/layout-base.jpg"/>
+
+      <div class="introduce">
+        <h2>导引</h2>
+
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容：</p>
+        <ol>
+          <li>简介</li>
+          <li>布局项位置</li>
+          <li>窗口自适应</li>
+        </ol>
+        <ul class="intro-level">
+          <li>
+            <span>难度：</span>
+            中级
+          </li>
+          <li>
+            <span>版本：</span>
+            1.0
+          </li>
+        </ul>
+
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>绝对定位是一种非常简单易于理解的布局方式，所有的布局项指定位置的绝对位置,为了用户使用方便，BUI对宽高的设置做了一些改进：</p>
+    <ol>
+      <li>宽高支持数字和百分比的格式</li>
+      <li>宽高也支持简单的数学运算，例如 : width : '{width} * 0.2 + 100',表示宽度占整个布局宽度的20% + 100px</li>
+    </ol>
+
+    <h2>布局项的位置</h2>
+    <p>布局项通过top,left,width以及height记性定位，通过下面的示例来了解一下绝对定位的使用：</p>
+    <div class="page-demo" data-url="http://builive.com/demo/layout/absolute.php"></div>
+    <p>可以通过<code>fit</code>属性配置内部控件的宽高自适应</p>
+    <ol>
+      <li>fit: 'none', 内部控件不跟随布局项的宽高自适应</li>
+      <li>fit: 'width',内部控件跟随布局项的宽度进行自适应</li>
+      <li>fit: 'height',内部控件跟随布局项的高度进行自适应</li>
+      <li>fit: 'both',内部控件跟随布局项的宽度、高度都进行自适应</li>
+    </ol>
+
+    <h2>在ViewPort中</h2>
+    <p>绝对布局可以通过ViewPort实现窗口的自适应性：</p>
+    <div class="page-demo" data-url="http://builive.com/demo/layout/viewport-absolute.php"></div>
+
+    
+    <h2>API</h2>
+    <h3>布局插件的API</h3>
+    <p>
+      下面只是简单的列表，未显示从父类继承来的方法，详细信息请查看
+      <a href="http://builive.com/docs/api/index.html#!/api/BUI.Layout.Absolute">API文档</a>
+    </p>
+    <div class="J_API" data-name="BUI.Layout.Absolute"></div>
+
+    <h3>基础布局项的API</h3>
+     <p>
+      下面只是简单的列表，未显示从父类继承来的方法，详细信息请查看
+      <a href="http://builive.com/docs/api/index.html#!/api/BUI.Layout.Item.Absolute">API文档</a>
+    </p>
+    <div class="J_API" data-name="BUI.Layout.Item.Absolute"></div>
+
+    <h2>下一步学习</h2>
+    <p>
+      接下来我们学习更加常用的一种布局方式：
+      <a data-id="layout-border" class="page-action" href="layout-border.html">边框布局</a>
+      。
+    </p>
+</div>
+<script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+<script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script>
+<script src="../../assets/js/config.js"></script>
+<script>
+    BUI.use('common/page', function (Page) {
+        new Page().init();
+    });
+</script>
+</body>
+</html>

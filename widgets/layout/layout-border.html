@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet">
+  <link href="../../assets/css/page.css" rel="stylesheet">
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>布局简介</h1>
+
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/layout-base.jpg"/>
+
+      <div class="introduce">
+        <h2>导引</h2>
+
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容：</p>
+        <ol>
+          <li>简介</li>
+          <li>边框布局的布局项</li>
+          <li>自适应边框布局</li>
+        </ol>
+        <ul class="intro-level">
+          <li>
+            <span>难度：</span>
+            中级
+          </li>
+          <li>
+            <span>版本：</span>
+            1.0
+          </li>
+        </ul>
+
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>边框布局将布局分为：</p>
+    <ul class="tutor-list">
+      <li>north: 上面部分</li>
+      <li>south: 下面部分</li>
+      <li>west: 左边部分</li>
+      <li>east: 右边部分</li>
+      <li>center：中间部分</li>
+    </ul>
+    <p>上面5个部分可以在控件中定义0个到多个，使用属性<code>region</code>定义</p>
+
+    <h2>布局项的位置</h2>
+    <p>布局项通过south，north,west,east,center进行定位，通过下面的示例来了解一下边框布局的使用：</p>
+    <div class="page-demo" data-url="http://builive.com/demo/layout/border.php"></div>
+
+    <h3>布局项的展开折叠</h3>
+    <p>可以通过<code>collapsable</code>来控制选项是否可以折叠，通过<code>collapsed</code>来控制布局项是否自动折叠</p>
+
+    <h2>在ViewPort中</h2>
+    <p>边框布局可以通过ViewPort实现窗口的自适应性：</p>
+    <div class="page-demo" data-url="http://builive.com/demo/layout/viewport.php"></div>
+    <p>注意使用布局项的fit属性：</p>
+    <ol>
+      <li>fit: 'none', 内部控件不跟随布局项的宽高自适应</li>
+      <li>fit: 'width',内部控件跟随布局项的宽度进行自适应</li>
+      <li>fit: 'height',内部控件跟随布局项的高度进行自适应</li>
+      <li>fit: 'both',内部控件跟随布局项的宽度、高度都进行自适应</li>
+    </ol>
+    <p>但是由于表格的特性，控件的宽度会自动适应宽度，在表格布局中默认使用<code>fit : 'height'</code></p>
+
+    
+    <h2>API</h2>
+    <h3>布局插件的API</h3>
+    <p>
+      下面只是简单的列表，未显示从父类继承来的方法，详细信息请查看
+      <a href="http://builive.com/docs/api/index.html#!/api/BUI.Layout.Border">API文档</a>
+    </p>
+    <div class="J_API" data-name="BUI.Layout.Border"></div>
+
+    <h3>基础布局项的API</h3>
+     <p>
+      下面只是简单的列表，未显示从父类继承来的方法，详细信息请查看
+      <a href="http://builive.com/docs/api/index.html#!/api/BUI.Layout.Item.Border">API文档</a>
+    </p>
+    <div class="J_API" data-name="BUI.Layout.Item.Border"></div>
+
+    <h2>下一步学习</h2>
+    <p>
+      接下来我们从学习另外一种布局，表格布局
+      <a data-id="layout-table" class="page-action" href="layout-Table.html">表格布局</a>
+      。
+    </p>
+</div>
+<script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+<script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script>
+<script src="../../assets/js/config.js"></script>
+<script>
+    BUI.use('common/page', function (Page) {
+        new Page().init();
+    });
+</script>
+</body>
+</html>

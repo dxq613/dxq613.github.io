@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BUI 控件</title>
+  <meta name="description" content="BUI 控件库的详细文档">
+  <meta name="author" content="dxq613@gmail.com">
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/dpl-min.css" rel="stylesheet">
+  <link href="https://s.tbcdn.cn/g/fi/bui/css/bui-min.css" rel="stylesheet">
+  <link href="../../assets/css/prettify.css" rel="stylesheet">
+  <link href="../../assets/css/page.css" rel="stylesheet">
+  <script type="text/javascript" src="../../assets/js/prettify.js"></script>
+</head>
+<body>
+  <div class="container tutorial">
+    <h1>布局简介</h1>
+
+    <div class="intro-wraper">
+      <img class="intro-img" src="../../assets/img/layout-base.jpg"/>
+
+      <div class="introduce">
+        <h2>导引</h2>
+
+        <p>欢迎使用BUI！在这一章节里，我们将学习以下内容：</p>
+        <ol>
+          <li>简介</li>
+          <li>布局项位置</li>
+        </ol>
+        <ul class="intro-level">
+          <li>
+            <span>难度：</span>
+            中级
+          </li>
+          <li>
+            <span>版本：</span>
+            1.0
+          </li>
+        </ul>
+
+      </div>
+    </div>
+
+    <h2>简介</h2>
+    <p>表格布局提供了使用Table对子控件进行布局的功能，一般常用于内部控件变化不大的场景，布局项可以跨越行和列进行布局，常见的场景：</p>
+    <ol>
+      <li>网站的Portal页面，对信息进行规整的展示</li>
+      <li>使用魔方的布局方式展示商品</li>
+    </ol>
+    <p>表格布局插件需要指定<code>rows</code>和<code>columns</code></p>
+
+    <h2>布局项的位置</h2>
+    <p>表格布局的子项需要指定所在的行(row)和跨越的行(rowspan)和列(colspan)，通过下面的示例我们来认识表格布局：</p>
+    <div class="page-demo" data-url="http://builive.com/demo/layout/table.php"></div>
+    <p><span class="label label-warning">注意事项：</span>单元格的高宽由控件的高宽决定，自动计算单元格的宽高以及边距</p>
+    <p>可以通过<code>fit</code>属性配置内部控件的宽高自适应</p>
+    <ol>
+      <li>fit: 'none', 内部控件不跟随布局项的宽高自适应</li>
+      <li>fit: 'width',内部控件跟随布局项的宽度进行自适应</li>
+      <li>fit: 'height',内部控件跟随布局项的高度进行自适应</li>
+      <li>fit: 'both',内部控件跟随布局项的宽度、高度都进行自适应</li>
+    </ol>
+    
+    <h2>API</h2>
+    <h3>表格布局插件的API</h3>
+    <p>
+      下面只是简单的列表，未显示从父类继承来的方法，详细信息请查看
+      <a href="http://builive.com/docs/api/index.html#!/api/BUI.Layout.Table">API文档</a>
+    </p>
+    <div class="J_API" data-name="BUI.Layout.Table"></div>
+
+    <h3>表格布局项的API</h3>
+     <p>
+      下面只是简单的列表，未显示从父类继承来的方法，详细信息请查看
+      <a href="http://builive.com/docs/api/index.html#!/api/BUI.Layout.Item.Cell">API文档</a>
+    </p>
+    <div class="J_API" data-name="BUI.Layout.Item.Cell"></div>
+
+    <h2>下一步学习</h2>
+    <p>
+      接下来我们学习更加常用的一种布局方式：
+      <a data-id="layout-columns" class="page-action" href="layout-columns.html">边框布局</a>
+      。
+    </p>
+</div>
+<script src="https://s.tbcdn.cn/g/fi/bui/jquery-1.8.1.min.js"></script>
+<script src="https://s.tbcdn.cn/g/fi/bui/seed-min.js?t=201212261326"></script>
+<script src="../../assets/js/config.js"></script>
+<script>
+    BUI.use('common/page', function (Page) {
+        new Page().init();
+    });
+</script>
+</body>
+</html>
